@@ -6,7 +6,6 @@ import cn.littleround.antlr4_gen.MxStarParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.BufferedReader;
@@ -45,7 +44,11 @@ public class Main {
         MxStarParser parser = new MxStarParser(tokens);
         MxStarParser.CompilationUnitContext tree = parser.compilationUnit();
 
-        Listener listener = new Listener();
-        ParseTreeWalker.DEFAULT.walk(listener, tree);
+        ASTCreator ASTCreator = new ASTCreator(parser);
+        try {
+            ParseTreeWalker.DEFAULT.walk(ASTCreator, tree);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

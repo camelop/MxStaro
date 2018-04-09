@@ -380,7 +380,7 @@ Digit
 Constant
     :   IntegerConstant
     //|   EnumerationConstant
-    |   CharacterConstant
+    //|   CharacterConstant
     ;
 
 fragment
