@@ -3,23 +3,32 @@ package cn.littleround;
 import cn.littleround.ASTnode.*;
 import cn.littleround.antlr4_gen.MxStarBaseListener;
 import cn.littleround.antlr4_gen.MxStarParser;
+import org.antlr.v4.runtime.ANTLRErrorStrategy;
+import org.antlr.v4.runtime.DefaultErrorStrategy;
 import org.antlr.v4.runtime.ParserRuleContext;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class ASTCreator extends MxStarBaseListener {
-    private boolean isFailed = false;
     private MxStarParser parser;
     private Stack<ASTBaseNode> nodeStack = new Stack<>();
+    private boolean isFailed = false;
+    private ArrayList<String> errors = new ArrayList<>();
 
-    private void reportError(int line, String message) {
+    private void reportError(ParserRuleContext ctx, String errorType, String message) {
         isFailed = true;
-        System.out.println(Integer.toString(line)+" Semantic Error :"+message);
-        System.exit(-1);
+        errors.add("[line " +String.valueOf(ctx.getStart().getLine())+" "
+                +String.valueOf(ctx.getStart().getCharPositionInLine())+"] "
+                +errorType+" Error: "+message+"\n");
+        // System.exit(-1);
     }
 
-    private void print(String message) {
-        System.err.println(message);
+    public String getErrors() {
+        StringBuffer sb = new StringBuffer();
+        for (String i:errors) sb.append(i);
+        return sb.toString();
     }
 
     public CompilationNode getRoot() {
@@ -49,6 +58,7 @@ public class ASTCreator extends MxStarBaseListener {
         } else /*'this'*/{
             en = new ThisNode();
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -89,6 +99,7 @@ public class ASTCreator extends MxStarBaseListener {
             ASTBaseNode en1 = nodeStack.pop();
             en.addSon(en1); en1.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -103,6 +114,7 @@ public class ASTCreator extends MxStarBaseListener {
             aln = new ArgumentListNode();
         }
         aln.addSon(en1); en1.setParent(aln);
+        aln.setCtx(ctx);
         nodeStack.push(aln);
     }
 
@@ -147,6 +159,7 @@ public class ASTCreator extends MxStarBaseListener {
             ASTBaseNode en1 = nodeStack.pop();
             en.addSon(en1); en1.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -159,6 +172,7 @@ public class ASTCreator extends MxStarBaseListener {
         } else /* 'DigitSequence' */ {
             en = new ConstantNode(Integer.valueOf(ctx.DigitSequence().getText()));
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -187,6 +201,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -209,6 +224,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -231,6 +247,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -265,6 +282,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -287,6 +305,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -303,6 +322,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -319,6 +339,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -335,6 +356,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -351,6 +373,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -367,6 +390,7 @@ public class ASTCreator extends MxStarBaseListener {
             en.addSon(en1); en1.setParent(en);
             en.addSon(en2); en2.setParent(en);
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -389,6 +413,7 @@ public class ASTCreator extends MxStarBaseListener {
         } else /* 'DigitSequence' */ {
             en = new ConstantNode(Integer.valueOf(ctx.DigitSequence().getText()));
         }
+        en.setCtx(ctx);
         nodeStack.push(en);
     }
 
@@ -405,6 +430,7 @@ public class ASTCreator extends MxStarBaseListener {
         ASTBaseNode tn = nodeStack.pop();
         dn.addSon(tn); tn.setParent(dn);
         dn.addSon(dln); dln.setParent(dn);
+        dn.setCtx(ctx);
         nodeStack.push(dn);
     }
 
@@ -421,6 +447,7 @@ public class ASTCreator extends MxStarBaseListener {
                 tn.addSon(tan); tan.setParent(tn);
             }
         }
+        tn.setCtx(ctx);
         nodeStack.push(tn);
     }
 
@@ -436,6 +463,7 @@ public class ASTCreator extends MxStarBaseListener {
             tan = nodeStack.pop();
             ((TypeAttributeNode) tan).addPointerLevel();
         }
+        tan.setCtx(ctx);
         nodeStack.push(tan);
     }
 
@@ -450,6 +478,7 @@ public class ASTCreator extends MxStarBaseListener {
             dln = new DeclaratorListNode();
         }
         dln.addSon(dn); dn.setParent(dln);
+        dln.setCtx(ctx);
         nodeStack.push(dln);
     }
 
@@ -470,6 +499,7 @@ public class ASTCreator extends MxStarBaseListener {
         if (en != null) {
             idn.addSon(en); en.setParent(idn);
         }
+        idn.setCtx(ctx);
         nodeStack.push(idn);
     }
 
@@ -494,6 +524,7 @@ public class ASTCreator extends MxStarBaseListener {
             dn.addSon(dn1); dn1.setParent(dn);
             dn.addSon(atln); atln.setParent(dn);
         }
+        dn.setCtx(ctx);
         nodeStack.push(dn);
     }
 
@@ -508,6 +539,7 @@ public class ASTCreator extends MxStarBaseListener {
             atln = new ArgumentTypeListNode();
         }
         atln.addSon(dn); dn.setParent(atln);
+        atln.setCtx(ctx);
         nodeStack.push(atln);
     }
 
@@ -519,6 +551,7 @@ public class ASTCreator extends MxStarBaseListener {
         ASTBaseNode tn = nodeStack.pop();
         adn.addSon(tn); tn.setParent(adn);
         adn.addSon(dn); dn.setParent(adn);
+        adn.setCtx(ctx);
         nodeStack.push(adn);
     }
 
@@ -532,6 +565,7 @@ public class ASTCreator extends MxStarBaseListener {
                 bn.addSon(i); i.setParent(bn);
             }
         }
+        bn.setCtx(ctx);
         nodeStack.push(bn);
     }
 
@@ -546,6 +580,7 @@ public class ASTCreator extends MxStarBaseListener {
             biln = new BlockItemListNode();
         }
         biln.addSon(bin); bin.setParent(biln);
+        biln.setCtx(ctx);
         nodeStack.push(biln);
     }
 
@@ -557,6 +592,7 @@ public class ASTCreator extends MxStarBaseListener {
             ASTBaseNode en = nodeStack.pop();
             sn.addSon(en); en.setParent(sn);
         }
+        sn.setCtx(ctx);
         nodeStack.push(sn);
     }
 
@@ -579,6 +615,7 @@ public class ASTCreator extends MxStarBaseListener {
             sn.addSon(sn2); sn2.setParent(sn);
             sn.setElseExist(true);
         }
+        sn.setCtx(ctx);
         nodeStack.push(sn);
     }
 
@@ -598,6 +635,7 @@ public class ASTCreator extends MxStarBaseListener {
             sn.addSon(fdn); fdn.setParent(sn);
             sn.addSon(sn1); sn1.setParent(sn);
         }
+        sn.setCtx(ctx);
         nodeStack.push(sn);
     }
 
@@ -639,6 +677,7 @@ public class ASTCreator extends MxStarBaseListener {
         fcn.addSon(n1); n1.setParent(fcn);
         fcn.addSon(n2); n2.setParent(fcn);
         fcn.addSon(n3); n3.setParent(fcn);
+        fcn.setCtx(ctx);
         nodeStack.push(fcn);
     }
 
@@ -656,6 +695,7 @@ public class ASTCreator extends MxStarBaseListener {
         ASTBaseNode tn = nodeStack.pop();
         dn.addSon(tn); tn.setParent(dn);
         dn.addSon(dln); dln.setParent(dn);
+        dn.setCtx(ctx);
         nodeStack.push(dn);
     }
 
@@ -681,6 +721,7 @@ public class ASTCreator extends MxStarBaseListener {
                 }
                 break;
         }
+        jn.setCtx(ctx);
         nodeStack.push(jn);
     }
 
@@ -694,6 +735,7 @@ public class ASTCreator extends MxStarBaseListener {
                 cn.addSon(i); i.setParent(cn);
             }
         }
+        cn.setCtx(ctx);
         nodeStack.push(cn);
     }
 
@@ -713,6 +755,7 @@ public class ASTCreator extends MxStarBaseListener {
         if (edn != null) {
             tn.addSon(edn); edn.setParent(tn);
         }
+        tn.setCtx(ctx);
         nodeStack.push(tn);
     }
 
@@ -725,6 +768,7 @@ public class ASTCreator extends MxStarBaseListener {
         for (ASTBaseNode i:cdln.getSons()) {
             cdn.addSon(i); i.setParent(cdn);
         }
+        cdn.setCtx(ctx);
         nodeStack.push(cdn);
     }
 
@@ -739,6 +783,7 @@ public class ASTCreator extends MxStarBaseListener {
             cdln = new ClassDeclarationListNode();
         }
         cdln.addSon(dn); dn.setParent(cdln);
+        cdln.setCtx(ctx);
         nodeStack.push(cdln);
     }
 
@@ -757,17 +802,14 @@ public class ASTCreator extends MxStarBaseListener {
         fdn.addSon(dsn); dsn.setParent(fdn);
         fdn.addSon(dn); dn.setParent(fdn);
         fdn.addSon(csn); csn.setParent(fdn);
+        fdn.setCtx(ctx);
         nodeStack.push(fdn);
     }
 
     @Override
     public void exitEveryRule(ParserRuleContext ctx) {
         super.enterEveryRule(ctx);
-
-//        print(ctx.getRuleContext().getText());
-//        print(nodeStack.toString());
-//        print("");
-
+        if (ctx.exception != null) reportError(ctx, "Syntax", ctx.exception.getClass().getSimpleName());
     }
 
     public boolean isFailed() {

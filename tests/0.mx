@@ -1,3 +1,9 @@
-int main(){
-    this(a,b);
+int main() {
+	int i;
+	for (i = 0; i < 3; i++)
+	angry();
+	return 0;
+}
+inline inline void angry() {
+	print("I'm angry!\n");
 }

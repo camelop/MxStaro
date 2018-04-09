@@ -1,6 +1,7 @@
 package cn.littleround;
 
 
+import cn.littleround.ASTnode.ASTBaseNode;
 import cn.littleround.antlr4_gen.MxStarLexer;
 import cn.littleround.antlr4_gen.MxStarParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -20,6 +21,7 @@ public class Main {
             System.out.print("Wrong arg number.");
             return;
         }
+
         // read source code from loc: args[0]
         StringBuilder sb = new StringBuilder();
         try {
@@ -35,22 +37,40 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String sc = sb.toString();
-        // System.out.print(sc);
-        // load ANTLR frontend
+        String sc = sb.toString(); // System.out.print(sc);
+
+        // load ANTLR4 frontend
         CharStream stream = new ANTLRInputStream(sc);
         MxStarLexer lexer = new MxStarLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         MxStarParser parser = new MxStarParser(tokens);
+        // parse
         MxStarParser.CompilationUnitContext tree = parser.compilationUnit();
 
-        ASTCreator ASTCreator = new ASTCreator(parser);
+        // build AST
+        ASTCreator creator = new ASTCreator(parser);
         try {
-            System.err.print("Building AST... ");
-            ParseTreeWalker.DEFAULT.walk(ASTCreator, tree);
-            System.err.println(ASTCreator.isFailed() ? "Failed" : "Success");
+            ParseTreeWalker.DEFAULT.walk(creator, tree);
         } catch (Exception e) {
-            e.printStackTrace();
+            creator.setFailed(true);
+        }
+        if (creator.isFailed()) {
+            System.out.println(creator.getErrors());
+            System.exit(-1);
+        }
+
+        // run semantic check on AST
+        ASTBaseNode root = creator.getRoot();
+        System.err.print(root.toTreeString(0,4));
+        try {
+            root.checkClass();
+            root.checkType();
+        } catch (Exception e) {
+            ASTBaseNode.setFailed(true);
+        }
+        if (ASTBaseNode.isFailed()) {
+            System.out.println(ASTBaseNode.getErrors());
+            System.exit(-1);
         }
     }
 }
