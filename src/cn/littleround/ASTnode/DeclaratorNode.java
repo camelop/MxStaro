@@ -1,6 +1,6 @@
 package cn.littleround.ASTnode;
 
-public class ClassDeclarationNode extends DeclarationNode {
+public class DeclaratorNode extends ASTBaseNode {
     private String identifier;
 
     public String getIdentifier() {

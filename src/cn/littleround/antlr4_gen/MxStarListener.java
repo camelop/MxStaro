@@ -1,4 +1,5 @@
-package cn.littleround.antlr4_gen;// Generated from C:/Users/lxy98/IdeaProjects/MxStaro\MxStar.g4 by ANTLR 4.7
+// Generated from C:/Users/lxy98/IdeaProjects/MxStaro\MxStar.g4 by ANTLR 4.7
+package cn.littleround.antlr4_gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -486,16 +487,6 @@ public interface MxStarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunctionDefinition(MxStarParser.FunctionDefinitionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link MxStarParser#declarationList}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclarationList(MxStarParser.DeclarationListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link MxStarParser#declarationList}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclarationList(MxStarParser.DeclarationListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MxStarParser#newExpression}.
 	 * @param ctx the parse tree

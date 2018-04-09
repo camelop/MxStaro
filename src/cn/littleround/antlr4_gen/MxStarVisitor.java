@@ -1,4 +1,5 @@
-package cn.littleround.antlr4_gen;// Generated from C:/Users/lxy98/IdeaProjects/MxStaro\MxStar.g4 by ANTLR 4.7
+// Generated from C:/Users/lxy98/IdeaProjects/MxStaro\MxStar.g4 by ANTLR 4.7
+package cn.littleround.antlr4_gen;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -297,12 +298,6 @@ public interface MxStarVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFunctionDefinition(MxStarParser.FunctionDefinitionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link MxStarParser#declarationList}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclarationList(MxStarParser.DeclarationListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MxStarParser#newExpression}.
 	 * @param ctx the parse tree

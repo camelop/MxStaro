@@ -13,10 +13,6 @@ public abstract class ASTBaseNode {
         sons.add(_son);
     }
 
-    public void setSons(ArrayList<ASTBaseNode> _sons) {
-        sons = _sons;
-    }
-
     public void setParent(ASTBaseNode _parent) {
         parent = _parent;
     }

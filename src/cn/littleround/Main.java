@@ -46,7 +46,9 @@ public class Main {
 
         ASTCreator ASTCreator = new ASTCreator(parser);
         try {
+            System.err.print("Building AST... ");
             ParseTreeWalker.DEFAULT.walk(ASTCreator, tree);
+            System.err.println(ASTCreator.isFailed() ? "Failed" : "Success");
         } catch (Exception e) {
             e.printStackTrace();
         }

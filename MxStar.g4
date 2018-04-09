@@ -60,7 +60,7 @@ unaryExpression
     ;
 
 unaryOperator
-    :   '&' | '*' | '+' | '-' | '~' | '!'
+    :   '&' | '|' | '+' | '-' | '~' | '!'
     ;
 
 castExpression
@@ -173,8 +173,8 @@ declarator
     :   Identifier
     |   '(' declarator ')'
 //    |   declarator '[' expression? ']'
-    |   declarator '(' parameterList ')'
-    |   declarator '(' identifierList? ')'
+    |   declarator '(' parameterList? ')'
+//    |   declarator '(' identifierList? ')'
     ;
 
 nestedParenthesesBlock
@@ -251,7 +251,7 @@ forDeclaration
 
 forExpression
     :   expression
-    |   forExpression ',' expression
+    //|   forExpression ',' expression
     ;
 
 jumpStatement
@@ -291,13 +291,14 @@ classDeclaration
     ;
 
 functionDefinition
-    :   declarationSpecifiers? declarator declarationList? compoundStatement
+    :   declarationSpecifiers? declarator /*declarationList?*/ compoundStatement
     ;
-
+/*
 declarationList
     :   declaration
     |   declarationList declaration
     ;
+*/
 
 newExpression
     :   'new' declarationSpecifiers
@@ -318,6 +319,9 @@ While : 'while';
 Class : 'class';
 New : 'new';
 This : 'this';
+True : 'true';
+False : 'false';
+
 
 LeftParen : '(';
 RightParen : ')';
@@ -367,6 +371,11 @@ Identifier
         )*
     ;
 
+BooleanConstant
+    :   True
+    |   False
+    ;
+
 fragment
 Nondigit
     :   [a-zA-Z_]
@@ -379,6 +388,7 @@ Digit
 
 Constant
     :   IntegerConstant
+    |   BooleanConstant
     //|   EnumerationConstant
     //|   CharacterConstant
     ;
