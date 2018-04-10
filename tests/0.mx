@@ -1,9 +1,9 @@
-int main() {
-	int i;
-	for (i = 0; i < 3; i++)
-	angry();
-	return 0;
+int x() {}
+int x(int xx) {}
+int f(int x, int y) {
 }
-inline inline void angry() {
-	print("I'm angry!\n");
-}
+int x=1;
+class A{
+    int x=1,y=2;
+    A(int x,int y){}
+};

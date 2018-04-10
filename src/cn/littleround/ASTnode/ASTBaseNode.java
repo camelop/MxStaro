@@ -78,6 +78,7 @@ public abstract class ASTBaseNode {
         for (int i=0; i<blank; ++i) sb.append(' ');
         sb.append("-");
         sb.append(this.getClass().getSimpleName());
+        if (ctx != null) sb.append("\t\t\t// "+ctx.getText());
         sb.append('\n');
         for (ASTBaseNode i:sons) sb.append(i.toTreeString(blank+step, step));
         return sb.toString();

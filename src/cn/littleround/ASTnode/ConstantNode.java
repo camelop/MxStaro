@@ -28,4 +28,11 @@ public class ConstantNode extends ExpressionNode {
     public void setBool(boolean bool) {
         isBool = bool;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ConstantNode)) return false;
+        ConstantNode rhs = (ConstantNode) obj;
+        return this.isBool == rhs.isBool && this.constant == rhs.constant;
+    }
 }

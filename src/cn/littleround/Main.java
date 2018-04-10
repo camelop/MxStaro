@@ -2,6 +2,7 @@ package cn.littleround;
 
 
 import cn.littleround.ASTnode.ASTBaseNode;
+import cn.littleround.ASTnode.ConstantNode;
 import cn.littleround.antlr4_gen.MxStarLexer;
 import cn.littleround.antlr4_gen.MxStarParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -9,13 +10,25 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import javax.sound.midi.SysexMessage;
+import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
 
+    private static void output(String loc, String message) {
+        try {
+            Writer out = new FileWriter(loc+".ast");
+            out.write(message);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void main(String[] args) {
+        //System.exit(0);
         // check input args
         if (args.length != 1) {
             System.out.print("Wrong arg number.");
@@ -61,7 +74,7 @@ public class Main {
 
         // run semantic check on AST
         ASTBaseNode root = creator.getRoot();
-        System.err.print(root.toTreeString(0,4));
+        output(args[0], root.toTreeString(0,4));
         try {
             root.checkClass();
             root.checkType();
