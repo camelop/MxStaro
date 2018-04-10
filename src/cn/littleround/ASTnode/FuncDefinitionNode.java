@@ -8,5 +8,6 @@ public class FuncDefinitionNode extends DeclarationNode {
     @Override
     public ArrayList<Symbol> getSymbols() {
         //TODO
+        return null;
     }
 }
