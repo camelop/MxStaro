@@ -3,6 +3,7 @@ package cn.littleround;
 
 import cn.littleround.ASTnode.ASTBaseNode;
 import cn.littleround.ASTnode.ConstantNode;
+import cn.littleround.ASTnode.TypeAttributeNode;
 import cn.littleround.antlr4_gen.MxStarLexer;
 import cn.littleround.antlr4_gen.MxStarParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -28,29 +29,47 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //System.exit(0);
+//        System.exit(0);
         // check input args
-        if (args.length != 1) {
+        String sc;
+        if (args.length > 1) {
             System.out.print("Wrong arg number.");
             return;
-        }
-
-        // read source code from loc: args[0]
-        StringBuilder sb = new StringBuilder();
-        try {
-            BufferedReader in = new BufferedReader(
-                    new FileReader(args[0])
-            );
-            String line = in.readLine();
-            while (line != null) {
-                sb.append(line).append('\n');
-                line = in.readLine();
+        } else {
+            StringBuffer sb = new StringBuffer();
+            if (args.length == 0) {
+                // read source code from stdin
+                try {
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(System.in)
+                    );
+                    String line = in.readLine();
+                    while (line != null) {
+                        sb.append(line).append('\n');
+                        line = in.readLine();
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // read source code from loc: args[0]
+                try {
+                    BufferedReader in = new BufferedReader(
+                            new FileReader(args[0])
+                    );
+                    String line = in.readLine();
+                    while (line != null) {
+                        sb.append(line).append('\n');
+                        line = in.readLine();
+                    }
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            sc = sb.toString();
         }
-        String sc = sb.toString(); // System.out.print(sc);
 
         // load ANTLR4 frontend
         CharStream stream = new ANTLRInputStream(sc);
@@ -74,7 +93,7 @@ public class Main {
 
         // run semantic check on AST
         ASTBaseNode root = creator.getRoot();
-        output(args[0], root.toTreeString(0,4));
+        if (args.length > 0) output(args[0], root.toTreeString(0,4));
         try {
             root.checkClass();
             root.checkType();

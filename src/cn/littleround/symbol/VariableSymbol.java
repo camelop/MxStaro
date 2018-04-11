@@ -26,4 +26,8 @@ public class VariableSymbol extends Symbol {
     public void setInitValue(ExpressionNode initValue) {
         this.initValue = initValue;
     }
+
+    public TypeNode getType() {
+        return type;
+    }
 }

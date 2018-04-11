@@ -1,19 +1,17 @@
 package cn.littleround.symbol;
 
+import cn.littleround.ASTnode.TypeNode;
+
 import java.util.ArrayList;
 
 public class ParamTypeList {
-    private ArrayList<Symbol> list;
-
-    public ParamTypeList(ArrayList<Symbol> list) {
-        this.list = list;
-    }
+    private ArrayList<TypeNode> list;
 
     public ParamTypeList() {
         this.list = new ArrayList<>();
     }
 
-    public void add(Symbol tn) {
+    public void add(TypeNode tn) {
         this.list.add(tn);
     }
 

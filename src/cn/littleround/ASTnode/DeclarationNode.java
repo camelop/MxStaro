@@ -22,6 +22,7 @@ public class DeclarationNode extends ASTBaseNode {
             VariableSymbol v = new VariableSymbol(specifier());
             v.setName(idn.declarator().getIdentifier());
             if (idn.isInitialized()) v.setInitValue(idn.initValue());
+            v.setSrc(this);
             sl.add(v);
         }
         return sl;

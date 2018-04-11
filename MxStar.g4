@@ -305,7 +305,7 @@ newExpression
     ;
 
 Break : 'break';
-Char : 'char';
+// Char : 'char';
 Continue : 'continue';
 Else : 'else';
 For : 'for';

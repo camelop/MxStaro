@@ -1,9 +1,11 @@
 package cn.littleround.symbol;
 
+import cn.littleround.ASTnode.ASTBaseNode;
 import cn.littleround.Constants;
 
 public abstract class Symbol {
     private String name;
+    private ASTBaseNode src;
 
     public String getName() {
         return name;
@@ -20,5 +22,13 @@ public abstract class Symbol {
         if (this.getClass().equals(obj.getClass())) return false;
         Symbol rhs = (Symbol) obj;
         return this.name.equals(rhs.name);
+    }
+
+    public ASTBaseNode getSrc() {
+        return src;
+    }
+
+    public void setSrc(ASTBaseNode src) {
+        this.src = src;
     }
 }

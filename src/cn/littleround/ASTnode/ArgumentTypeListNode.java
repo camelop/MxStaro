@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 public class ArgumentTypeListNode extends DeclarationNode {
     @Override
+    public TypeNode specifier() {
+        reportError("Unexpected","ArgumentTypeListNode specifier called.");
+        return null;
+    }
+
+    @Override
     public ArrayList<Symbol> getSymbols() {
         ArrayList<Symbol> sl = new ArrayList<>();
         for (ASTBaseNode i:getSons()) {

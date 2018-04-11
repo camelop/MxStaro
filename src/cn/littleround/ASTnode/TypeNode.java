@@ -2,7 +2,11 @@ package cn.littleround.ASTnode;
 
 public class TypeNode extends ASTBaseNode {
     private boolean isInline = false;
-    private String identifier = "NoType";
+
+    public TypeAttributeNode attribute() {
+        if (getSons().size() != 1) return null;
+        return (TypeAttributeNode) getSons().get(0);
+    }
 
     public boolean isInline() {
         return isInline;
@@ -12,11 +16,10 @@ public class TypeNode extends ASTBaseNode {
         isInline = inline;
     }
 
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof TypeNode)) return false;
+        TypeNode tn = (TypeNode) obj;
+        return this.getSons().size() == 1 && tn.getSons().size() == 1 && this.attribute().equals(tn.attribute());
     }
 }

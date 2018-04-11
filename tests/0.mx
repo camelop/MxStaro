@@ -1,9 +1,4 @@
-int x() {}
-int x(int xx) {}
-int f(int x, int y) {
-}
-int x=1;
 class A{
-    int x=1,y=2;
-    A(int x,int y){}
-};
+    int a=1,b;
+    int main() {};
+}

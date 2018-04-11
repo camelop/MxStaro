@@ -14,6 +14,7 @@ public class ArgumentDeclarationNode extends DeclarationNode {
     public Symbol getSymbol() {
         VariableSymbol v = new VariableSymbol(specifier());
         v.setName(declarator().getIdentifier());
+        v.setSrc(this);
         return v;
     }
 
