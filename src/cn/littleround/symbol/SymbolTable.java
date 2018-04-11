@@ -26,10 +26,13 @@ public class SymbolTable {
             }
         } else if (s instanceof FuncSymbol) {
             // TODO
+            return false;
         } else if (s instanceof ClassSymbol) {
             // TODO
+            return false;
         } else {
             return false;
         }
+        return false;
     }
 }
