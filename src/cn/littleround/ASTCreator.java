@@ -513,13 +513,13 @@ public class ASTCreator extends MxStarBaseListener {
         } else if (ctx.getChild(0).getText().equals("(")) {
             dn = (DeclaratorNode) nodeStack.pop();
         } else /* parameterList */ {
-            ASTBaseNode atln = nodeStack.pop();
-            ASTBaseNode dn1;
+            ASTBaseNode atln;
             if (ctx.parameterList() != null) {
-                dn1 = nodeStack.pop();
+                atln = nodeStack.pop();
             } else {
-                dn1 = new ArgumentListNode();
+                atln = new ArgumentTypeListNode();
             }
+            ASTBaseNode dn1 = nodeStack.pop();
             dn = new FuncDeclaratorNode();
             dn.addSon(dn1); dn1.setParent(dn);
             dn.addSon(atln); atln.setParent(dn);

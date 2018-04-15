@@ -1,5 +1,7 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.symbol.Symbol;
+import cn.littleround.symbol.SymbolTable;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ public abstract class ASTBaseNode {
     private ASTBaseNode parent = null;
     private ArrayList<ASTBaseNode> sons = new ArrayList<>();
     private ParserRuleContext ctx;
+    private SymbolTable st = new SymbolTable();
 
     private static boolean isFailed = false;
     private static ArrayList<String> errors = new ArrayList<>();
@@ -65,14 +68,6 @@ public abstract class ASTBaseNode {
         for (ASTBaseNode i:sons) i.reduce();
     }
 
-    public void checkClass() {
-        for (ASTBaseNode i:sons) i.checkClass();
-    }
-
-    public void checkType() {
-        for (ASTBaseNode i:sons) i.checkType();
-    }
-
     public String toTreeString(int blank, int step) {
         StringBuffer sb = new StringBuffer();
         for (int i=0; i<blank; ++i) sb.append(' ');
@@ -82,5 +77,20 @@ public abstract class ASTBaseNode {
         sb.append('\n');
         for (ASTBaseNode i:sons) sb.append(i.toTreeString(blank+step, step));
         return sb.toString();
+    }
+
+    public void updateSymbolTable() {
+        for (ASTBaseNode i:sons) {
+            if (i instanceof DeclarationNode) {
+                for (Symbol s:((DeclarationNode) i).getSymbols()) {
+                    st.add(s);
+                }
+            }
+            i.updateSymbolTable();
+        }
+    }
+
+    public SymbolTable getSt() {
+        return st;
     }
 }

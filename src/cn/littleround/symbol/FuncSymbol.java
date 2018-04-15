@@ -2,10 +2,12 @@ package cn.littleround.symbol;
 
 import cn.littleround.ASTnode.ASTBaseNode;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class FuncSymbol extends Symbol {
-    private Map<ParamTypeList, FuncFormSymbol> ffsm;
+    private HashMap<ParamTypeList, FuncFormSymbol> ffsm = new HashMap<>();
     @Override
     public ASTBaseNode getSrc() {
         System.err.println("Invalid call: FuncSymbol.getSrc()");
@@ -28,5 +30,9 @@ public class FuncSymbol extends Symbol {
 
     public boolean contains(ParamTypeList ptl) {
         return ffsm.containsKey(ptl);
+    }
+
+    public ArrayList<FuncFormSymbol> getFuncFormSymbols () {
+        return new ArrayList<>(ffsm.values());
     }
 }

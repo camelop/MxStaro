@@ -1,4 +1,11 @@
 class A{
-    int a=1,b;
-    int main() {};
+    int p,q;
+}
+int gzotpa;
+int main(int x) {
+    int x;
+}
+int y,z,u=100;
+class B{
+    int main(){}
 }

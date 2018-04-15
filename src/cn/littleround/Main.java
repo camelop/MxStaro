@@ -95,14 +95,15 @@ public class Main {
         ASTBaseNode root = creator.getRoot();
         if (args.length > 0) output(args[0], root.toTreeString(0,4));
         try {
-            root.checkClass();
-            root.checkType();
+            root.updateSymbolTable();
         } catch (Exception e) {
+            e.printStackTrace();
             ASTBaseNode.setFailed(true);
         }
         if (ASTBaseNode.isFailed()) {
             System.out.println(ASTBaseNode.getErrors());
             System.exit(-1);
         }
+        output(args[0], root.getSt().toInfoString());
     }
 }
