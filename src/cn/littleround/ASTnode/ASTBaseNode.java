@@ -64,10 +64,6 @@ public abstract class ASTBaseNode {
         this.ctx = ctx;
     }
 
-    public void reduce() {
-        for (ASTBaseNode i:sons) i.reduce();
-    }
-
     public String toTreeString(int blank, int step) {
         StringBuffer sb = new StringBuffer();
         for (int i=0; i<blank; ++i) sb.append(' ');
@@ -83,7 +79,7 @@ public abstract class ASTBaseNode {
         for (ASTBaseNode i:sons) {
             if (i instanceof DeclarationNode) {
                 for (Symbol s:((DeclarationNode) i).getSymbols()) {
-                    st.add(s);
+                    if (!st.add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
                 }
             }
             i.updateSymbolTable();

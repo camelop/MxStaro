@@ -46,7 +46,7 @@ public class SymbolTable {
             ClassSymbol cs = (ClassSymbol) s;
             if (csm.containsKey(cs.getName())) return false;
             csm.put(cs.getName(), cs);
-            return false;
+            return true;
         } else {
             return false;
         }
