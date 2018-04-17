@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class LogicalOrNode extends BinaryOpNode {
+public class LogicalOrNode extends BoolBinaryOpNode {
 }

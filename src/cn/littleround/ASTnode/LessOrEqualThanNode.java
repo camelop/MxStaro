@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class LessOrEqualThanNode extends BinaryOpNode {
+public class LessOrEqualThanNode extends IntCompareBinaryOpNode {
 }

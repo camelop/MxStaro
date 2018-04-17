@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class XorNode extends BinaryOpNode {
+public class XorNode extends IntBinaryOpNode {
 }

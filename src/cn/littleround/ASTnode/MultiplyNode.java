@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class MultiplyNode extends BinaryOpNode {
+public class MultiplyNode extends IntBinaryOpNode {
 }

@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class UnaryNegativeNode extends UnaryOpNode {
+public class UnaryNegativeNode extends IntUnaryOpNode {
 }

@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class PrefixSubNode extends UnaryOpNode {
+public class PrefixSubNode extends IntUnaryOpNode {
 }
