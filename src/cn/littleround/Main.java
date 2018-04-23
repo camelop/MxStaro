@@ -27,9 +27,9 @@ public class Main {
 
     public static void main(String[] args) {
 //        System.exit(0);
-        // load lib
         // check input args
         String sc;
+        String lib_loc = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"cn/littleround/mxlib/lib.mx";
         if (args.length > 1) {
             System.out.print("Wrong arg number.");
             return;
@@ -37,7 +37,7 @@ public class Main {
             StringBuilder sb = new StringBuilder();
             try {
                 BufferedReader in = new BufferedReader(
-                        new FileReader(Main.class.getResource("mxlib/lib.mx").getFile())
+                        new FileReader(lib_loc)
                 );
                 String line = in.readLine();
                 while (line != null) {
@@ -48,8 +48,6 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            sb.append("\n");
-
             if (args.length == 0) {
                 // read source code from stdin
                 try {
