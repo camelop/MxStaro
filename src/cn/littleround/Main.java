@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.*;
+import java.net.URL;
 
 public class Main {
 
@@ -26,6 +27,7 @@ public class Main {
 
     public static void main(String[] args) {
 //        System.exit(0);
+        // load lib
         // check input args
         String sc;
         if (args.length > 1) {
@@ -33,6 +35,21 @@ public class Main {
             return;
         } else {
             StringBuilder sb = new StringBuilder();
+            try {
+                BufferedReader in = new BufferedReader(
+                        new FileReader(Main.class.getResource("mxlib/lib.mx").getFile())
+                );
+                String line = in.readLine();
+                while (line != null) {
+                    sb.append(line).append('\n');
+                    line = in.readLine();
+                }
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            sb.append("\n");
+
             if (args.length == 0) {
                 // read source code from stdin
                 try {
@@ -66,6 +83,7 @@ public class Main {
             }
             sc = sb.toString();
         }
+        //System.out.println(sc);
 
         // load ANTLR4 frontend
         CharStream stream = new ANTLRInputStream(sc);
@@ -102,8 +120,8 @@ public class Main {
             System.err.println(ASTBaseNode.getErrors());
             System.exit(-1);
         }
-        //output(args[0], root.getSymbolTable().toInfoString());
-        // if (args.length > 0) output(args[0], root.toTreeString(0,4));
+        output(args[0], root.getSymbolTable().toInfoString());
+        if (args.length > 0) output(args[0], root.toTreeString(0,4));
         System.err.println();
         System.err.println("AST:");
         System.err.println(root.toTreeString(0,4));

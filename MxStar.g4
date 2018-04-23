@@ -145,7 +145,7 @@ declarationSpecifiers
 declarationSpecifier
     :   typeSpecifier
     |   functionSpecifier
-    |   declarationSpecifier '[' ']'
+    |   declarationSpecifier '[' expression? ']'
     ;
 
 initDeclaratorList

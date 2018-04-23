@@ -1,0 +1,17 @@
+void print(string str) {
+}
+
+void println(string str) {
+}
+
+string getString() {
+    return "abracadabra";
+}
+
+int getInt() {
+    return 0;
+}
+
+string toString(int i) {
+    return "abracadabra";
+}

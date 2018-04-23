@@ -15,6 +15,8 @@ public class FuncDefinitionNode extends DeclarationNode {
         return (DeclaratorNode) getSons().get(1).getSons().get(0);
     }
 
+    public BlockNode block() { return (BlockNode) getSons().get(2);}
+
     public Symbol getSymbol() {
         FuncFormSymbol ffs = new FuncFormSymbol();
         ffs.setRetType(specifier());
@@ -32,5 +34,23 @@ public class FuncDefinitionNode extends DeclarationNode {
         ArrayList<Symbol> sl = new ArrayList<>();
         sl.add(getSymbol());
         return sl;
+    }
+
+    @Override
+    public void createSymbolTable() {
+        for (ASTBaseNode i:block().getSons()) {
+            if (i instanceof DeclarationNode) {
+                for (Symbol s:((DeclarationNode) i).getSymbols()) {
+                    if (!getSymbolTable().add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+                }
+            }
+            i.createSymbolTable();
+        }
+        //System.out.println("Table\n"+getSymbolTable().toInfoString());
+        for (Symbol s:args().getSymbols()) {
+            //System.out.println(s.getName());
+            if (!getSymbolTable().add(s))
+                reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+        }
     }
 }

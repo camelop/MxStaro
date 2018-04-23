@@ -6,11 +6,12 @@ import cn.littleround.type.PointerType;
 import cn.littleround.type.UserDefinedType;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class TypeAttributeNode extends ASTBaseNode {
     private String identifier;
     private int pointerLevel = 0;
-
+    private ArrayList<ExpressionNode> pointerExpressionList = new ArrayList<>();
     public String getIdentifier() {
         return identifier;
     }
@@ -63,5 +64,13 @@ public class TypeAttributeNode extends ASTBaseNode {
             ret = new PointerType(ret);
         }
         return ret;
+    }
+
+    public ArrayList<ExpressionNode> getPointerExpressionList() {
+        return pointerExpressionList;
+    }
+
+    public void setPointerExpressionList(ArrayList<ExpressionNode> pointerExpressionList) {
+        this.pointerExpressionList = pointerExpressionList;
     }
 }

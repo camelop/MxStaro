@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class FuncSymbol extends Symbol {
     private HashMap<ParamTypeNodeList, FuncFormSymbol> ffsm = new HashMap<>();
-    private HashMap<TypeList, FuncFormSymbol> tffsm = null;
+    private HashMap<String, FuncFormSymbol> tffsm = null;
 
     @Override
     public ASTBaseNode getSrc() {
@@ -43,12 +43,17 @@ public class FuncSymbol extends Symbol {
     private void transform() {
         tffsm = new HashMap<>();
         for (Map.Entry<ParamTypeNodeList, FuncFormSymbol> entry: ffsm.entrySet()) {
-            tffsm.put(entry.getKey().toTypeList(), entry.getValue());
+            tffsm.put(entry.getKey().toTypeList().toString(), entry.getValue());
         }
     }
 
     public BaseType getRetType(TypeList tl) {
         if (tffsm == null) transform();
-        return tffsm.get(tl).getRetType();
+        if (tffsm.get(tl.toString()) == null) {
+            System.err.println("Fail while searching "+this.getName()+":"+tl.toString());
+            System.err.println("Only got:\n"+tffsm.toString());
+            return null;
+        }
+        return tffsm.get(tl.toString()).getRetType();
     }
 }

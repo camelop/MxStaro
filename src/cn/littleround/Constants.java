@@ -11,8 +11,6 @@ public class Constants {
     public final static IntType INT = new IntType();
     public final static StringType STRING = new StringType();
     public final static VoidType VOID = new VoidType();
-
-
     public final static int typeToSize(String typename) {
         switch (typename) {
             case "int":

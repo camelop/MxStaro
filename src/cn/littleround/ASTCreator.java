@@ -467,8 +467,13 @@ public class ASTCreator extends MxStarBaseListener {
         } else if (ctx.functionSpecifier() != null) {
             tan = new FuncAttributeNode(ctx.functionSpecifier().getText());
         } else /* '[]' */ {
+            ASTBaseNode en = null;
+            if (ctx.expression() != null) {
+                en = nodeStack.pop();
+            }
             tan = nodeStack.pop();
             ((TypeAttributeNode) tan).addPointerLevel();
+            ((TypeAttributeNode) tan).getPointerExpressionList().add((ExpressionNode) en);
         }
         tan.setCtx(ctx);
         nodeStack.push(tan);

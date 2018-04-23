@@ -15,4 +15,19 @@ public class TypeList {
         TypeList rhs = (TypeList) obj;
         return this.list.equals(rhs.list);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (BaseType i:list) {
+            if (!first) {
+                sb.append(" ");
+            } else {
+                first = false;
+            }
+            sb.append(i.toString());
+        }
+        return sb.toString();
+    }
 }
