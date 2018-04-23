@@ -1,7 +1,10 @@
 package cn.littleround;
 
+import cn.littleround.ASTnode.TypeNode;
 import cn.littleround.symbol.FuncSymbol;
 import cn.littleround.type.*;
+
+import java.util.HashMap;
 
 public class Constants {
     public final static int sizeOfInt = 4;
@@ -25,9 +28,24 @@ public class Constants {
         }
     }
 
-    //temp
+    // temp
     public final static String lib =
-            "void print(string str) {\n" +
+            "class built_in_string {\n" +
+                    "    int length() {\n" +
+                    "        return 0;\n" +
+                    "    }\n" +
+                    "    string substring(int left, int right) {\n" +
+                    "        return \"\";\n" +
+                    "    }\n" +
+                    "    int parseInt() {\n" +
+                    "        return 0;\n" +
+                    "    }\n" +
+                    "    int ord(int pos) {\n" +
+                    "        return 0;\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "void print(string str) {\n" +
                     "}\n" +
                     "\n" +
                     "void println(string str) {\n" +

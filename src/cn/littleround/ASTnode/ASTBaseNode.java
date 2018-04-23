@@ -29,7 +29,7 @@ public abstract class ASTBaseNode {
 
     protected void reportError(String errorType, String message) {
         isFailed = true;
-        errors.add("[line " +String.valueOf(ctx.getStart().getLine())+" "
+        errors.add("[line " +String.valueOf(ctx.getStart().getLine()-32)+" "
                 +String.valueOf(ctx.getStart().getCharPositionInLine())+"] "
                 +errorType+" Error: "+message+"\n");
         // System.exit(-1);

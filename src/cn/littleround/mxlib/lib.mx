@@ -1,3 +1,18 @@
+class built_in_string {
+    int length() {
+        return 0;
+    }
+    string substring(int left, int right) {
+        return "";
+    }
+    int parseInt() {
+        return 0;
+    }
+    int ord(int pos) {
+        return 0;
+    }
+}
+
 void print(string str) {
 }
 
