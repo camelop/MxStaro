@@ -67,9 +67,6 @@ public class Main {
             sc = sb.toString();
         }
 
-        System.err.println("I read:");
-        System.err.println(sc);
-
         // load ANTLR4 frontend
         CharStream stream = new ANTLRInputStream(sc);
         MxStarLexer lexer = new MxStarLexer(stream);
@@ -77,8 +74,6 @@ public class Main {
         MxStarParser parser = new MxStarParser(tokens);
         // parse
         MxStarParser.CompilationUnitContext tree = parser.compilationUnit();
-
-        System.err.println("Parser READY!");
 
         // build AST
         ASTCreator creator = new ASTCreator(parser);
@@ -91,8 +86,6 @@ public class Main {
             System.err.println(creator.getErrors());
             System.exit(-1);
         }
-
-        System.err.println("Syntax Check Complete.");
 
         // run semantic check on AST
         ASTBaseNode root = creator.getRoot();
@@ -110,9 +103,9 @@ public class Main {
             System.exit(-1);
         }
         //output(args[0], root.getSymbolTable().toInfoString());
-        if (args.length > 0) output(args[0], root.toTreeString(0,4));
-
-
-        System.err.println("Semantic Check Complete.");
+        // if (args.length > 0) output(args[0], root.toTreeString(0,4));
+        System.err.println();
+        System.err.println("AST:");
+        System.err.println(root.toTreeString(0,4));
     }
 }
