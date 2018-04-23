@@ -1,6 +1,16 @@
-class A{
-    string b;
+class A {
+    int x;
 }
-A x = new A(1,2);
-A y = x;
-int c = x.b, d;
+
+class B {
+    int x;
+}
+
+int main() {
+    A a = new A;
+    a.x = 20;
+    B b = new B;
+    b.x = 16;
+    if (a == b) {}
+    return 0;
+}

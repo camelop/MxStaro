@@ -27,6 +27,8 @@ public class Main {
     public static void main(String[] args) {
 //        System.exit(0);
         // check input args
+        System.out.println("BLING!");
+        System.err.println("BLING!");
         String sc;
         if (args.length > 1) {
             System.out.print("Wrong arg number.");
