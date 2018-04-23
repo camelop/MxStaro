@@ -2,6 +2,7 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.symbol.Symbol;
 import cn.littleround.symbol.VariableSymbol;
+import cn.littleround.type.VoidType;
 
 import java.util.ArrayList;
 
@@ -26,5 +27,12 @@ public class DeclarationNode extends ASTBaseNode {
             sl.add(v);
         }
         return sl;
+    }
+
+    @Override
+    public void checkType() {
+        super.checkType();
+        if (specifier().getType() instanceof VoidType)
+            reportError("Semantic", "Void cannot be declared as variable.");
     }
 }

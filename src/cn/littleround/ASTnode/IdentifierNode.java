@@ -29,4 +29,11 @@ public class IdentifierNode extends ExpressionNode {
         //System.out.println(getSymbolTable().toInfoString());
         type = symbolToType(def);
     }
+
+    @Override
+    public void checkType() {
+        super.checkType();
+        if ((def instanceof VariableSymbol) && def.getSrc().getCtx().getStart().getLine() > getCtx().getStart().getLine())
+            reportError("Semantic", "Invalid or Backref \'"+def.getName()+"\'.");
+    }
 }

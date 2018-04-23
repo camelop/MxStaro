@@ -53,4 +53,9 @@ public class FuncDefinitionNode extends DeclarationNode {
                 reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
         }
     }
+
+    @Override
+    public void checkType() {
+        for (ASTBaseNode i:getSons()) i.checkType();
+    }
 }

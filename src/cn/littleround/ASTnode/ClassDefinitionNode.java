@@ -40,4 +40,9 @@ public class ClassDefinitionNode extends DeclarationNode {
         getSymbolTable().reverse_merge(toClassSymbol().getSymbolTable());
         super.updateSymbolTable();
     }
+
+    @Override
+    public void checkType() {
+        for (ASTBaseNode i:getSons()) i.checkType();
+    }
 }

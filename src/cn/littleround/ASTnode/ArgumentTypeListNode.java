@@ -20,4 +20,9 @@ public class ArgumentTypeListNode extends DeclarationNode {
         }
         return sl;
     }
+
+    @Override
+    public void checkType() {
+        for (ASTBaseNode i:getSons()) i.checkType();
+    }
 }

@@ -24,4 +24,9 @@ public class ArgumentDeclarationNode extends DeclarationNode {
         sl.add(getSymbol());
         return sl;
     }
+
+    @Override
+    public void checkType() {
+        for (ASTBaseNode i:getSons()) i.checkType();
+    }
 }
