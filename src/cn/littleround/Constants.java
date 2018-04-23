@@ -14,6 +14,7 @@ public class Constants {
     public final static IntType INT = new IntType();
     public final static StringType STRING = new StringType();
     public final static VoidType VOID = new VoidType();
+    public final static NullType NULL = new NullType();
     public final static int typeToSize(String typename) {
         switch (typename) {
             case "int":
@@ -41,6 +42,12 @@ public class Constants {
                     "        return 0;\n" +
                     "    }\n" +
                     "    int ord(int pos) {\n" +
+                    "        return 0;\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "\n" +
+                    "class built_in_array {\n" +
+                    "    int size() {\n" +
                     "        return 0;\n" +
                     "    }\n" +
                     "}\n" +

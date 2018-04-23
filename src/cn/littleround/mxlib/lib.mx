@@ -13,6 +13,12 @@ class built_in_string {
     }
 }
 
+class built_in_array {
+    int size() {
+        return 0;
+    }
+}
+
 void print(string str) {
 }
 

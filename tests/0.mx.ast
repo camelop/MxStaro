@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}stringmiracle="\"orange________\"";classmoment_ring{string[]singers;stringlryics;voidinit(){this.singers=newstring[9];lryics="kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n...";}}intdepth;voidanother_fun(){moment_ringsong;song.init();depth--;if(depth>0)another_fun();elsefun(2017);}classtest{stringtxt;testinit(){txt="you should pass this one";returnthis;}testinit2(testt){t.txt="TAT";this.txt=t.txt;returnt;}}intmain(){inta;{inta=0;println(toString(a));}a=1;testnico;println(nico.init().txt);println(toString(nico.init().txt.ord(0)));depth=3;another_fun();;returntoString(fun(10).ord(0)).ord(0);}stringfun(intpos){if(pos<0)return"";returnfun(pos-1)+toString(miracle.ord(pos));}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}classvector{int[]data;voidinit(int[]vec){if(vec==null)return;data=newint[vec.size()];inti;for(i=0;i<vec.size();++i){data[i]=vec[i];}}intgetDim(){if(data==null)return0;returndata.size();}intdot(vectorrhs){inti=0;intresult=0;while(i<getDim()){result=data[i]*rhs.data[i];++i;}returnresult;}vectorscalarInPlaceMultiply(intc){if(data==null)returnnull;inti;for(i=0;i<getDim();++i){this.data[i]=c*this.data[i];}returnthis;}vectoradd(vectorrhs){if(getDim()!=rhs.getDim()||getDim()==0)returnnull;vectortemp=newvector;inti;for(i=0;i<getDim();++i){temp.data[i]=data[i]+rhs.data[i];}returntemp;}boolset(intidx,intvalue){if(getDim()<idx)returnfalse;data[idx]=value;returntrue;}stringtoString(){stringtemp="( ";if(getDim()>0){temp=temp+toString();}inti;for(i=1;i<getDim();++i){temp=temp+", "+toString();}temp=temp+" )";returntemp;}boolcopy(vectorrhs){if(rhs==null)returnfalse;if(rhs.getDim()==0){data=null;}else{data=newint[rhs.getDim()];inti;for(i=0;i<getDim();++i){data[i]=rhs.data[i];}}returntrue;}}intmain(){vectorx=newvector;int[]a=newint[10];inti;for(i=0;i<10;++i){a[i]=9-i;}x.init(a);print("vector x: ");println(x.toString());vectory=newvector;y.copy(x);if(y.set(3,817)){println("excited!");}print("vector y: ");println(y.toString());print("x + y: ");println((x.add(y)).toString());print("x * y: ");println(toString(x.dot(y)));print("(1 << 3) * y: ");println(x.scalarInPlaceMultiply(1<<3).toString());}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -45,6 +45,16 @@
                         -TypeNode (void)			// int
                             -TypeAttributeNode (void)			// int
                         -DeclaratorNode (void)			// pos
+            -BlockNode (void)			// {return0;}
+                -ReturnNode (void)			// return0;
+                    -ConstantNode (int)			// 0
+    -ClassDefinitionNode (void)			// classbuilt_in_array{intsize(){return0;}}
+        -FuncDefinitionNode (void)			// intsize(){return0;}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// size()
+                -DeclaratorNode (void)			// size
+                -ArgumentTypeListNode (void)
             -BlockNode (void)			// {return0;}
                 -ReturnNode (void)			// return0;
                     -ConstantNode (int)			// 0
@@ -101,248 +111,580 @@
         -BlockNode (void)			// {return"abracadabra";}
             -ReturnNode (void)			// return"abracadabra";
                 -StringLiteralNode (string)			// "abracadabra"
-    -DeclarationNode (void)			// stringmiracle="\"orange________\"";
-        -TypeNode (void)			// string
-            -TypeAttributeNode (void)			// string
-        -DeclaratorListNode (void)			// miracle="\"orange________\""
-            -InitDeclaratorNode (void)			// miracle="\"orange________\""
-                -DeclaratorNode (void)			// miracle
-                -StringLiteralNode (string)			// "\"orange________\""
-    -ClassDefinitionNode (void)			// classmoment_ring{string[]singers;stringlryics;voidinit(){this.singers=newstring[9];lryics="kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n...";}}
-        -DeclarationNode (void)			// string[]singers;
-            -TypeNode (void)			// string[]
-                -TypeAttributeNode (void)			// string[]
-            -DeclaratorListNode (void)			// singers
-                -InitDeclaratorNode (void)			// singers
-                    -DeclaratorNode (void)			// singers
-        -DeclarationNode (void)			// stringlryics;
-            -TypeNode (void)			// string
-                -TypeAttributeNode (void)			// string
-            -DeclaratorListNode (void)			// lryics
-                -InitDeclaratorNode (void)			// lryics
-                    -DeclaratorNode (void)			// lryics
-        -FuncDefinitionNode (void)			// voidinit(){this.singers=newstring[9];lryics="kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n...";}
+    -ClassDefinitionNode (void)			// classvector{int[]data;voidinit(int[]vec){if(vec==null)return;data=newint[vec.size()];inti;for(i=0;i<vec.size();++i){data[i]=vec[i];}}intgetDim(){if(data==null)return0;returndata.size();}intdot(vectorrhs){inti=0;intresult=0;while(i<getDim()){result=data[i]*rhs.data[i];++i;}returnresult;}vectorscalarInPlaceMultiply(intc){if(data==null)returnnull;inti;for(i=0;i<getDim();++i){this.data[i]=c*this.data[i];}returnthis;}vectoradd(vectorrhs){if(getDim()!=rhs.getDim()||getDim()==0)returnnull;vectortemp=newvector;inti;for(i=0;i<getDim();++i){temp.data[i]=data[i]+rhs.data[i];}returntemp;}boolset(intidx,intvalue){if(getDim()<idx)returnfalse;data[idx]=value;returntrue;}stringtoString(){stringtemp="( ";if(getDim()>0){temp=temp+toString();}inti;for(i=1;i<getDim();++i){temp=temp+", "+toString();}temp=temp+" )";returntemp;}boolcopy(vectorrhs){if(rhs==null)returnfalse;if(rhs.getDim()==0){data=null;}else{data=newint[rhs.getDim()];inti;for(i=0;i<getDim();++i){data[i]=rhs.data[i];}}returntrue;}}
+        -DeclarationNode (void)			// int[]data;
+            -TypeNode (void)			// int[]
+                -TypeAttributeNode (void)			// int[]
+            -DeclaratorListNode (void)			// data
+                -InitDeclaratorNode (void)			// data
+                    -DeclaratorNode (void)			// data
+        -FuncDefinitionNode (void)			// voidinit(int[]vec){if(vec==null)return;data=newint[vec.size()];inti;for(i=0;i<vec.size();++i){data[i]=vec[i];}}
             -TypeNode (void)			// void
                 -TypeAttributeNode (void)			// void
-            -FuncDeclaratorNode (void)			// init()
+            -FuncDeclaratorNode (void)			// init(int[]vec)
                 -DeclaratorNode (void)			// init
-                -ArgumentTypeListNode (void)
-            -BlockNode (void)			// {this.singers=newstring[9];lryics="kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n...";}
-                -StatementNode (void)			// this.singers=newstring[9];
-                    -AssignNode (void)			// this.singers=newstring[9]
-                        -DotOpNode (string[])			// this.singers
-                            -ThisNode (moment_ring)			// this
-                        -NewNode (string[])			// newstring[9]
-                            -TypeNode (void)			// string[9]
-                                -TypeAttributeNode (void)			// string[9]
+                -ArgumentTypeListNode (void)			// int[]vec
+                    -ArgumentDeclarationNode (void)			// int[]vec
+                        -TypeNode (void)			// int[]
+                            -TypeAttributeNode (void)			// int[]
+                        -DeclaratorNode (void)			// vec
+            -BlockNode (void)			// {if(vec==null)return;data=newint[vec.size()];inti;for(i=0;i<vec.size();++i){data[i]=vec[i];}}
+                -IfNode (void)			// if(vec==null)return;
+                    -EqualNode (bool)			// vec==null
+                        -IdentifierNode (int[])			// vec
+                        -ConstantNode (null)			// null
+                    -ReturnNode (void)			// return;
+                -StatementNode (void)			// data=newint[vec.size()];
+                    -AssignNode (void)			// data=newint[vec.size()]
+                        -IdentifierNode (int[])			// data
+                        -NewNode (int[])			// newint[vec.size()]
+                            -TypeNode (void)			// int[vec.size()]
+                                -TypeAttributeNode (void)			// int[vec.size()]
                             -ArgumentTypeListNode (void)
-                -StatementNode (void)			// lryics="kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n...";
-                    -AssignNode (void)			// lryics="kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n..."
-                        -IdentifierNode (string)			// lryics
-                        -StringLiteralNode (string)			// "kii te yo ima no kimochi wa\nsouda na souda na katari kirenai\n..."
-    -DeclarationNode (void)			// intdepth;
-        -TypeNode (void)			// int
-            -TypeAttributeNode (void)			// int
-        -DeclaratorListNode (void)			// depth
-            -InitDeclaratorNode (void)			// depth
-                -DeclaratorNode (void)			// depth
-    -FuncDefinitionNode (void)			// voidanother_fun(){moment_ringsong;song.init();depth--;if(depth>0)another_fun();elsefun(2017);}
-        -TypeNode (void)			// void
-            -TypeAttributeNode (void)			// void
-        -FuncDeclaratorNode (void)			// another_fun()
-            -DeclaratorNode (void)			// another_fun
-            -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {moment_ringsong;song.init();depth--;if(depth>0)another_fun();elsefun(2017);}
-            -DeclarationNode (void)			// moment_ringsong;
-                -TypeNode (void)			// moment_ring
-                    -TypeAttributeNode (void)			// moment_ring
-                -DeclaratorListNode (void)			// song
-                    -InitDeclaratorNode (void)			// song
-                        -DeclaratorNode (void)			// song
-            -StatementNode (void)			// song.init();
-                -ParenthesisOpNode (void)			// song.init()
-                    -DotOpNode (BaseType)			// song.init
-                        -IdentifierNode (moment_ring)			// song
-                    -ArgumentListNode (void)
-            -StatementNode (void)			// depth--;
-                -PostfixSubNode (int)			// depth--
-                    -IdentifierNode (int)			// depth
-            -IfNode (void)			// if(depth>0)another_fun();elsefun(2017);
-                -GreaterThanNode (bool)			// depth>0
-                    -IdentifierNode (int)			// depth
-                    -ConstantNode (int)			// 0
-                -StatementNode (void)			// another_fun();
-                    -ParenthesisOpNode (void)			// another_fun()
-                        -IdentifierNode (BaseType)			// another_fun
+                -DeclarationNode (void)			// inti;
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorListNode (void)			// i
+                        -InitDeclaratorNode (void)			// i
+                            -DeclaratorNode (void)			// i
+                -ForNode (void)			// for(i=0;i<vec.size();++i){data[i]=vec[i];}
+                    -ForConditionNode (void)			// i=0;i<vec.size();++i
+                        -AssignNode (void)			// i=0
+                            -IdentifierNode (int)			// i
+                            -ConstantNode (int)			// 0
+                        -LessThanNode (bool)			// i<vec.size()
+                            -IdentifierNode (int)			// i
+                            -ParenthesisOpNode (int)			// vec.size()
+                                -DotOpNode (BaseType)			// vec.size
+                                    -IdentifierNode (int[])			// vec
+                                -ArgumentListNode (void)
+                        -PrefixAddNode (int)			// ++i
+                            -IdentifierNode (int)			// i
+                    -BlockNode (void)			// {data[i]=vec[i];}
+                        -StatementNode (void)			// data[i]=vec[i];
+                            -AssignNode (void)			// data[i]=vec[i]
+                                -SubscriptOpNode (int)			// data[i]
+                                    -IdentifierNode (int[])			// data
+                                    -IdentifierNode (int)			// i
+                                -SubscriptOpNode (int)			// vec[i]
+                                    -IdentifierNode (int[])			// vec
+                                    -IdentifierNode (int)			// i
+        -FuncDefinitionNode (void)			// intgetDim(){if(data==null)return0;returndata.size();}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// getDim()
+                -DeclaratorNode (void)			// getDim
+                -ArgumentTypeListNode (void)
+            -BlockNode (void)			// {if(data==null)return0;returndata.size();}
+                -IfNode (void)			// if(data==null)return0;
+                    -EqualNode (bool)			// data==null
+                        -IdentifierNode (int[])			// data
+                        -ConstantNode (null)			// null
+                    -ReturnNode (void)			// return0;
+                        -ConstantNode (int)			// 0
+                -ReturnNode (void)			// returndata.size();
+                    -ParenthesisOpNode (int)			// data.size()
+                        -DotOpNode (BaseType)			// data.size
+                            -IdentifierNode (int[])			// data
                         -ArgumentListNode (void)
-                -StatementNode (void)			// fun(2017);
-                    -ParenthesisOpNode (string)			// fun(2017)
-                        -IdentifierNode (BaseType)			// fun
-                        -ArgumentListNode (void)			// 2017
-                            -ConstantNode (int)			// 2017
-    -ClassDefinitionNode (void)			// classtest{stringtxt;testinit(){txt="you should pass this one";returnthis;}testinit2(testt){t.txt="TAT";this.txt=t.txt;returnt;}}
-        -DeclarationNode (void)			// stringtxt;
+        -FuncDefinitionNode (void)			// intdot(vectorrhs){inti=0;intresult=0;while(i<getDim()){result=data[i]*rhs.data[i];++i;}returnresult;}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// dot(vectorrhs)
+                -DeclaratorNode (void)			// dot
+                -ArgumentTypeListNode (void)			// vectorrhs
+                    -ArgumentDeclarationNode (void)			// vectorrhs
+                        -TypeNode (void)			// vector
+                            -TypeAttributeNode (void)			// vector
+                        -DeclaratorNode (void)			// rhs
+            -BlockNode (void)			// {inti=0;intresult=0;while(i<getDim()){result=data[i]*rhs.data[i];++i;}returnresult;}
+                -DeclarationNode (void)			// inti=0;
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorListNode (void)			// i=0
+                        -InitDeclaratorNode (void)			// i=0
+                            -DeclaratorNode (void)			// i
+                            -ConstantNode (int)			// 0
+                -DeclarationNode (void)			// intresult=0;
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorListNode (void)			// result=0
+                        -InitDeclaratorNode (void)			// result=0
+                            -DeclaratorNode (void)			// result
+                            -ConstantNode (int)			// 0
+                -WhileNode (void)			// while(i<getDim()){result=data[i]*rhs.data[i];++i;}
+                    -LessThanNode (bool)			// i<getDim()
+                        -IdentifierNode (int)			// i
+                        -ParenthesisOpNode (int)			// getDim()
+                            -IdentifierNode (BaseType)			// getDim
+                            -ArgumentListNode (void)
+                    -BlockNode (void)			// {result=data[i]*rhs.data[i];++i;}
+                        -StatementNode (void)			// result=data[i]*rhs.data[i];
+                            -AssignNode (void)			// result=data[i]*rhs.data[i]
+                                -IdentifierNode (int)			// result
+                                -MultiplyNode (int)			// data[i]*rhs.data[i]
+                                    -SubscriptOpNode (int)			// data[i]
+                                        -IdentifierNode (int[])			// data
+                                        -IdentifierNode (int)			// i
+                                    -SubscriptOpNode (int)			// rhs.data[i]
+                                        -DotOpNode (int[])			// rhs.data
+                                            -IdentifierNode (vector)			// rhs
+                                        -IdentifierNode (int)			// i
+                        -StatementNode (void)			// ++i;
+                            -PrefixAddNode (int)			// ++i
+                                -IdentifierNode (int)			// i
+                -ReturnNode (void)			// returnresult;
+                    -IdentifierNode (int)			// result
+        -FuncDefinitionNode (void)			// vectorscalarInPlaceMultiply(intc){if(data==null)returnnull;inti;for(i=0;i<getDim();++i){this.data[i]=c*this.data[i];}returnthis;}
+            -TypeNode (void)			// vector
+                -TypeAttributeNode (void)			// vector
+            -FuncDeclaratorNode (void)			// scalarInPlaceMultiply(intc)
+                -DeclaratorNode (void)			// scalarInPlaceMultiply
+                -ArgumentTypeListNode (void)			// intc
+                    -ArgumentDeclarationNode (void)			// intc
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// c
+            -BlockNode (void)			// {if(data==null)returnnull;inti;for(i=0;i<getDim();++i){this.data[i]=c*this.data[i];}returnthis;}
+                -IfNode (void)			// if(data==null)returnnull;
+                    -EqualNode (bool)			// data==null
+                        -IdentifierNode (int[])			// data
+                        -ConstantNode (null)			// null
+                    -ReturnNode (void)			// returnnull;
+                        -ConstantNode (null)			// null
+                -DeclarationNode (void)			// inti;
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorListNode (void)			// i
+                        -InitDeclaratorNode (void)			// i
+                            -DeclaratorNode (void)			// i
+                -ForNode (void)			// for(i=0;i<getDim();++i){this.data[i]=c*this.data[i];}
+                    -ForConditionNode (void)			// i=0;i<getDim();++i
+                        -AssignNode (void)			// i=0
+                            -IdentifierNode (int)			// i
+                            -ConstantNode (int)			// 0
+                        -LessThanNode (bool)			// i<getDim()
+                            -IdentifierNode (int)			// i
+                            -ParenthesisOpNode (int)			// getDim()
+                                -IdentifierNode (BaseType)			// getDim
+                                -ArgumentListNode (void)
+                        -PrefixAddNode (int)			// ++i
+                            -IdentifierNode (int)			// i
+                    -BlockNode (void)			// {this.data[i]=c*this.data[i];}
+                        -StatementNode (void)			// this.data[i]=c*this.data[i];
+                            -AssignNode (void)			// this.data[i]=c*this.data[i]
+                                -SubscriptOpNode (int)			// this.data[i]
+                                    -DotOpNode (int[])			// this.data
+                                        -ThisNode (vector)			// this
+                                    -IdentifierNode (int)			// i
+                                -MultiplyNode (int)			// c*this.data[i]
+                                    -IdentifierNode (int)			// c
+                                    -SubscriptOpNode (int)			// this.data[i]
+                                        -DotOpNode (int[])			// this.data
+                                            -ThisNode (vector)			// this
+                                        -IdentifierNode (int)			// i
+                -ReturnNode (void)			// returnthis;
+                    -ThisNode (vector)			// this
+        -FuncDefinitionNode (void)			// vectoradd(vectorrhs){if(getDim()!=rhs.getDim()||getDim()==0)returnnull;vectortemp=newvector;inti;for(i=0;i<getDim();++i){temp.data[i]=data[i]+rhs.data[i];}returntemp;}
+            -TypeNode (void)			// vector
+                -TypeAttributeNode (void)			// vector
+            -FuncDeclaratorNode (void)			// add(vectorrhs)
+                -DeclaratorNode (void)			// add
+                -ArgumentTypeListNode (void)			// vectorrhs
+                    -ArgumentDeclarationNode (void)			// vectorrhs
+                        -TypeNode (void)			// vector
+                            -TypeAttributeNode (void)			// vector
+                        -DeclaratorNode (void)			// rhs
+            -BlockNode (void)			// {if(getDim()!=rhs.getDim()||getDim()==0)returnnull;vectortemp=newvector;inti;for(i=0;i<getDim();++i){temp.data[i]=data[i]+rhs.data[i];}returntemp;}
+                -IfNode (void)			// if(getDim()!=rhs.getDim()||getDim()==0)returnnull;
+                    -LogicalOrNode (bool)			// getDim()!=rhs.getDim()||getDim()==0
+                        -InequalNode (bool)			// getDim()!=rhs.getDim()
+                            -ParenthesisOpNode (int)			// getDim()
+                                -IdentifierNode (BaseType)			// getDim
+                                -ArgumentListNode (void)
+                            -ParenthesisOpNode (int)			// rhs.getDim()
+                                -DotOpNode (BaseType)			// rhs.getDim
+                                    -IdentifierNode (vector)			// rhs
+                                -ArgumentListNode (void)
+                        -EqualNode (bool)			// getDim()==0
+                            -ParenthesisOpNode (int)			// getDim()
+                                -IdentifierNode (BaseType)			// getDim
+                                -ArgumentListNode (void)
+                            -ConstantNode (int)			// 0
+                    -ReturnNode (void)			// returnnull;
+                        -ConstantNode (null)			// null
+                -DeclarationNode (void)			// vectortemp=newvector;
+                    -TypeNode (void)			// vector
+                        -TypeAttributeNode (void)			// vector
+                    -DeclaratorListNode (void)			// temp=newvector
+                        -InitDeclaratorNode (void)			// temp=newvector
+                            -DeclaratorNode (void)			// temp
+                            -NewNode (vector)			// newvector
+                                -TypeNode (void)			// vector
+                                    -TypeAttributeNode (void)			// vector
+                                -ArgumentTypeListNode (void)
+                -DeclarationNode (void)			// inti;
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorListNode (void)			// i
+                        -InitDeclaratorNode (void)			// i
+                            -DeclaratorNode (void)			// i
+                -ForNode (void)			// for(i=0;i<getDim();++i){temp.data[i]=data[i]+rhs.data[i];}
+                    -ForConditionNode (void)			// i=0;i<getDim();++i
+                        -AssignNode (void)			// i=0
+                            -IdentifierNode (int)			// i
+                            -ConstantNode (int)			// 0
+                        -LessThanNode (bool)			// i<getDim()
+                            -IdentifierNode (int)			// i
+                            -ParenthesisOpNode (int)			// getDim()
+                                -IdentifierNode (BaseType)			// getDim
+                                -ArgumentListNode (void)
+                        -PrefixAddNode (int)			// ++i
+                            -IdentifierNode (int)			// i
+                    -BlockNode (void)			// {temp.data[i]=data[i]+rhs.data[i];}
+                        -StatementNode (void)			// temp.data[i]=data[i]+rhs.data[i];
+                            -AssignNode (void)			// temp.data[i]=data[i]+rhs.data[i]
+                                -SubscriptOpNode (int)			// temp.data[i]
+                                    -DotOpNode (int[])			// temp.data
+                                        -IdentifierNode (vector)			// temp
+                                    -IdentifierNode (int)			// i
+                                -AddNode (int)			// data[i]+rhs.data[i]
+                                    -SubscriptOpNode (int)			// data[i]
+                                        -IdentifierNode (int[])			// data
+                                        -IdentifierNode (int)			// i
+                                    -SubscriptOpNode (int)			// rhs.data[i]
+                                        -DotOpNode (int[])			// rhs.data
+                                            -IdentifierNode (vector)			// rhs
+                                        -IdentifierNode (int)			// i
+                -ReturnNode (void)			// returntemp;
+                    -IdentifierNode (vector)			// temp
+        -FuncDefinitionNode (void)			// boolset(intidx,intvalue){if(getDim()<idx)returnfalse;data[idx]=value;returntrue;}
+            -TypeNode (void)			// bool
+                -TypeAttributeNode (void)			// bool
+            -FuncDeclaratorNode (void)			// set(intidx,intvalue)
+                -DeclaratorNode (void)			// set
+                -ArgumentTypeListNode (void)			// intidx,intvalue
+                    -ArgumentDeclarationNode (void)			// intidx
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// idx
+                    -ArgumentDeclarationNode (void)			// intvalue
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// value
+            -BlockNode (void)			// {if(getDim()<idx)returnfalse;data[idx]=value;returntrue;}
+                -IfNode (void)			// if(getDim()<idx)returnfalse;
+                    -LessThanNode (bool)			// getDim()<idx
+                        -ParenthesisOpNode (int)			// getDim()
+                            -IdentifierNode (BaseType)			// getDim
+                            -ArgumentListNode (void)
+                        -IdentifierNode (int)			// idx
+                    -ReturnNode (void)			// returnfalse;
+                        -ConstantNode (bool)			// false
+                -StatementNode (void)			// data[idx]=value;
+                    -AssignNode (void)			// data[idx]=value
+                        -SubscriptOpNode (int)			// data[idx]
+                            -IdentifierNode (int[])			// data
+                            -IdentifierNode (int)			// idx
+                        -IdentifierNode (int)			// value
+                -ReturnNode (void)			// returntrue;
+                    -ConstantNode (bool)			// true
+        -FuncDefinitionNode (void)			// stringtoString(){stringtemp="( ";if(getDim()>0){temp=temp+toString();}inti;for(i=1;i<getDim();++i){temp=temp+", "+toString();}temp=temp+" )";returntemp;}
             -TypeNode (void)			// string
                 -TypeAttributeNode (void)			// string
-            -DeclaratorListNode (void)			// txt
-                -InitDeclaratorNode (void)			// txt
-                    -DeclaratorNode (void)			// txt
-        -FuncDefinitionNode (void)			// testinit(){txt="you should pass this one";returnthis;}
-            -TypeNode (void)			// test
-                -TypeAttributeNode (void)			// test
-            -FuncDeclaratorNode (void)			// init()
-                -DeclaratorNode (void)			// init
+            -FuncDeclaratorNode (void)			// toString()
+                -DeclaratorNode (void)			// toString
                 -ArgumentTypeListNode (void)
-            -BlockNode (void)			// {txt="you should pass this one";returnthis;}
-                -StatementNode (void)			// txt="you should pass this one";
-                    -AssignNode (void)			// txt="you should pass this one"
-                        -IdentifierNode (string)			// txt
-                        -StringLiteralNode (string)			// "you should pass this one"
-                -ReturnNode (void)			// returnthis;
-                    -ThisNode (test)			// this
-        -FuncDefinitionNode (void)			// testinit2(testt){t.txt="TAT";this.txt=t.txt;returnt;}
-            -TypeNode (void)			// test
-                -TypeAttributeNode (void)			// test
-            -FuncDeclaratorNode (void)			// init2(testt)
-                -DeclaratorNode (void)			// init2
-                -ArgumentTypeListNode (void)			// testt
-                    -ArgumentDeclarationNode (void)			// testt
-                        -TypeNode (void)			// test
-                            -TypeAttributeNode (void)			// test
-                        -DeclaratorNode (void)			// t
-            -BlockNode (void)			// {t.txt="TAT";this.txt=t.txt;returnt;}
-                -StatementNode (void)			// t.txt="TAT";
-                    -AssignNode (void)			// t.txt="TAT"
-                        -DotOpNode (string)			// t.txt
-                            -IdentifierNode (test)			// t
-                        -StringLiteralNode (string)			// "TAT"
-                -StatementNode (void)			// this.txt=t.txt;
-                    -AssignNode (void)			// this.txt=t.txt
-                        -DotOpNode (string)			// this.txt
-                            -ThisNode (test)			// this
-                        -DotOpNode (string)			// t.txt
-                            -IdentifierNode (test)			// t
-                -ReturnNode (void)			// returnt;
-                    -IdentifierNode (test)			// t
-    -FuncDefinitionNode (void)			// intmain(){inta;{inta=0;println(toString(a));}a=1;testnico;println(nico.init().txt);println(toString(nico.init().txt.ord(0)));depth=3;another_fun();;returntoString(fun(10).ord(0)).ord(0);}
+            -BlockNode (void)			// {stringtemp="( ";if(getDim()>0){temp=temp+toString();}inti;for(i=1;i<getDim();++i){temp=temp+", "+toString();}temp=temp+" )";returntemp;}
+                -DeclarationNode (void)			// stringtemp="( ";
+                    -TypeNode (void)			// string
+                        -TypeAttributeNode (void)			// string
+                    -DeclaratorListNode (void)			// temp="( "
+                        -InitDeclaratorNode (void)			// temp="( "
+                            -DeclaratorNode (void)			// temp
+                            -StringLiteralNode (string)			// "( "
+                -IfNode (void)			// if(getDim()>0){temp=temp+toString();}
+                    -GreaterThanNode (bool)			// getDim()>0
+                        -ParenthesisOpNode (int)			// getDim()
+                            -IdentifierNode (BaseType)			// getDim
+                            -ArgumentListNode (void)
+                        -ConstantNode (int)			// 0
+                    -BlockNode (void)			// {temp=temp+toString();}
+                        -StatementNode (void)			// temp=temp+toString();
+                            -AssignNode (void)			// temp=temp+toString()
+                                -IdentifierNode (string)			// temp
+                                -AddNode (string)			// temp+toString()
+                                    -IdentifierNode (string)			// temp
+                                    -ParenthesisOpNode (string)			// toString()
+                                        -IdentifierNode (BaseType)			// toString
+                                        -ArgumentListNode (void)
+                -DeclarationNode (void)			// inti;
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorListNode (void)			// i
+                        -InitDeclaratorNode (void)			// i
+                            -DeclaratorNode (void)			// i
+                -ForNode (void)			// for(i=1;i<getDim();++i){temp=temp+", "+toString();}
+                    -ForConditionNode (void)			// i=1;i<getDim();++i
+                        -AssignNode (void)			// i=1
+                            -IdentifierNode (int)			// i
+                            -ConstantNode (int)			// 1
+                        -LessThanNode (bool)			// i<getDim()
+                            -IdentifierNode (int)			// i
+                            -ParenthesisOpNode (int)			// getDim()
+                                -IdentifierNode (BaseType)			// getDim
+                                -ArgumentListNode (void)
+                        -PrefixAddNode (int)			// ++i
+                            -IdentifierNode (int)			// i
+                    -BlockNode (void)			// {temp=temp+", "+toString();}
+                        -StatementNode (void)			// temp=temp+", "+toString();
+                            -AssignNode (void)			// temp=temp+", "+toString()
+                                -IdentifierNode (string)			// temp
+                                -AddNode (string)			// temp+", "+toString()
+                                    -AddNode (string)			// temp+", "
+                                        -IdentifierNode (string)			// temp
+                                        -StringLiteralNode (string)			// ", "
+                                    -ParenthesisOpNode (string)			// toString()
+                                        -IdentifierNode (BaseType)			// toString
+                                        -ArgumentListNode (void)
+                -StatementNode (void)			// temp=temp+" )";
+                    -AssignNode (void)			// temp=temp+" )"
+                        -IdentifierNode (string)			// temp
+                        -AddNode (string)			// temp+" )"
+                            -IdentifierNode (string)			// temp
+                            -StringLiteralNode (string)			// " )"
+                -ReturnNode (void)			// returntemp;
+                    -IdentifierNode (string)			// temp
+        -FuncDefinitionNode (void)			// boolcopy(vectorrhs){if(rhs==null)returnfalse;if(rhs.getDim()==0){data=null;}else{data=newint[rhs.getDim()];inti;for(i=0;i<getDim();++i){data[i]=rhs.data[i];}}returntrue;}
+            -TypeNode (void)			// bool
+                -TypeAttributeNode (void)			// bool
+            -FuncDeclaratorNode (void)			// copy(vectorrhs)
+                -DeclaratorNode (void)			// copy
+                -ArgumentTypeListNode (void)			// vectorrhs
+                    -ArgumentDeclarationNode (void)			// vectorrhs
+                        -TypeNode (void)			// vector
+                            -TypeAttributeNode (void)			// vector
+                        -DeclaratorNode (void)			// rhs
+            -BlockNode (void)			// {if(rhs==null)returnfalse;if(rhs.getDim()==0){data=null;}else{data=newint[rhs.getDim()];inti;for(i=0;i<getDim();++i){data[i]=rhs.data[i];}}returntrue;}
+                -IfNode (void)			// if(rhs==null)returnfalse;
+                    -EqualNode (bool)			// rhs==null
+                        -IdentifierNode (vector)			// rhs
+                        -ConstantNode (null)			// null
+                    -ReturnNode (void)			// returnfalse;
+                        -ConstantNode (bool)			// false
+                -IfNode (void)			// if(rhs.getDim()==0){data=null;}else{data=newint[rhs.getDim()];inti;for(i=0;i<getDim();++i){data[i]=rhs.data[i];}}
+                    -EqualNode (bool)			// rhs.getDim()==0
+                        -ParenthesisOpNode (int)			// rhs.getDim()
+                            -DotOpNode (BaseType)			// rhs.getDim
+                                -IdentifierNode (vector)			// rhs
+                            -ArgumentListNode (void)
+                        -ConstantNode (int)			// 0
+                    -BlockNode (void)			// {data=null;}
+                        -StatementNode (void)			// data=null;
+                            -AssignNode (void)			// data=null
+                                -IdentifierNode (int[])			// data
+                                -ConstantNode (null)			// null
+                    -BlockNode (void)			// {data=newint[rhs.getDim()];inti;for(i=0;i<getDim();++i){data[i]=rhs.data[i];}}
+                        -StatementNode (void)			// data=newint[rhs.getDim()];
+                            -AssignNode (void)			// data=newint[rhs.getDim()]
+                                -IdentifierNode (int[])			// data
+                                -NewNode (int[])			// newint[rhs.getDim()]
+                                    -TypeNode (void)			// int[rhs.getDim()]
+                                        -TypeAttributeNode (void)			// int[rhs.getDim()]
+                                    -ArgumentTypeListNode (void)
+                        -DeclarationNode (void)			// inti;
+                            -TypeNode (void)			// int
+                                -TypeAttributeNode (void)			// int
+                            -DeclaratorListNode (void)			// i
+                                -InitDeclaratorNode (void)			// i
+                                    -DeclaratorNode (void)			// i
+                        -ForNode (void)			// for(i=0;i<getDim();++i){data[i]=rhs.data[i];}
+                            -ForConditionNode (void)			// i=0;i<getDim();++i
+                                -AssignNode (void)			// i=0
+                                    -IdentifierNode (int)			// i
+                                    -ConstantNode (int)			// 0
+                                -LessThanNode (bool)			// i<getDim()
+                                    -IdentifierNode (int)			// i
+                                    -ParenthesisOpNode (int)			// getDim()
+                                        -IdentifierNode (BaseType)			// getDim
+                                        -ArgumentListNode (void)
+                                -PrefixAddNode (int)			// ++i
+                                    -IdentifierNode (int)			// i
+                            -BlockNode (void)			// {data[i]=rhs.data[i];}
+                                -StatementNode (void)			// data[i]=rhs.data[i];
+                                    -AssignNode (void)			// data[i]=rhs.data[i]
+                                        -SubscriptOpNode (int)			// data[i]
+                                            -IdentifierNode (int[])			// data
+                                            -IdentifierNode (int)			// i
+                                        -SubscriptOpNode (int)			// rhs.data[i]
+                                            -DotOpNode (int[])			// rhs.data
+                                                -IdentifierNode (vector)			// rhs
+                                            -IdentifierNode (int)			// i
+                -ReturnNode (void)			// returntrue;
+                    -ConstantNode (bool)			// true
+    -FuncDefinitionNode (void)			// intmain(){vectorx=newvector;int[]a=newint[10];inti;for(i=0;i<10;++i){a[i]=9-i;}x.init(a);print("vector x: ");println(x.toString());vectory=newvector;y.copy(x);if(y.set(3,817)){println("excited!");}print("vector y: ");println(y.toString());print("x + y: ");println((x.add(y)).toString());print("x * y: ");println(toString(x.dot(y)));print("(1 << 3) * y: ");println(x.scalarInPlaceMultiply(1<<3).toString());}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {inta;{inta=0;println(toString(a));}a=1;testnico;println(nico.init().txt);println(toString(nico.init().txt.ord(0)));depth=3;another_fun();;returntoString(fun(10).ord(0)).ord(0);}
-            -DeclarationNode (void)			// inta;
+        -BlockNode (void)			// {vectorx=newvector;int[]a=newint[10];inti;for(i=0;i<10;++i){a[i]=9-i;}x.init(a);print("vector x: ");println(x.toString());vectory=newvector;y.copy(x);if(y.set(3,817)){println("excited!");}print("vector y: ");println(y.toString());print("x + y: ");println((x.add(y)).toString());print("x * y: ");println(toString(x.dot(y)));print("(1 << 3) * y: ");println(x.scalarInPlaceMultiply(1<<3).toString());}
+            -DeclarationNode (void)			// vectorx=newvector;
+                -TypeNode (void)			// vector
+                    -TypeAttributeNode (void)			// vector
+                -DeclaratorListNode (void)			// x=newvector
+                    -InitDeclaratorNode (void)			// x=newvector
+                        -DeclaratorNode (void)			// x
+                        -NewNode (vector)			// newvector
+                            -TypeNode (void)			// vector
+                                -TypeAttributeNode (void)			// vector
+                            -ArgumentTypeListNode (void)
+            -DeclarationNode (void)			// int[]a=newint[10];
+                -TypeNode (void)			// int[]
+                    -TypeAttributeNode (void)			// int[]
+                -DeclaratorListNode (void)			// a=newint[10]
+                    -InitDeclaratorNode (void)			// a=newint[10]
+                        -DeclaratorNode (void)			// a
+                        -NewNode (int[])			// newint[10]
+                            -TypeNode (void)			// int[10]
+                                -TypeAttributeNode (void)			// int[10]
+                            -ArgumentTypeListNode (void)
+            -DeclarationNode (void)			// inti;
                 -TypeNode (void)			// int
                     -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// a
-                    -InitDeclaratorNode (void)			// a
-                        -DeclaratorNode (void)			// a
-            -BlockNode (void)			// {inta=0;println(toString(a));}
-                -DeclarationNode (void)			// inta=0;
-                    -TypeNode (void)			// int
-                        -TypeAttributeNode (void)			// int
-                    -DeclaratorListNode (void)			// a=0
-                        -InitDeclaratorNode (void)			// a=0
-                            -DeclaratorNode (void)			// a
-                            -ConstantNode (int)			// 0
-                -StatementNode (void)			// println(toString(a));
-                    -ParenthesisOpNode (void)			// println(toString(a))
-                        -IdentifierNode (BaseType)			// println
-                        -ArgumentListNode (void)			// toString(a)
-                            -ParenthesisOpNode (string)			// toString(a)
-                                -IdentifierNode (BaseType)			// toString
-                                -ArgumentListNode (void)			// a
-                                    -IdentifierNode (int)			// a
-            -StatementNode (void)			// a=1;
-                -AssignNode (void)			// a=1
-                    -IdentifierNode (int)			// a
-                    -ConstantNode (int)			// 1
-            -DeclarationNode (void)			// testnico;
-                -TypeNode (void)			// test
-                    -TypeAttributeNode (void)			// test
-                -DeclaratorListNode (void)			// nico
-                    -InitDeclaratorNode (void)			// nico
-                        -DeclaratorNode (void)			// nico
-            -StatementNode (void)			// println(nico.init().txt);
-                -ParenthesisOpNode (void)			// println(nico.init().txt)
-                    -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// nico.init().txt
-                        -DotOpNode (string)			// nico.init().txt
-                            -ParenthesisOpNode (test)			// nico.init()
-                                -DotOpNode (BaseType)			// nico.init
-                                    -IdentifierNode (test)			// nico
-                                -ArgumentListNode (void)
-            -StatementNode (void)			// println(toString(nico.init().txt.ord(0)));
-                -ParenthesisOpNode (void)			// println(toString(nico.init().txt.ord(0)))
-                    -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// toString(nico.init().txt.ord(0))
-                        -ParenthesisOpNode (string)			// toString(nico.init().txt.ord(0))
-                            -IdentifierNode (BaseType)			// toString
-                            -ArgumentListNode (void)			// nico.init().txt.ord(0)
-                                -ParenthesisOpNode (int)			// nico.init().txt.ord(0)
-                                    -DotOpNode (BaseType)			// nico.init().txt.ord
-                                        -DotOpNode (string)			// nico.init().txt
-                                            -ParenthesisOpNode (test)			// nico.init()
-                                                -DotOpNode (BaseType)			// nico.init
-                                                    -IdentifierNode (test)			// nico
-                                                -ArgumentListNode (void)
-                                    -ArgumentListNode (void)			// 0
-                                        -ConstantNode (int)			// 0
-            -StatementNode (void)			// depth=3;
-                -AssignNode (void)			// depth=3
-                    -IdentifierNode (int)			// depth
-                    -ConstantNode (int)			// 3
-            -StatementNode (void)			// another_fun();
-                -ParenthesisOpNode (void)			// another_fun()
-                    -IdentifierNode (BaseType)			// another_fun
-                    -ArgumentListNode (void)
-            -StatementNode (void)			// ;
-            -ReturnNode (void)			// returntoString(fun(10).ord(0)).ord(0);
-                -ParenthesisOpNode (int)			// toString(fun(10).ord(0)).ord(0)
-                    -DotOpNode (BaseType)			// toString(fun(10).ord(0)).ord
-                        -ParenthesisOpNode (string)			// toString(fun(10).ord(0))
-                            -IdentifierNode (BaseType)			// toString
-                            -ArgumentListNode (void)			// fun(10).ord(0)
-                                -ParenthesisOpNode (int)			// fun(10).ord(0)
-                                    -DotOpNode (BaseType)			// fun(10).ord
-                                        -ParenthesisOpNode (string)			// fun(10)
-                                            -IdentifierNode (BaseType)			// fun
-                                            -ArgumentListNode (void)			// 10
-                                                -ConstantNode (int)			// 10
-                                    -ArgumentListNode (void)			// 0
-                                        -ConstantNode (int)			// 0
-                    -ArgumentListNode (void)			// 0
+                -DeclaratorListNode (void)			// i
+                    -InitDeclaratorNode (void)			// i
+                        -DeclaratorNode (void)			// i
+            -ForNode (void)			// for(i=0;i<10;++i){a[i]=9-i;}
+                -ForConditionNode (void)			// i=0;i<10;++i
+                    -AssignNode (void)			// i=0
+                        -IdentifierNode (int)			// i
                         -ConstantNode (int)			// 0
-    -FuncDefinitionNode (void)			// stringfun(intpos){if(pos<0)return"";returnfun(pos-1)+toString(miracle.ord(pos));}
-        -TypeNode (void)			// string
-            -TypeAttributeNode (void)			// string
-        -FuncDeclaratorNode (void)			// fun(intpos)
-            -DeclaratorNode (void)			// fun
-            -ArgumentTypeListNode (void)			// intpos
-                -ArgumentDeclarationNode (void)			// intpos
-                    -TypeNode (void)			// int
-                        -TypeAttributeNode (void)			// int
-                    -DeclaratorNode (void)			// pos
-        -BlockNode (void)			// {if(pos<0)return"";returnfun(pos-1)+toString(miracle.ord(pos));}
-            -IfNode (void)			// if(pos<0)return"";
-                -LessThanNode (bool)			// pos<0
-                    -IdentifierNode (int)			// pos
-                    -ConstantNode (int)			// 0
-                -ReturnNode (void)			// return"";
-                    -StringLiteralNode (string)			// ""
-            -ReturnNode (void)			// returnfun(pos-1)+toString(miracle.ord(pos));
-                -AddNode (void)			// fun(pos-1)+toString(miracle.ord(pos))
-                    -ParenthesisOpNode (string)			// fun(pos-1)
-                        -IdentifierNode (BaseType)			// fun
-                        -ArgumentListNode (void)			// pos-1
-                            -SubNode (int)			// pos-1
-                                -IdentifierNode (int)			// pos
-                                -ConstantNode (int)			// 1
-                    -ParenthesisOpNode (string)			// toString(miracle.ord(pos))
-                        -IdentifierNode (BaseType)			// toString
-                        -ArgumentListNode (void)			// miracle.ord(pos)
-                            -ParenthesisOpNode (int)			// miracle.ord(pos)
-                                -DotOpNode (BaseType)			// miracle.ord
-                                    -IdentifierNode (string)			// miracle
-                                -ArgumentListNode (void)			// pos
-                                    -IdentifierNode (int)			// pos
+                    -LessThanNode (bool)			// i<10
+                        -IdentifierNode (int)			// i
+                        -ConstantNode (int)			// 10
+                    -PrefixAddNode (int)			// ++i
+                        -IdentifierNode (int)			// i
+                -BlockNode (void)			// {a[i]=9-i;}
+                    -StatementNode (void)			// a[i]=9-i;
+                        -AssignNode (void)			// a[i]=9-i
+                            -SubscriptOpNode (int)			// a[i]
+                                -IdentifierNode (int[])			// a
+                                -IdentifierNode (int)			// i
+                            -SubNode (int)			// 9-i
+                                -ConstantNode (int)			// 9
+                                -IdentifierNode (int)			// i
+            -StatementNode (void)			// x.init(a);
+                -ParenthesisOpNode (void)			// x.init(a)
+                    -DotOpNode (BaseType)			// x.init
+                        -IdentifierNode (vector)			// x
+                    -ArgumentListNode (void)			// a
+                        -IdentifierNode (int[])			// a
+            -StatementNode (void)			// print("vector x: ");
+                -ParenthesisOpNode (void)			// print("vector x: ")
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// "vector x: "
+                        -StringLiteralNode (string)			// "vector x: "
+            -StatementNode (void)			// println(x.toString());
+                -ParenthesisOpNode (void)			// println(x.toString())
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// x.toString()
+                        -ParenthesisOpNode (string)			// x.toString()
+                            -DotOpNode (BaseType)			// x.toString
+                                -IdentifierNode (vector)			// x
+                            -ArgumentListNode (void)
+            -DeclarationNode (void)			// vectory=newvector;
+                -TypeNode (void)			// vector
+                    -TypeAttributeNode (void)			// vector
+                -DeclaratorListNode (void)			// y=newvector
+                    -InitDeclaratorNode (void)			// y=newvector
+                        -DeclaratorNode (void)			// y
+                        -NewNode (vector)			// newvector
+                            -TypeNode (void)			// vector
+                                -TypeAttributeNode (void)			// vector
+                            -ArgumentTypeListNode (void)
+            -StatementNode (void)			// y.copy(x);
+                -ParenthesisOpNode (bool)			// y.copy(x)
+                    -DotOpNode (BaseType)			// y.copy
+                        -IdentifierNode (vector)			// y
+                    -ArgumentListNode (void)			// x
+                        -IdentifierNode (vector)			// x
+            -IfNode (void)			// if(y.set(3,817)){println("excited!");}
+                -ParenthesisOpNode (bool)			// y.set(3,817)
+                    -DotOpNode (BaseType)			// y.set
+                        -IdentifierNode (vector)			// y
+                    -ArgumentListNode (void)			// 3,817
+                        -ConstantNode (int)			// 3
+                        -ConstantNode (int)			// 817
+                -BlockNode (void)			// {println("excited!");}
+                    -StatementNode (void)			// println("excited!");
+                        -ParenthesisOpNode (void)			// println("excited!")
+                            -IdentifierNode (BaseType)			// println
+                            -ArgumentListNode (void)			// "excited!"
+                                -StringLiteralNode (string)			// "excited!"
+            -StatementNode (void)			// print("vector y: ");
+                -ParenthesisOpNode (void)			// print("vector y: ")
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// "vector y: "
+                        -StringLiteralNode (string)			// "vector y: "
+            -StatementNode (void)			// println(y.toString());
+                -ParenthesisOpNode (void)			// println(y.toString())
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// y.toString()
+                        -ParenthesisOpNode (string)			// y.toString()
+                            -DotOpNode (BaseType)			// y.toString
+                                -IdentifierNode (vector)			// y
+                            -ArgumentListNode (void)
+            -StatementNode (void)			// print("x + y: ");
+                -ParenthesisOpNode (void)			// print("x + y: ")
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// "x + y: "
+                        -StringLiteralNode (string)			// "x + y: "
+            -StatementNode (void)			// println((x.add(y)).toString());
+                -ParenthesisOpNode (void)			// println((x.add(y)).toString())
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// (x.add(y)).toString()
+                        -ParenthesisOpNode (string)			// (x.add(y)).toString()
+                            -DotOpNode (BaseType)			// (x.add(y)).toString
+                                -ParenthesisOpNode (vector)			// (x.add(y))
+                                    -DotOpNode (BaseType)			// x.add
+                                        -IdentifierNode (vector)			// x
+                                    -ArgumentListNode (void)			// y
+                                        -IdentifierNode (vector)			// y
+                            -ArgumentListNode (void)
+            -StatementNode (void)			// print("x * y: ");
+                -ParenthesisOpNode (void)			// print("x * y: ")
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// "x * y: "
+                        -StringLiteralNode (string)			// "x * y: "
+            -StatementNode (void)			// println(toString(x.dot(y)));
+                -ParenthesisOpNode (void)			// println(toString(x.dot(y)))
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// toString(x.dot(y))
+                        -ParenthesisOpNode (string)			// toString(x.dot(y))
+                            -IdentifierNode (BaseType)			// toString
+                            -ArgumentListNode (void)			// x.dot(y)
+                                -ParenthesisOpNode (int)			// x.dot(y)
+                                    -DotOpNode (BaseType)			// x.dot
+                                        -IdentifierNode (vector)			// x
+                                    -ArgumentListNode (void)			// y
+                                        -IdentifierNode (vector)			// y
+            -StatementNode (void)			// print("(1 << 3) * y: ");
+                -ParenthesisOpNode (void)			// print("(1 << 3) * y: ")
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// "(1 << 3) * y: "
+                        -StringLiteralNode (string)			// "(1 << 3) * y: "
+            -StatementNode (void)			// println(x.scalarInPlaceMultiply(1<<3).toString());
+                -ParenthesisOpNode (void)			// println(x.scalarInPlaceMultiply(1<<3).toString())
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// x.scalarInPlaceMultiply(1<<3).toString()
+                        -ParenthesisOpNode (string)			// x.scalarInPlaceMultiply(1<<3).toString()
+                            -DotOpNode (BaseType)			// x.scalarInPlaceMultiply(1<<3).toString
+                                -ParenthesisOpNode (vector)			// x.scalarInPlaceMultiply(1<<3)
+                                    -DotOpNode (BaseType)			// x.scalarInPlaceMultiply
+                                        -IdentifierNode (vector)			// x
+                                    -ArgumentListNode (void)			// 1<<3
+                                        -ShiftLeftNode (int)			// 1<<3
+                                            -ConstantNode (int)			// 1
+                                            -ConstantNode (int)			// 3
+                            -ArgumentListNode (void)

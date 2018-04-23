@@ -10,4 +10,11 @@ public class UserDefinedType extends BaseType {
     public UserDefinedType(String typename) {
         this.typename = typename;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof BaseType)) return false;
+        if (obj instanceof NullType) return true;
+        return super.equals(obj);
+    }
 }

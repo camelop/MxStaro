@@ -24,6 +24,12 @@ public class FuncFormSymbol extends Symbol {
     }
 
     public BaseType getRetType() {
+        //System.out.println("Resolve "+retType.getCtx().getText()+" -> "+retType.getType().toString());
         return retType.getType();
+    }
+
+    @Override
+    public String toString() {
+        return "("+paramTypeNodeList.toTypeList().toString()+")";
     }
 }

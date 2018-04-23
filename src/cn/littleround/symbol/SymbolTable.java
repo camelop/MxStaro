@@ -56,7 +56,8 @@ public class SymbolTable {
         sb.append("Variables:\n");
         for (String name:vsm.keySet()) sb.append("\t"+name+"\n");
         sb.append("Functions:\n");
-        for (String name:fsm.keySet()) sb.append("\t"+name+"\n");
+        for (HashMap.Entry<String, FuncSymbol> entry: fsm.entrySet())
+            sb.append("\t"+entry.getKey()+"\t"+entry.getValue().getFuncFormSymbols().toString()+"\n");
         sb.append("Classes:\n");
         for (String name:csm.keySet()) sb.append("\t"+name+"\n");
         return sb.toString();
@@ -77,6 +78,15 @@ public class SymbolTable {
     }
 
     public void merge(SymbolTable rhs) {
+        for (HashMap.Entry<String, VariableSymbol> entry: rhs.vsm.entrySet())
+            vsm.putIfAbsent(entry.getKey(), entry.getValue());
+        for (HashMap.Entry<String, FuncSymbol> entry: rhs.fsm.entrySet())
+            fsm.putIfAbsent(entry.getKey(), entry.getValue());
+        for (HashMap.Entry<String, ClassSymbol> entry: rhs.csm.entrySet())
+            csm.putIfAbsent(entry.getKey(), entry.getValue());
+    }
+
+    public void reverse_merge(SymbolTable rhs) {
         for (HashMap.Entry<String, VariableSymbol> entry: rhs.vsm.entrySet())
             vsm.put(entry.getKey(), entry.getValue());
         for (HashMap.Entry<String, FuncSymbol> entry: rhs.fsm.entrySet())

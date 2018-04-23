@@ -99,6 +99,7 @@ public class Main {
         try {
             ParseTreeWalker.DEFAULT.walk(creator, tree);
         } catch (Exception e) {
+            e.printStackTrace();
             creator.setFailed(true);
         }
         if (creator.isFailed()) {

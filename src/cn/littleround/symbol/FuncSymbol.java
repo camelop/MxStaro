@@ -50,7 +50,7 @@ public class FuncSymbol extends Symbol {
     public BaseType getRetType(TypeList tl) {
         if (tffsm == null) transform();
         if (tffsm.get(tl.toString()) == null) {
-            System.err.println("Fail while searching "+this.getName()+":"+tl.toString());
+            System.err.println("Fail while searching "+this.getName()+": ("+tl.toString()+")");
             System.err.println("Only got:\n"+tffsm.toString());
             return null;
         }

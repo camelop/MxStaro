@@ -31,9 +31,9 @@
 grammar MxStar;
 
 primaryExpression
-    :   'this'
-    |   Identifier
+    :   'this' | 'true' | 'false' | 'null'
     |   Constant
+    |   Identifier
     |   StringLiteral
     |   '(' expression ')'
     ;
@@ -140,6 +140,7 @@ declaration
 
 declarationSpecifiers
     :   declarationSpecifier+
+//    :   declarationSpecifier
     ;
 
 declarationSpecifier
@@ -320,8 +321,6 @@ While : 'while';
 Class : 'class';
 New : 'new';
 This : 'this';
-True : 'true';
-False : 'false';
 
 
 LeftParen : '(';
@@ -365,6 +364,12 @@ NotEqual : '!=';
 
 Dot : '.';
 
+True : 'true';
+
+False : 'false';
+
+Null: 'null';
+
 Identifier
     :   Nondigit
         (   Nondigit
@@ -372,15 +377,11 @@ Identifier
         )*
     ;
 
-BooleanConstant
-    :   True
-    |   False
-    ;
-
 fragment
 Nondigit
     :   [a-zA-Z_]
     ;
+
 
 fragment
 Digit
@@ -389,7 +390,7 @@ Digit
 
 Constant
     :   IntegerConstant
-    |   BooleanConstant
+    |   Null
     //|   EnumerationConstant
     //|   CharacterConstant
     ;
@@ -398,6 +399,7 @@ fragment
 IntegerConstant
     :   NonzeroDigit Digit*
     ;
+
 
 fragment
 NonzeroDigit
@@ -450,6 +452,7 @@ SChar
     |   '\\\n'   // Added line
     |   '\\\r\n' // Added line
     ;
+
 
 Whitespace
     :   [ \t]+

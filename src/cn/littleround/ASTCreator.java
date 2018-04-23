@@ -48,6 +48,8 @@ public class ASTCreator extends MxStarBaseListener {
         } else if (ctx.Constant() != null) {
             if (ctx.Constant().getText().equals("true") || ctx.Constant().getText().equals("false")) {
                 en = new ConstantNode(Boolean.valueOf(ctx.Constant().getText()));
+            } else if (ctx.Constant().getText().equals("null")) {
+                en = new ConstantNode();
             } else {
                 en = new ConstantNode(Integer.valueOf(ctx.Constant().getText()));
             }
@@ -56,7 +58,22 @@ public class ASTCreator extends MxStarBaseListener {
         } else if (ctx.expression() != null) {
             en = (ExpressionNode) nodeStack.pop();
         } else /*'this'*/{
-            en = new ThisNode();
+            switch (ctx.getText()) {
+                case "this":
+                    en = new ThisNode();
+                    break;
+                case "true":
+                    en = new ConstantNode(true);
+                    break;
+                case "false":
+                    en = new ConstantNode(false);
+                    break;
+                default:
+                    /* "null" */
+
+                    en = new ConstantNode();
+                    break;
+            }
         }
         en.setCtx(ctx);
         nodeStack.push(en);
@@ -124,11 +141,11 @@ public class ASTCreator extends MxStarBaseListener {
         ExpressionNode en;
         if (ctx.postfixExpression() != null) {
             en = (ExpressionNode) nodeStack.pop();
-        } else if (ctx.getChild(1).getText().equals("++")) {
+        } else if (ctx.getChild(0).getText().equals("++")) {
             en = new PrefixAddNode();
             ASTBaseNode en1 = nodeStack.pop();
             en.addSon(en1); en1.setParent(en);
-        } else if (ctx.getChild(1).getText().equals("--")) {
+        } else if (ctx.getChild(0).getText().equals("--")) {
             en = new PrefixSubNode();
             ASTBaseNode en1 = nodeStack.pop();
             en.addSon(en1); en1.setParent(en);

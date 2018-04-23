@@ -16,4 +16,8 @@ public class ClassSymbol extends Symbol {
     public Symbol getSymbol(String name) {
         return st.getSymbol(name);
     }
+
+    public SymbolTable getSymbolTable() {
+        return st;
+    }
 }

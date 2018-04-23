@@ -1,10 +1,12 @@
 package cn.littleround.ASTnode;
 
 import cn.littleround.Constants;
+import cn.littleround.type.PointerType;
 
 public class ConstantNode extends ExpressionNode {
     private int constant;
     private boolean isBool = false;
+    private boolean isNull = false;
 
     public int getConstant() {
         return constant;
@@ -23,6 +25,10 @@ public class ConstantNode extends ExpressionNode {
         this.constant = constant ? 1 : 0;
     }
 
+    public ConstantNode() {
+        this.isNull = true;
+    }
+
     public boolean isBool() {
         return isBool;
     }
@@ -35,12 +41,13 @@ public class ConstantNode extends ExpressionNode {
     public boolean equals(Object obj) {
         if (!(obj instanceof ConstantNode)) return false;
         ConstantNode rhs = (ConstantNode) obj;
-        return this.isBool == rhs.isBool && this.constant == rhs.constant;
+        return this.isNull == rhs.isNull && this.isBool == rhs.isBool && this.constant == rhs.constant;
     }
 
     @Override
     public void updateType() {
         super.updateType();
-        if (isBool) type = Constants.BOOL; else type = Constants.INT;
+        if (isNull) type = Constants.NULL; else
+            if (isBool) type = Constants.BOOL; else type = Constants.INT;
     }
 }

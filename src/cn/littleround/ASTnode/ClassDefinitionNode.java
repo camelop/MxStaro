@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class ClassDefinitionNode extends DeclarationNode {
     private String identifier;
-    private ArrayList<VariableSymbol> vl = new ArrayList<>();
-    private ArrayList<FuncSymbol> fl = new ArrayList<>();
 
     public String getIdentifier() {
         return identifier;
@@ -35,5 +33,11 @@ public class ClassDefinitionNode extends DeclarationNode {
         ArrayList<Symbol> sl= new ArrayList<>();
         sl.add(toClassSymbol());
         return sl;
+    }
+
+    @Override
+    public void updateSymbolTable() {
+        getSymbolTable().reverse_merge(toClassSymbol().getSymbolTable());
+        super.updateSymbolTable();
     }
 }
