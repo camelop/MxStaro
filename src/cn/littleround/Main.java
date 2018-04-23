@@ -32,7 +32,7 @@ public class Main {
             System.out.print("Wrong arg number.");
             return;
         } else {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             if (args.length == 0) {
                 // read source code from stdin
                 try {
