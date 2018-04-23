@@ -12,4 +12,8 @@ public class ClassSymbol extends Symbol {
     public boolean addSymbol(Symbol s) {
         return st.add(s);
     }
+
+    public Symbol getSymbol(String name) {
+        return st.getSymbol(name);
+    }
 }

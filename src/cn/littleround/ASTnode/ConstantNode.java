@@ -1,5 +1,7 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
+
 public class ConstantNode extends ExpressionNode {
     private int constant;
     private boolean isBool = false;
@@ -34,5 +36,11 @@ public class ConstantNode extends ExpressionNode {
         if (!(obj instanceof ConstantNode)) return false;
         ConstantNode rhs = (ConstantNode) obj;
         return this.isBool == rhs.isBool && this.constant == rhs.constant;
+    }
+
+    @Override
+    public void updateType() {
+        super.updateType();
+        if (isBool) type = Constants.BOOL; else type = Constants.INT;
     }
 }

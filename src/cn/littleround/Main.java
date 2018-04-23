@@ -2,8 +2,6 @@ package cn.littleround;
 
 
 import cn.littleround.ASTnode.ASTBaseNode;
-import cn.littleround.ASTnode.ConstantNode;
-import cn.littleround.ASTnode.TypeAttributeNode;
 import cn.littleround.antlr4_gen.MxStarLexer;
 import cn.littleround.antlr4_gen.MxStarParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -11,9 +9,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import javax.sound.midi.SysexMessage;
 import java.io.*;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -93,9 +89,11 @@ public class Main {
 
         // run semantic check on AST
         ASTBaseNode root = creator.getRoot();
-        if (args.length > 0) output(args[0], root.toTreeString(0,4));
         try {
+            root.createSymbolTable();
             root.updateSymbolTable();
+            root.updateType();
+            root.checkType();
         } catch (Exception e) {
             e.printStackTrace();
             ASTBaseNode.setFailed(true);
@@ -104,6 +102,7 @@ public class Main {
             System.out.println(ASTBaseNode.getErrors());
             System.exit(-1);
         }
-        output(args[0], root.getSt().toInfoString());
+        //output(args[0], root.getSymbolTable().toInfoString());
+        if (args.length > 0) output(args[0], root.toTreeString(0,4));
     }
 }

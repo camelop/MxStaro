@@ -1,24 +1,29 @@
 package cn.littleround.symbol;
 
 import cn.littleround.ASTnode.TypeNode;
+import cn.littleround.type.BaseType;
 
 public class FuncFormSymbol extends Symbol {
     private TypeNode retType;
-    private ParamTypeList paramTypeList = new ParamTypeList();
+    private ParamTypeNodeList paramTypeNodeList = new ParamTypeNodeList();
     @Override
     public int size() {
         return 0;
     }
 
     public void addParam(TypeNode tn) {
-        paramTypeList.add(tn);
+        paramTypeNodeList.add(tn);
     }
 
     public void setRetType(TypeNode retType) {
         this.retType = retType;
     }
 
-    public ParamTypeList getParamTypeList() {
-        return this.paramTypeList;
+    public ParamTypeNodeList getParamTypeNodeList() {
+        return this.paramTypeNodeList;
+    }
+
+    public BaseType getRetType() {
+        return retType.getType();
     }
 }

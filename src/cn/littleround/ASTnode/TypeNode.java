@@ -1,5 +1,7 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.type.BaseType;
+
 public class TypeNode extends ASTBaseNode {
     private boolean isInline = false;
 
@@ -21,5 +23,9 @@ public class TypeNode extends ASTBaseNode {
         if (!(obj instanceof TypeNode)) return false;
         TypeNode tn = (TypeNode) obj;
         return this.getSons().size() == 1 && tn.getSons().size() == 1 && this.attribute().equals(tn.attribute());
+    }
+
+    public BaseType getType() {
+        return attribute().getType();
     }
 }

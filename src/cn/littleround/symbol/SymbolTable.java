@@ -1,7 +1,6 @@
 package cn.littleround.symbol;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class SymbolTable {
     private HashMap<String, VariableSymbol> vsm = new HashMap<>();
@@ -18,7 +17,7 @@ public class SymbolTable {
             FuncFormSymbol ffs = (FuncFormSymbol) s;
             if (fsm.containsKey(ffs.getName())) {
                 FuncSymbol fs = fsm.get(ffs.getName());
-                if (fs.contains(ffs.getParamTypeList())) return false;
+                if (fs.contains(ffs.getParamTypeNodeList())) return false;
                 fs.addFuncForm(ffs);
                 return true;
             } else {
@@ -33,7 +32,7 @@ public class SymbolTable {
             if (fsm.containsKey(fs.getName())) {
                 FuncSymbol fsLocal = fsm.get(fs.getName());
                 for (FuncFormSymbol ffs:fs.getFuncFormSymbols()) {
-                    if (fsLocal.contains(ffs.getParamTypeList())) return false;
+                    if (fsLocal.contains(ffs.getParamTypeNodeList())) return false;
                     fsLocal.addFuncForm(ffs);
                 }
                 return true;
@@ -53,7 +52,7 @@ public class SymbolTable {
     }
 
     public String toInfoString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("Variables:\n");
         for (String name:vsm.keySet()) sb.append("\t"+name+"\n");
         sb.append("Functions:\n");
@@ -61,5 +60,28 @@ public class SymbolTable {
         sb.append("Classes:\n");
         for (String name:csm.keySet()) sb.append("\t"+name+"\n");
         return sb.toString();
+    }
+
+    public Symbol getSymbol(String name) {
+        if (vsm.containsKey(name)) return vsm.get(name);
+        if (fsm.containsKey(name)) return fsm.get(name);
+        if (csm.containsKey(name)) return csm.get(name);
+        return null;
+    }
+
+    public Symbol getClassSymbol(String name) {
+        if (csm.containsKey(name)) return csm.get(name);
+        if (fsm.containsKey(name)) return fsm.get(name);
+        if (vsm.containsKey(name)) return vsm.get(name);
+        return null;
+    }
+
+    public void merge(SymbolTable rhs) {
+        for (HashMap.Entry<String, VariableSymbol> entry: rhs.vsm.entrySet())
+            vsm.put(entry.getKey(), entry.getValue());
+        for (HashMap.Entry<String, FuncSymbol> entry: rhs.fsm.entrySet())
+            fsm.put(entry.getKey(), entry.getValue());
+        for (HashMap.Entry<String, ClassSymbol> entry: rhs.csm.entrySet())
+            csm.put(entry.getKey(), entry.getValue());
     }
 }

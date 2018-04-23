@@ -4,6 +4,7 @@ import cn.littleround.ASTnode.ASTBaseNode;
 import cn.littleround.ASTnode.ConstantNode;
 import cn.littleround.ASTnode.ExpressionNode;
 import cn.littleround.ASTnode.TypeNode;
+import cn.littleround.type.BaseType;
 
 public class VariableSymbol extends Symbol {
 
@@ -27,7 +28,11 @@ public class VariableSymbol extends Symbol {
         this.initValue = initValue;
     }
 
-    public TypeNode getType() {
+    public BaseType getType() {
+        return type.getType();
+    }
+
+    public TypeNode getTypeNode() {
         return type;
     }
 }

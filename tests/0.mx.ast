@@ -1,4 +1,37 @@
-Variables:
-	sxh
-Functions:
-Classes:
+-CompilationNode (void)			// classA{stringb;}Ax=newA(1,2);Ay=x;intc=x.b,d;<EOF>
+    -ClassDefinitionNode (void)			// classA{stringb;}
+        -DeclarationNode (void)			// stringb;
+            -TypeNode (void)			// string
+                -TypeAttributeNode (void)			// string
+            -DeclaratorListNode (void)			// b
+                -InitDeclaratorNode (void)			// b
+                    -DeclaratorNode (void)			// b
+    -DeclarationNode (void)			// Ax=newA(1,2);
+        -TypeNode (void)			// A
+            -TypeAttributeNode (void)			// A
+        -DeclaratorListNode (void)			// x=newA(1,2)
+            -InitDeclaratorNode (void)			// x=newA(1,2)
+                -DeclaratorNode (void)			// x
+                -NewNode (A)			// newA(1,2)
+                    -TypeNode (void)			// A
+                        -TypeAttributeNode (void)			// A
+                    -ArgumentListNode (void)			// 1,2
+                        -ConstantNode (int)			// 1
+                        -ConstantNode (int)			// 2
+    -DeclarationNode (void)			// Ay=x;
+        -TypeNode (void)			// A
+            -TypeAttributeNode (void)			// A
+        -DeclaratorListNode (void)			// y=x
+            -InitDeclaratorNode (void)			// y=x
+                -DeclaratorNode (void)			// y
+                -IdentifierNode (A)			// x
+    -DeclarationNode (void)			// intc=x.b,d;
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -DeclaratorListNode (void)			// c=x.b,d
+            -InitDeclaratorNode (void)			// c=x.b
+                -DeclaratorNode (void)			// c
+                -DotOpNode (string)			// x.b
+                    -IdentifierNode (A)			// x
+            -InitDeclaratorNode (void)			// d
+                -DeclaratorNode (void)			// d

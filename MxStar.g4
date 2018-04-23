@@ -277,7 +277,7 @@ externalDeclaration
     ;
 
 classDefinition
-    :   'class' Identifier '{' classDeclarationList '}'
+    :   'class' Identifier '{' classDeclarationList? '}'
     ;
 
 classDeclarationList
@@ -302,6 +302,7 @@ declarationList
 
 newExpression
     :   'new' declarationSpecifiers
+    |   'new' declarationSpecifiers '(' argumentExpressionList? ')'
     ;
 
 Break : 'break';

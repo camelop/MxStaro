@@ -2,11 +2,11 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.symbol.Symbol;
 import cn.littleround.symbol.SymbolTable;
+import cn.littleround.type.BaseType;
+import cn.littleround.type.VoidType;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public abstract class ASTBaseNode {
 
@@ -14,6 +14,7 @@ public abstract class ASTBaseNode {
     private ArrayList<ASTBaseNode> sons = new ArrayList<>();
     private ParserRuleContext ctx;
     private SymbolTable st = new SymbolTable();
+    protected BaseType type;
 
     private static boolean isFailed = false;
     private static ArrayList<String> errors = new ArrayList<>();
@@ -35,7 +36,7 @@ public abstract class ASTBaseNode {
     }
 
     public static String getErrors() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (String i:errors) sb.append(i);
         return sb.toString();
     }
@@ -65,28 +66,49 @@ public abstract class ASTBaseNode {
     }
 
     public String toTreeString(int blank, int step) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i=0; i<blank; ++i) sb.append(' ');
         sb.append("-");
         sb.append(this.getClass().getSimpleName());
+        sb.append(" (");
+        if (type != null) sb.append(type.toString());
+        sb.append(")");
         if (ctx != null) sb.append("\t\t\t// "+ctx.getText());
         sb.append('\n');
         for (ASTBaseNode i:sons) sb.append(i.toTreeString(blank+step, step));
         return sb.toString();
     }
 
-    public void updateSymbolTable() {
+    public void createSymbolTable() {
         for (ASTBaseNode i:sons) {
             if (i instanceof DeclarationNode) {
                 for (Symbol s:((DeclarationNode) i).getSymbols()) {
                     if (!st.add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
                 }
             }
+            i.createSymbolTable();
+        }
+    }
+
+    public SymbolTable getSymbolTable() {
+        return st;
+    }
+
+    public void updateSymbolTable() {
+        if (getParent() != null) {
+            st.merge(getParent().getSymbolTable());
+        }
+        for (ASTBaseNode i:sons) {
             i.updateSymbolTable();
         }
     }
 
-    public SymbolTable getSt() {
-        return st;
+    public void updateType() {
+        for (ASTBaseNode i:sons) i.updateType();
+        type = new VoidType();
+    }
+
+    public void checkType() {
+        for (ASTBaseNode i:sons) i.checkType();
     }
 }

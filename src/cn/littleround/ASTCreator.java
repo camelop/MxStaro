@@ -26,7 +26,7 @@ public class ASTCreator extends MxStarBaseListener {
     }
 
     public String getErrors() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (String i:errors) sb.append(i);
         return sb.toString();
     }
@@ -399,9 +399,16 @@ public class ASTCreator extends MxStarBaseListener {
         super.exitExpression(ctx);
         ExpressionNode en;
         if (ctx.newExpression() != null) {
+            ASTBaseNode en2;
+            if (ctx.newExpression().argumentExpressionList() != null) {
+                en2 = nodeStack.pop();
+            } else {
+                en2 = new ArgumentTypeListNode();
+            }
             ASTBaseNode en1 = nodeStack.pop();
             en = new NewNode();
             en.addSon(en1); en1.setParent(en);
+            en.addSon(en2); en2.setParent(en);
         } else if (ctx.logicalOrExpression() != null) {
             en = (ExpressionNode) nodeStack.pop();
         } else if (ctx.unaryExpression() != null) {
@@ -764,9 +771,12 @@ public class ASTCreator extends MxStarBaseListener {
         super.exitClassDefinition(ctx);
         ClassDefinitionNode cdn = new ClassDefinitionNode();
         cdn.setIdentifier(ctx.Identifier().getText());
-        ASTBaseNode cdln = nodeStack.pop();
-        for (ASTBaseNode i:cdln.getSons()) {
-            cdn.addSon(i); i.setParent(cdn);
+        if (ctx.classDeclarationList() != null) {
+            ASTBaseNode cdln = nodeStack.pop();
+            for (ASTBaseNode i : cdln.getSons()) {
+                cdn.addSon(i);
+                i.setParent(cdn);
+            }
         }
         cdn.setCtx(ctx);
         nodeStack.push(cdn);

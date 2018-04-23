@@ -3785,6 +3785,7 @@ public class MxStarParser extends Parser {
 	public final ClassDefinitionContext classDefinition() throws RecognitionException {
 		ClassDefinitionContext _localctx = new ClassDefinitionContext(_ctx, getState());
 		enterRule(_localctx, 88, RULE_classDefinition);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -3794,9 +3795,17 @@ public class MxStarParser extends Parser {
 			match(Identifier);
 			setState(532);
 			match(LeftBrace);
-			setState(533);
-			classDeclarationList(0);
 			setState(534);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Inline) | (1L << Int) | (1L << String) | (1L << Void) | (1L << LeftParen) | (1L << Identifier))) != 0)) {
+				{
+				setState(533);
+				classDeclarationList(0);
+				}
+			}
+
+			setState(536);
 			match(RightBrace);
 			}
 		}
@@ -3853,13 +3862,13 @@ public class MxStarParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
-			setState(537);
+			setState(539);
 			classDeclaration();
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(543);
+			setState(545);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,56,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,57,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -3868,16 +3877,16 @@ public class MxStarParser extends Parser {
 					{
 					_localctx = new ClassDeclarationListContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_classDeclarationList);
-					setState(539);
+					setState(541);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(540);
+					setState(542);
 					classDeclaration();
 					}
 					} 
 				}
-				setState(545);
+				setState(547);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,56,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,57,_ctx);
 			}
 			}
 		}
@@ -3922,20 +3931,20 @@ public class MxStarParser extends Parser {
 		ClassDeclarationContext _localctx = new ClassDeclarationContext(_ctx, getState());
 		enterRule(_localctx, 92, RULE_classDeclaration);
 		try {
-			setState(548);
+			setState(550);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,57,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,58,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(546);
+				setState(548);
 				declaration();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(547);
+				setState(549);
 				functionDefinition();
 				}
 				break;
@@ -3987,19 +3996,19 @@ public class MxStarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(551);
+			setState(553);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,58,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,59,_ctx) ) {
 			case 1:
 				{
-				setState(550);
+				setState(552);
 				declarationSpecifiers();
 				}
 				break;
 			}
-			setState(553);
+			setState(555);
 			declarator(0);
-			setState(554);
+			setState(556);
 			compoundStatement();
 			}
 		}
@@ -4017,6 +4026,9 @@ public class MxStarParser extends Parser {
 	public static class NewExpressionContext extends ParserRuleContext {
 		public DeclarationSpecifiersContext declarationSpecifiers() {
 			return getRuleContext(DeclarationSpecifiersContext.class,0);
+		}
+		public ArgumentExpressionListContext argumentExpressionList() {
+			return getRuleContext(ArgumentExpressionListContext.class,0);
 		}
 		public NewExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4040,13 +4052,43 @@ public class MxStarParser extends Parser {
 	public final NewExpressionContext newExpression() throws RecognitionException {
 		NewExpressionContext _localctx = new NewExpressionContext(_ctx, getState());
 		enterRule(_localctx, 96, RULE_newExpression);
+		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(556);
-			match(New);
-			setState(557);
-			declarationSpecifiers();
+			setState(568);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,61,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(558);
+				match(New);
+				setState(559);
+				declarationSpecifiers();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(560);
+				match(New);
+				setState(561);
+				declarationSpecifiers();
+				setState(562);
+				match(LeftParen);
+				setState(564);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << New) | (1L << This) | (1L << LeftParen) | (1L << Plus) | (1L << PlusPlus) | (1L << Minus) | (1L << MinusMinus) | (1L << And) | (1L << Or) | (1L << Not) | (1L << Tilde) | (1L << Identifier) | (1L << Constant) | (1L << DigitSequence) | (1L << StringLiteral))) != 0)) {
+					{
+					setState(563);
+					argumentExpressionList(0);
+					}
+				}
+
+				setState(566);
+				match(RightParen);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -4271,7 +4313,7 @@ public class MxStarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3<\u0232\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3<\u023d\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -4310,11 +4352,12 @@ public class MxStarParser extends Parser {
 		"\3\'\5\'\u01e1\n\'\3\'\3\'\5\'\u01e5\n\'\3\'\3\'\5\'\u01e9\n\'\5\'\u01eb"+
 		"\n\'\3(\3(\3(\3(\5(\u01f1\n(\3)\3)\3*\3*\3*\3*\3*\3*\5*\u01fb\n*\3*\5"+
 		"*\u01fe\n*\3+\5+\u0201\n+\3+\3+\3,\3,\3,\3,\3,\7,\u020a\n,\f,\16,\u020d"+
-		"\13,\3-\3-\3-\3-\5-\u0213\n-\3.\3.\3.\3.\3.\3.\3/\3/\3/\3/\3/\7/\u0220"+
-		"\n/\f/\16/\u0223\13/\3\60\3\60\5\60\u0227\n\60\3\61\5\61\u022a\n\61\3"+
-		"\61\3\61\3\61\3\62\3\62\3\62\3\62\2\26\4\6\16\20\22\24\26\30\32\34\36"+
+		"\13,\3-\3-\3-\3-\5-\u0213\n-\3.\3.\3.\3.\5.\u0219\n.\3.\3.\3/\3/\3/\3"+
+		"/\3/\7/\u0222\n/\f/\16/\u0225\13/\3\60\3\60\5\60\u0229\n\60\3\61\5\61"+
+		"\u022c\n\61\3\61\3\61\3\61\3\62\3\62\3\62\3\62\3\62\3\62\5\62\u0237\n"+
+		"\62\3\62\3\62\5\62\u023b\n\62\3\62\2\26\4\6\16\20\22\24\26\30\32\34\36"+
 		" (*\62\66:BV\\\63\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62"+
-		"\64\668:<>@BDFHJLNPRTVXZ\\^`b\2\4\6\2\37\37!!&\'+,\3\2\23\24\2\u0250\2"+
+		"\64\668:<>@BDFHJLNPRTVXZ\\^`b\2\4\6\2\37\37!!&\'+,\3\2\23\24\2\u025e\2"+
 		"l\3\2\2\2\4n\3\2\2\2\6\u0088\3\2\2\2\b\u009b\3\2\2\2\n\u009d\3\2\2\2\f"+
 		"\u00a1\3\2\2\2\16\u00a3\3\2\2\2\20\u00b4\3\2\2\2\22\u00c2\3\2\2\2\24\u00d0"+
 		"\3\2\2\2\26\u00e4\3\2\2\2\30\u00f2\3\2\2\2\32\u00fd\3\2\2\2\34\u0108\3"+
@@ -4324,8 +4367,8 @@ public class MxStarParser extends Parser {
 		"\2\28\u018f\3\2\2\2:\u0192\3\2\2\2<\u019d\3\2\2\2>\u01a4\3\2\2\2@\u01a6"+
 		"\3\2\2\2B\u01ac\3\2\2\2D\u01b8\3\2\2\2F\u01bb\3\2\2\2H\u01bf\3\2\2\2J"+
 		"\u01d4\3\2\2\2L\u01ea\3\2\2\2N\u01f0\3\2\2\2P\u01f2\3\2\2\2R\u01fd\3\2"+
-		"\2\2T\u0200\3\2\2\2V\u0204\3\2\2\2X\u0212\3\2\2\2Z\u0214\3\2\2\2\\\u021a"+
-		"\3\2\2\2^\u0226\3\2\2\2`\u0229\3\2\2\2b\u022e\3\2\2\2dm\7\20\2\2em\7\64"+
+		"\2\2T\u0200\3\2\2\2V\u0204\3\2\2\2X\u0212\3\2\2\2Z\u0214\3\2\2\2\\\u021c"+
+		"\3\2\2\2^\u0228\3\2\2\2`\u022b\3\2\2\2b\u023a\3\2\2\2dm\7\20\2\2em\7\64"+
 		"\2\2fm\7\66\2\2gm\78\2\2hi\7\23\2\2ij\5\"\22\2jk\7\24\2\2km\3\2\2\2ld"+
 		"\3\2\2\2le\3\2\2\2lf\3\2\2\2lg\3\2\2\2lh\3\2\2\2m\3\3\2\2\2no\b\3\1\2"+
 		"op\5\2\2\2p\u0085\3\2\2\2qr\f\7\2\2rs\7\25\2\2st\5\"\22\2tu\7\26\2\2u"+
@@ -4464,19 +4507,24 @@ public class MxStarParser extends Parser {
 		"\u0213\5Z.\2\u020f\u0213\5`\61\2\u0210\u0213\5$\23\2\u0211\u0213\7.\2"+
 		"\2\u0212\u020e\3\2\2\2\u0212\u020f\3\2\2\2\u0212\u0210\3\2\2\2\u0212\u0211"+
 		"\3\2\2\2\u0213Y\3\2\2\2\u0214\u0215\7\16\2\2\u0215\u0216\7\64\2\2\u0216"+
-		"\u0217\7\27\2\2\u0217\u0218\5\\/\2\u0218\u0219\7\30\2\2\u0219[\3\2\2\2"+
-		"\u021a\u021b\b/\1\2\u021b\u021c\5^\60\2\u021c\u0221\3\2\2\2\u021d\u021e"+
-		"\f\3\2\2\u021e\u0220\5^\60\2\u021f\u021d\3\2\2\2\u0220\u0223\3\2\2\2\u0221"+
-		"\u021f\3\2\2\2\u0221\u0222\3\2\2\2\u0222]\3\2\2\2\u0223\u0221\3\2\2\2"+
-		"\u0224\u0227\5$\23\2\u0225\u0227\5`\61\2\u0226\u0224\3\2\2\2\u0226\u0225"+
-		"\3\2\2\2\u0227_\3\2\2\2\u0228\u022a\5&\24\2\u0229\u0228\3\2\2\2\u0229"+
-		"\u022a\3\2\2\2\u022a\u022b\3\2\2\2\u022b\u022c\5\62\32\2\u022c\u022d\5"+
-		"@!\2\u022da\3\2\2\2\u022e\u022f\7\17\2\2\u022f\u0230\5&\24\2\u0230c\3"+
-		"\2\2\2=ly\u0083\u0085\u0090\u009b\u00a1\u00af\u00b1\u00bd\u00bf\u00cb"+
-		"\u00cd\u00df\u00e1\u00ed\u00ef\u00fa\u0105\u0110\u011b\u0126\u0130\u0139"+
-		"\u013e\u0143\u014a\u0155\u015d\u0163\u016d\u0172\u0177\u017f\u0181\u018c"+
-		"\u019a\u01a4\u01a8\u01b3\u01b8\u01bb\u01c6\u01d4\u01d9\u01dd\u01e0\u01e4"+
-		"\u01e8\u01ea\u01f0\u01fa\u01fd\u0200\u020b\u0212\u0221\u0226\u0229";
+		"\u0218\7\27\2\2\u0217\u0219\5\\/\2\u0218\u0217\3\2\2\2\u0218\u0219\3\2"+
+		"\2\2\u0219\u021a\3\2\2\2\u021a\u021b\7\30\2\2\u021b[\3\2\2\2\u021c\u021d"+
+		"\b/\1\2\u021d\u021e\5^\60\2\u021e\u0223\3\2\2\2\u021f\u0220\f\3\2\2\u0220"+
+		"\u0222\5^\60\2\u0221\u021f\3\2\2\2\u0222\u0225\3\2\2\2\u0223\u0221\3\2"+
+		"\2\2\u0223\u0224\3\2\2\2\u0224]\3\2\2\2\u0225\u0223\3\2\2\2\u0226\u0229"+
+		"\5$\23\2\u0227\u0229\5`\61\2\u0228\u0226\3\2\2\2\u0228\u0227\3\2\2\2\u0229"+
+		"_\3\2\2\2\u022a\u022c\5&\24\2\u022b\u022a\3\2\2\2\u022b\u022c\3\2\2\2"+
+		"\u022c\u022d\3\2\2\2\u022d\u022e\5\62\32\2\u022e\u022f\5@!\2\u022fa\3"+
+		"\2\2\2\u0230\u0231\7\17\2\2\u0231\u023b\5&\24\2\u0232\u0233\7\17\2\2\u0233"+
+		"\u0234\5&\24\2\u0234\u0236\7\23\2\2\u0235\u0237\5\6\4\2\u0236\u0235\3"+
+		"\2\2\2\u0236\u0237\3\2\2\2\u0237\u0238\3\2\2\2\u0238\u0239\7\24\2\2\u0239"+
+		"\u023b\3\2\2\2\u023a\u0230\3\2\2\2\u023a\u0232\3\2\2\2\u023bc\3\2\2\2"+
+		"@ly\u0083\u0085\u0090\u009b\u00a1\u00af\u00b1\u00bd\u00bf\u00cb\u00cd"+
+		"\u00df\u00e1\u00ed\u00ef\u00fa\u0105\u0110\u011b\u0126\u0130\u0139\u013e"+
+		"\u0143\u014a\u0155\u015d\u0163\u016d\u0172\u0177\u017f\u0181\u018c\u019a"+
+		"\u01a4\u01a8\u01b3\u01b8\u01bb\u01c6\u01d4\u01d9\u01dd\u01e0\u01e4\u01e8"+
+		"\u01ea\u01f0\u01fa\u01fd\u0200\u020b\u0212\u0218\u0223\u0228\u022b\u0236"+
+		"\u023a";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

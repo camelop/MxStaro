@@ -21,7 +21,7 @@ public class FuncDefinitionNode extends DeclarationNode {
         ffs.setName(declarator().getIdentifier());
         for (Symbol i:args().getSymbols()) {
             VariableSymbol vs = (VariableSymbol) i;
-            ffs.addParam(vs.getType());
+            ffs.addParam(vs.getTypeNode());
         }
         ffs.setSrc(this);
         return ffs;
