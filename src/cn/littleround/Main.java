@@ -27,8 +27,6 @@ public class Main {
     public static void main(String[] args) {
 //        System.exit(0);
         // check input args
-        System.out.println("BLING!");
-        System.err.println("BLING!");
         String sc;
         if (args.length > 1) {
             System.out.print("Wrong arg number.");
@@ -69,6 +67,9 @@ public class Main {
             sc = sb.toString();
         }
 
+        System.err.println("I read:");
+        System.err.println(sc);
+
         // load ANTLR4 frontend
         CharStream stream = new ANTLRInputStream(sc);
         MxStarLexer lexer = new MxStarLexer(stream);
@@ -76,6 +77,8 @@ public class Main {
         MxStarParser parser = new MxStarParser(tokens);
         // parse
         MxStarParser.CompilationUnitContext tree = parser.compilationUnit();
+
+        System.err.println("Parser READY!");
 
         // build AST
         ASTCreator creator = new ASTCreator(parser);
@@ -85,9 +88,11 @@ public class Main {
             creator.setFailed(true);
         }
         if (creator.isFailed()) {
-            System.out.println(creator.getErrors());
+            System.err.println(creator.getErrors());
             System.exit(-1);
         }
+
+        System.err.println("Syntax Check Complete.");
 
         // run semantic check on AST
         ASTBaseNode root = creator.getRoot();
@@ -101,10 +106,13 @@ public class Main {
             ASTBaseNode.setFailed(true);
         }
         if (ASTBaseNode.isFailed()) {
-            System.out.println(ASTBaseNode.getErrors());
+            System.err.println(ASTBaseNode.getErrors());
             System.exit(-1);
         }
         //output(args[0], root.getSymbolTable().toInfoString());
         if (args.length > 0) output(args[0], root.toTreeString(0,4));
+
+
+        System.err.println("Semantic Check Complete.");
     }
 }
