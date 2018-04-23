@@ -24,4 +24,24 @@ public class Constants {
                 return 0;
         }
     }
+
+    //temp
+    public final static String lib =
+            "void print(string str) {\n" +
+                    "}\n" +
+                    "\n" +
+                    "void println(string str) {\n" +
+                    "}\n" +
+                    "\n" +
+                    "string getString() {\n" +
+                    "    return \"abracadabra\";\n" +
+                    "}\n" +
+                    "\n" +
+                    "int getInt() {\n" +
+                    "    return 0;\n" +
+                    "}\n" +
+                    "\n" +
+                    "string toString(int i) {\n" +
+                    "    return \"abracadabra\";\n" +
+                    "}\n";
 }

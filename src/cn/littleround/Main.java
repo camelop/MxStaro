@@ -29,12 +29,13 @@ public class Main {
 //        System.exit(0);
         // check input args
         String sc;
-        String lib_loc = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"cn/littleround/mxlib/lib.mx";
+        //String lib_loc = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"cn/littleround/mxlib/lib.mx";
         if (args.length > 1) {
             System.out.print("Wrong arg number.");
             return;
         } else {
             StringBuilder sb = new StringBuilder();
+            /*
             try {
                 BufferedReader in = new BufferedReader(
                         new FileReader(lib_loc)
@@ -48,6 +49,8 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            */
+            sb.append(Constants.lib);
             if (args.length == 0) {
                 // read source code from stdin
                 try {
