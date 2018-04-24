@@ -26,7 +26,11 @@ public class ReturnNode extends JumpNode {
     public void checkType() {
         super.checkType();
         BaseType retType = findFatherRetType();
-        if (retType == null) return;
+        if (retType == null) {
+            if (getSons().size() > 0) {
+                reportError("Semantic", "There shall be no return value in constructor.");
+            }
+        }
         if (retType instanceof VoidType) {
             if (getSons().size() > 0)
                 reportError("Semantic", "\'"+getSons().get(0).getCtx().getText()+"\' unexpected after return in void function.");

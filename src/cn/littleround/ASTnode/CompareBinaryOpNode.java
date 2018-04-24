@@ -4,7 +4,7 @@ import cn.littleround.Constants;
 import cn.littleround.type.IntType;
 import cn.littleround.type.StringType;
 
-public class CompareBinaryOpNode extends IntBinaryOpNode {
+public class CompareBinaryOpNode extends BinaryOpNode {
     @Override
     public void updateType() {
         super.updateType();

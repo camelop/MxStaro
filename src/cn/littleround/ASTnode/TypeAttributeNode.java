@@ -79,7 +79,6 @@ public class TypeAttributeNode extends ASTBaseNode {
         super.checkType();
         BaseType t = getType();
         if (t instanceof UserDefinedType) {
-            System.out.println(getSymbolTable().toInfoString());
             if (getSymbolTable().getClassSymbol(t.toString()) == null)
                 reportError("Semantic", "Invalid type specifier.");
         }
