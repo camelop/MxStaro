@@ -33,10 +33,19 @@ public class IdentifierNode extends ExpressionNode {
         type = symbolToType(def);
     }
 
+    public void updateTypeToFunc() {
+        def = getSymbolTable().getFuncSymbol(Identifier);
+        //System.out.println(getSymbolTable().toInfoString());
+        if (def == null) {
+            reportError("Semantic", "Can't resolve symbol \'"+Identifier+"\'.");
+        }
+        type = symbolToType(def);
+    }
+
     @Override
     public void checkType() {
         super.checkType();
         if ((def instanceof VariableSymbol) && def.getSrc().getCtx().getStart().getLine() > getCtx().getStart().getLine())
-            reportError("Semantic", "Invalid or Backref \'"+def.getName()+"\'.");
+            if (def.getSrc().isGlobal()) reportError("Semantic", "Invalid or Backref \'"+def.getName()+"\'.");
     }
 }

@@ -124,4 +124,11 @@ public abstract class ASTBaseNode {
         }
         return ret;
     }
+
+    public boolean isGlobal() {
+        ASTBaseNode f = getParent();
+        while ((f!=null) && !(f instanceof FuncDefinitionNode) && !(f instanceof ClassDefinitionNode) && !(f instanceof BlockNode))
+            f = f.getParent();
+        return f == null;
+    }
 }

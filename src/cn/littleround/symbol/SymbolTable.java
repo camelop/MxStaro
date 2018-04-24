@@ -77,6 +77,13 @@ public class SymbolTable {
         return null;
     }
 
+    public Symbol getFuncSymbol(String name) {
+        if (fsm.containsKey(name)) return fsm.get(name);
+        if (csm.containsKey(name)) return csm.get(name);
+        if (vsm.containsKey(name)) return vsm.get(name);
+        return null;
+    }
+
     public void merge(SymbolTable rhs) {
         for (HashMap.Entry<String, VariableSymbol> entry: rhs.vsm.entrySet())
             vsm.putIfAbsent(entry.getKey(), entry.getValue());
