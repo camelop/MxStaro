@@ -1,24 +1,22 @@
-int x = 1;
-bool b(bool x){
-    return x;
+int a(int x) {
+	int x = 0;
+	return x;
 }
-class C{
-    C(){
-        x();
-        {int x;}
-    }
-    void x(){}
-}
-int main(){
-    string x = "789dcbadcba\n";
-    int y;
-    C c;
-    c.x();
-    b(true);
-    {y = x.parseInt();
-    int x = y;}
-    return y;
+
+int main() {
+	return 0;
 }
 
 
 
+/*!! metadata:
+=== comment ===
+var-4-5140309552-wancheng.mx
+=== assert ===
+failure_compile
+=== phase ===
+semantic pretest
+=== is_public ===
+True
+
+!!*/

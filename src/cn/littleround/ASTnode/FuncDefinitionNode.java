@@ -44,7 +44,15 @@ public class FuncDefinitionNode extends DeclarationNode {
                 reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
         }
         //System.out.println("Table\n"+getSymbolTable().toInfoString());
-        super.createSymbolTable();
+        for (ASTBaseNode i:block().getSons()) {
+            if (i instanceof DeclarationNode) {
+                for (Symbol s:((DeclarationNode) i).getSymbols()) {
+                    if (!getSymbolTable().add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+                }
+            }
+            i.createSymbolTable();
+            i.updateSymbolTable();
+        }
     }
 
     @Override
