@@ -88,20 +88,20 @@ public abstract class ASTBaseNode {
                 }
             }
             i.createSymbolTable();
+            i.updateSymbolTable();
+        }
+    }
+
+    public void updateSymbolTable() {
+        ASTBaseNode f = getParent();
+        while (f!=null) {
+            getSymbolTable().merge(f.getSymbolTable());
+            f = f.getParent();
         }
     }
 
     public SymbolTable getSymbolTable() {
         return st;
-    }
-
-    public void updateSymbolTable() {
-        if (getParent() != null) {
-            st.merge(getParent().getSymbolTable());
-        }
-        for (ASTBaseNode i:sons) {
-            i.updateSymbolTable();
-        }
     }
 
     public void updateType() {

@@ -112,7 +112,6 @@ public class Main {
         ASTBaseNode root = creator.getRoot();
         try {
             root.createSymbolTable();
-            root.updateSymbolTable();
             root.updateType();
             root.checkType();
         } catch (Exception e) {

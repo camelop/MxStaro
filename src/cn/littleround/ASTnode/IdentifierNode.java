@@ -41,11 +41,4 @@ public class IdentifierNode extends ExpressionNode {
         }
         type = symbolToType(def);
     }
-
-    @Override
-    public void checkType() {
-        super.checkType();
-        if ((def instanceof VariableSymbol) && def.getSrc().getCtx().getStart().getLine() > getCtx().getStart().getLine())
-            if (def.getSrc().isGlobal()) reportError("Semantic", "Invalid or Backref \'"+def.getName()+"\'.");
-    }
 }

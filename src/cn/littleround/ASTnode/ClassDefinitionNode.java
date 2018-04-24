@@ -36,13 +36,22 @@ public class ClassDefinitionNode extends DeclarationNode {
     }
 
     @Override
-    public void updateSymbolTable() {
-        getSymbolTable().reverse_merge(toClassSymbol().getSymbolTable());
-        super.updateSymbolTable();
+    public void checkType() {
+        for (ASTBaseNode i:getSons()) i.checkType();
     }
 
     @Override
-    public void checkType() {
-        for (ASTBaseNode i:getSons()) i.checkType();
+    public void createSymbolTable() {
+        for (ASTBaseNode i:getSons()) {
+            if (i instanceof DeclarationNode) {
+                for (Symbol s:((DeclarationNode) i).getSymbols()) {
+                    if (!getSymbolTable().add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+                }
+            }
+        }
+        for (ASTBaseNode i:getSons()) {
+            i.createSymbolTable();
+            i.updateSymbolTable();
+        }
     }
 }

@@ -17,4 +17,24 @@ public class CompilationNode extends ASTBaseNode {
         else if (!(((FuncSymbol) s).getRetType(new TypeList()) instanceof IntType))
             reportError("Semantic","\'main\' function should return int.");
     }
+
+    @Override
+    public void createSymbolTable() {
+        for (ASTBaseNode i:getSons()) {
+            if ((i instanceof FuncDefinitionNode) || (i instanceof ClassDefinitionNode)) {
+                for (Symbol s:((DeclarationNode) i).getSymbols()) {
+                    if (!getSymbolTable().add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+                }
+            }
+        }
+        for (ASTBaseNode i:getSons()) {
+            if ((i instanceof DeclarationNode) && !(i instanceof FuncDefinitionNode) && !(i instanceof ClassDefinitionNode)) {
+                for (Symbol s:((DeclarationNode) i).getSymbols()) {
+                    if (!getSymbolTable().add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+                }
+            }
+            i.createSymbolTable();
+            i.updateSymbolTable();
+        }
+    }
 }
