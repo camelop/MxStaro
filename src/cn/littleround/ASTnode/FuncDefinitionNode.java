@@ -7,15 +7,18 @@ import cn.littleround.symbol.VariableSymbol;
 import java.util.ArrayList;
 
 public class FuncDefinitionNode extends DeclarationNode {
+    public FuncDeclaratorNode funcDeclarator() { return (FuncDeclaratorNode) getSons().get(1);}
+
     public ArgumentTypeListNode args() {
-        return (ArgumentTypeListNode) getSons().get(1).getSons().get(1);
+        return (ArgumentTypeListNode) funcDeclarator().getSons().get(1);
     }
 
     public DeclaratorNode declarator() {
-        return (DeclaratorNode) getSons().get(1).getSons().get(0);
+        return (DeclaratorNode) funcDeclarator().getSons().get(0);
     }
 
     public BlockNode block() { return (BlockNode) getSons().get(2);}
+
 
     public Symbol getSymbol() {
         FuncFormSymbol ffs = new FuncFormSymbol();
@@ -44,6 +47,8 @@ public class FuncDefinitionNode extends DeclarationNode {
                 reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
         }
         //System.out.println("Table\n"+getSymbolTable().toInfoString());
+        specifier().createSymbolTable(); specifier().updateSymbolTable();
+        funcDeclarator().createSymbolTable(); funcDeclarator().updateSymbolTable();
         for (ASTBaseNode i:block().getSons()) {
             if (i instanceof DeclarationNode) {
                 for (Symbol s:((DeclarationNode) i).getSymbols()) {
