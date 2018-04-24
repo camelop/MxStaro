@@ -57,5 +57,18 @@ public class FuncDefinitionNode extends DeclarationNode {
     @Override
     public void checkType() {
         for (ASTBaseNode i:getSons()) i.checkType();
+        if (specifier().attribute() == null) {
+            // check if it is constructor
+            ASTBaseNode f = getParent();
+            while ((f!=null)&&!(f instanceof ClassDefinitionNode)) f = f.getParent();
+            if (f == null)
+                reportError("Semantic", "Where is the function specifiers?");
+            else if (((ClassDefinitionNode) f).getIdentifier() != declarator().getIdentifier()) {
+                reportError("Semantic", "Constructor should be named \'"+
+                        ((ClassDefinitionNode) f).getIdentifier()+
+                        "\', not \'"+
+                        declarator().getIdentifier()+"\'.");
+            }
+        }
     }
 }

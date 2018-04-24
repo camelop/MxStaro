@@ -490,7 +490,7 @@ public class ASTCreator extends MxStarBaseListener {
             }
             tan = nodeStack.pop();
             ((TypeAttributeNode) tan).addPointerLevel();
-            ((TypeAttributeNode) tan).getPointerExpressionList().add((ExpressionNode) en);
+            ((TypeAttributeNode) tan).addPointerExpression((ExpressionNode) en);
         }
         tan.setCtx(ctx);
         nodeStack.push(tan);

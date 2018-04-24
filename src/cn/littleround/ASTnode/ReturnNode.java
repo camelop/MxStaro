@@ -16,12 +16,17 @@ public class ReturnNode extends JumpNode {
             reportError("Semantic","return not in a function.");
             return Constants.VOID;
         }
+        if (((FuncDefinitionNode) f).specifier().attribute() == null) {
+            // then it must be a constructor, no need to check;
+            return null;
+        }
         return ((FuncFormSymbol) ((FuncDefinitionNode) f).getSymbol()).getRetType();
     }
     @Override
     public void checkType() {
         super.checkType();
         BaseType retType = findFatherRetType();
+        if (retType == null) return;
         if (retType instanceof VoidType) {
             if (getSons().size() > 0)
                 reportError("Semantic", "\'"+getSons().get(0).getCtx().getText()+"\' unexpected after return in void function.");

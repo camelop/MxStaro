@@ -66,12 +66,12 @@ public class TypeAttributeNode extends ASTBaseNode {
         return ret;
     }
 
-    public ArrayList<ExpressionNode> getPointerExpressionList() {
-        return pointerExpressionList;
-    }
-
-    public void setPointerExpressionList(ArrayList<ExpressionNode> pointerExpressionList) {
-        this.pointerExpressionList = pointerExpressionList;
+    public void addPointerExpression(ExpressionNode e) {
+        if (pointerExpressionList.size() > 0) {
+            if (e != null && pointerExpressionList.get(pointerExpressionList.size()-1) == null)
+                reportError("Semantic", "Invalid pointer expression.");
+        }
+        pointerExpressionList.add(e);
     }
 
     @Override

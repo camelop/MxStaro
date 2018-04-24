@@ -1,6 +1,7 @@
 package cn.littleround.ASTnode;
 
 import cn.littleround.type.BaseType;
+import cn.littleround.type.UserDefinedType;
 
 public class TypeNode extends ASTBaseNode {
     private boolean isInline = false;
@@ -26,6 +27,16 @@ public class TypeNode extends ASTBaseNode {
     }
 
     public BaseType getType() {
+        if (attribute() == null) {
+            // then it must be a constructor
+            ASTBaseNode f = getParent();
+            while ((f!=null) && !(f instanceof ClassDefinitionNode)) f = f.getParent();
+            if (f == null) {
+                reportError("Semantic", "Invalid constructor.");
+            } else {
+                return new UserDefinedType(((ClassDefinitionNode) f).getIdentifier());
+            }
+        }
         return attribute().getType();
     }
 }

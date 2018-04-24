@@ -14,10 +14,7 @@ public class AssignNode extends BinaryOpNode {
     public void checkType() {
         super.checkType();
         // left
-        if (!((op1() instanceof IdentifierNode)||
-                (op1() instanceof SubscriptOpNode)||
-                (op1() instanceof ThisNode)||
-                (op1() instanceof DotOpNode))) {
+        if (!isLvalue(op1())) {
             reportError("Semantic", "Assign to a r-value is illegal.");
         }
     }
