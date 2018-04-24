@@ -1,5 +1,6 @@
 package cn.littleround.type;
 
+import cn.littleround.Constants;
 import cn.littleround.symbol.ParamTypeNodeList;
 
 import java.util.ArrayList;
@@ -29,5 +30,9 @@ public class TypeList {
             sb.append(i.toString());
         }
         return sb.toString();
+    }
+
+    public boolean containNull() {
+        return list.contains(Constants.NULL);
     }
 }

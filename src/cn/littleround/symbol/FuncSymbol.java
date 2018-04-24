@@ -49,11 +49,22 @@ public class FuncSymbol extends Symbol {
 
     public BaseType getRetType(TypeList tl) {
         if (tffsm == null) transform();
-        if (tffsm.get(tl.toString()) == null) {
+        if (tl.containNull()) {
+            for (Map.Entry<ParamTypeNodeList, FuncFormSymbol> entry: ffsm.entrySet()) {
+                TypeList nw = entry.getKey().toTypeList();
+                if (nw.equals(tl)) return entry.getValue().getRetType();
+            }
             System.err.println("Fail while searching "+this.getName()+": ("+tl.toString()+")");
             System.err.println("Only got:\n"+tffsm.toString());
             return null;
+        } else {
+            FuncFormSymbol ret = tffsm.get(tl.toString());
+            if (ret == null) {
+                System.err.println("Fail while searching "+this.getName()+": ("+tl.toString()+")");
+                System.err.println("Only got:\n"+tffsm.toString());
+                return null;
+            }
+            return ret.getRetType();
         }
-        return tffsm.get(tl.toString()).getRetType();
     }
 }
