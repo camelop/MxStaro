@@ -30,6 +30,7 @@ public class ReturnNode extends JumpNode {
             if (getSons().size() > 0) {
                 reportError("Semantic", "There shall be no return value in constructor.");
             }
+            return;
         }
         if (retType instanceof VoidType) {
             if (getSons().size() > 0)

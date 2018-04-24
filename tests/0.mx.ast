@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}Aget(){returnnewA;}classA{A(){returnget();}}intmain(){return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}classClassA{intnum;stringstr;bool[]bool_arr;ClassA(){str="";num=1;bool_arr=null;bool_arr=newbool[100];return;}ClassAgetClassA(intx){ClassAtmp=newClassA;tmp.num=x;this.num=x;returntmp;}stringgetString(){returnstr;}}intMain(intparameter){ClassAa=newClassA;ClassAb=a.getClassA(parameter);b.num=parameter;parameter=getInt();int[]int_arr=(newint[2][])[3];intnumber=b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length();stringstr1="123";stringstr2="456";intnum=0;if(str1<str2)num++;if(str1<=str2)num++;if(str1>str2)num++;if(str1>=str2)num++;if((str1+str2)==(str1+str2)){num++;}elseif(false)num--;else--num;for(;;){break;}while(true)continue;println(str1);print(str2);returnnum;}intmain(){Main(0);}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -111,35 +111,282 @@
         -BlockNode (void)			// {return"abracadabra";}
             -ReturnNode (void)			// return"abracadabra";
                 -StringLiteralNode (string)			// "abracadabra"
-    -FuncDefinitionNode (void)			// Aget(){returnnewA;}
-        -TypeNode (void)			// A
-            -TypeAttributeNode (void)			// A
-        -FuncDeclaratorNode (void)			// get()
-            -DeclaratorNode (void)			// get
-            -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {returnnewA;}
-            -ReturnNode (void)			// returnnewA;
-                -NewNode (A)			// newA
-                    -TypeNode (void)			// A
-                        -TypeAttributeNode (void)			// A
-                    -ArgumentTypeListNode (void)
-    -ClassDefinitionNode (void)			// classA{A(){returnget();}}
-        -FuncDefinitionNode (void)			// A(){returnget();}
+    -ClassDefinitionNode (void)			// classClassA{intnum;stringstr;bool[]bool_arr;ClassA(){str="";num=1;bool_arr=null;bool_arr=newbool[100];return;}ClassAgetClassA(intx){ClassAtmp=newClassA;tmp.num=x;this.num=x;returntmp;}stringgetString(){returnstr;}}
+        -DeclarationNode (void)			// intnum;
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -DeclaratorListNode (void)			// num
+                -InitDeclaratorNode (void)			// num
+                    -DeclaratorNode (void)			// num
+        -DeclarationNode (void)			// stringstr;
+            -TypeNode (void)			// string
+                -TypeAttributeNode (void)			// string
+            -DeclaratorListNode (void)			// str
+                -InitDeclaratorNode (void)			// str
+                    -DeclaratorNode (void)			// str
+        -DeclarationNode (void)			// bool[]bool_arr;
+            -TypeNode (void)			// bool[]
+                -TypeAttributeNode (void)			// bool[]
+            -DeclaratorListNode (void)			// bool_arr
+                -InitDeclaratorNode (void)			// bool_arr
+                    -DeclaratorNode (void)			// bool_arr
+        -FuncDefinitionNode (void)			// ClassA(){str="";num=1;bool_arr=null;bool_arr=newbool[100];return;}
             -TypeNode (void)
-            -FuncDeclaratorNode (void)			// A()
-                -DeclaratorNode (void)			// A
+            -FuncDeclaratorNode (void)			// ClassA()
+                -DeclaratorNode (void)			// ClassA
                 -ArgumentTypeListNode (void)
-            -BlockNode (void)			// {returnget();}
-                -ReturnNode (void)			// returnget();
-                    -ParenthesisOpNode (A)			// get()
-                        -IdentifierNode (BaseType)			// get
+            -BlockNode (void)			// {str="";num=1;bool_arr=null;bool_arr=newbool[100];return;}
+                -StatementNode (void)			// str="";
+                    -AssignNode (void)			// str=""
+                        -IdentifierNode (string)			// str
+                        -StringLiteralNode (string)			// ""
+                -StatementNode (void)			// num=1;
+                    -AssignNode (void)			// num=1
+                        -IdentifierNode (int)			// num
+                        -ConstantNode (int)			// 1
+                -StatementNode (void)			// bool_arr=null;
+                    -AssignNode (void)			// bool_arr=null
+                        -IdentifierNode (bool[])			// bool_arr
+                        -ConstantNode (null)			// null
+                -StatementNode (void)			// bool_arr=newbool[100];
+                    -AssignNode (void)			// bool_arr=newbool[100]
+                        -IdentifierNode (bool[])			// bool_arr
+                        -NewNode (bool[])			// newbool[100]
+                            -TypeNode (void)			// bool[100]
+                                -TypeAttributeNode (void)			// bool[100]
+                            -ArgumentTypeListNode (void)
+                -ReturnNode (void)			// return;
+        -FuncDefinitionNode (void)			// ClassAgetClassA(intx){ClassAtmp=newClassA;tmp.num=x;this.num=x;returntmp;}
+            -TypeNode (void)			// ClassA
+                -TypeAttributeNode (void)			// ClassA
+            -FuncDeclaratorNode (void)			// getClassA(intx)
+                -DeclaratorNode (void)			// getClassA
+                -ArgumentTypeListNode (void)			// intx
+                    -ArgumentDeclarationNode (void)			// intx
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// x
+            -BlockNode (void)			// {ClassAtmp=newClassA;tmp.num=x;this.num=x;returntmp;}
+                -DeclarationNode (void)			// ClassAtmp=newClassA;
+                    -TypeNode (void)			// ClassA
+                        -TypeAttributeNode (void)			// ClassA
+                    -DeclaratorListNode (void)			// tmp=newClassA
+                        -InitDeclaratorNode (void)			// tmp=newClassA
+                            -DeclaratorNode (void)			// tmp
+                            -NewNode (ClassA)			// newClassA
+                                -TypeNode (void)			// ClassA
+                                    -TypeAttributeNode (void)			// ClassA
+                                -ArgumentTypeListNode (void)
+                -StatementNode (void)			// tmp.num=x;
+                    -AssignNode (void)			// tmp.num=x
+                        -DotOpNode (int)			// tmp.num
+                            -IdentifierNode (ClassA)			// tmp
+                        -IdentifierNode (int)			// x
+                -StatementNode (void)			// this.num=x;
+                    -AssignNode (void)			// this.num=x
+                        -DotOpNode (int)			// this.num
+                            -ThisNode (ClassA)			// this
+                        -IdentifierNode (int)			// x
+                -ReturnNode (void)			// returntmp;
+                    -IdentifierNode (ClassA)			// tmp
+        -FuncDefinitionNode (void)			// stringgetString(){returnstr;}
+            -TypeNode (void)			// string
+                -TypeAttributeNode (void)			// string
+            -FuncDeclaratorNode (void)			// getString()
+                -DeclaratorNode (void)			// getString
+                -ArgumentTypeListNode (void)
+            -BlockNode (void)			// {returnstr;}
+                -ReturnNode (void)			// returnstr;
+                    -IdentifierNode (string)			// str
+    -FuncDefinitionNode (void)			// intMain(intparameter){ClassAa=newClassA;ClassAb=a.getClassA(parameter);b.num=parameter;parameter=getInt();int[]int_arr=(newint[2][])[3];intnumber=b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length();stringstr1="123";stringstr2="456";intnum=0;if(str1<str2)num++;if(str1<=str2)num++;if(str1>str2)num++;if(str1>=str2)num++;if((str1+str2)==(str1+str2)){num++;}elseif(false)num--;else--num;for(;;){break;}while(true)continue;println(str1);print(str2);returnnum;}
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -FuncDeclaratorNode (void)			// Main(intparameter)
+            -DeclaratorNode (void)			// Main
+            -ArgumentTypeListNode (void)			// intparameter
+                -ArgumentDeclarationNode (void)			// intparameter
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorNode (void)			// parameter
+        -BlockNode (void)			// {ClassAa=newClassA;ClassAb=a.getClassA(parameter);b.num=parameter;parameter=getInt();int[]int_arr=(newint[2][])[3];intnumber=b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length();stringstr1="123";stringstr2="456";intnum=0;if(str1<str2)num++;if(str1<=str2)num++;if(str1>str2)num++;if(str1>=str2)num++;if((str1+str2)==(str1+str2)){num++;}elseif(false)num--;else--num;for(;;){break;}while(true)continue;println(str1);print(str2);returnnum;}
+            -DeclarationNode (void)			// ClassAa=newClassA;
+                -TypeNode (void)			// ClassA
+                    -TypeAttributeNode (void)			// ClassA
+                -DeclaratorListNode (void)			// a=newClassA
+                    -InitDeclaratorNode (void)			// a=newClassA
+                        -DeclaratorNode (void)			// a
+                        -NewNode (ClassA)			// newClassA
+                            -TypeNode (void)			// ClassA
+                                -TypeAttributeNode (void)			// ClassA
+                            -ArgumentTypeListNode (void)
+            -DeclarationNode (void)			// ClassAb=a.getClassA(parameter);
+                -TypeNode (void)			// ClassA
+                    -TypeAttributeNode (void)			// ClassA
+                -DeclaratorListNode (void)			// b=a.getClassA(parameter)
+                    -InitDeclaratorNode (void)			// b=a.getClassA(parameter)
+                        -DeclaratorNode (void)			// b
+                        -ParenthesisOpNode (ClassA)			// a.getClassA(parameter)
+                            -DotOpNode (BaseType)			// a.getClassA
+                                -IdentifierNode (ClassA)			// a
+                            -ArgumentListNode (void)			// parameter
+                                -IdentifierNode (int)			// parameter
+            -StatementNode (void)			// b.num=parameter;
+                -AssignNode (void)			// b.num=parameter
+                    -DotOpNode (int)			// b.num
+                        -IdentifierNode (ClassA)			// b
+                    -IdentifierNode (int)			// parameter
+            -StatementNode (void)			// parameter=getInt();
+                -AssignNode (void)			// parameter=getInt()
+                    -IdentifierNode (int)			// parameter
+                    -ParenthesisOpNode (int)			// getInt()
+                        -IdentifierNode (BaseType)			// getInt
                         -ArgumentListNode (void)
-    -FuncDefinitionNode (void)			// intmain(){return0;}
+            -DeclarationNode (void)			// int[]int_arr=(newint[2][])[3];
+                -TypeNode (void)			// int[]
+                    -TypeAttributeNode (void)			// int[]
+                -DeclaratorListNode (void)			// int_arr=(newint[2][])[3]
+                    -InitDeclaratorNode (void)			// int_arr=(newint[2][])[3]
+                        -DeclaratorNode (void)			// int_arr
+                        -SubscriptOpNode (int[])			// (newint[2][])[3]
+                            -NewNode (int[][])			// (newint[2][])
+                                -TypeNode (void)			// int[2][]
+                                    -TypeAttributeNode (void)			// int[2][]
+                                -ArgumentTypeListNode (void)
+                            -ConstantNode (int)			// 3
+            -DeclarationNode (void)			// intnumber=b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length();
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// number=b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length()
+                    -InitDeclaratorNode (void)			// number=b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length()
+                        -DeclaratorNode (void)			// number
+                        -AddNode (int)			// b.getString().parseInt()+getString().ord(123)%b.getString().substring(1,3).length()
+                            -ParenthesisOpNode (int)			// b.getString().parseInt()
+                                -DotOpNode (BaseType)			// b.getString().parseInt
+                                    -ParenthesisOpNode (string)			// b.getString()
+                                        -DotOpNode (BaseType)			// b.getString
+                                            -IdentifierNode (ClassA)			// b
+                                        -ArgumentListNode (void)
+                                -ArgumentListNode (void)
+                            -ModuloNode (int)			// getString().ord(123)%b.getString().substring(1,3).length()
+                                -ParenthesisOpNode (int)			// getString().ord(123)
+                                    -DotOpNode (BaseType)			// getString().ord
+                                        -ParenthesisOpNode (string)			// getString()
+                                            -IdentifierNode (BaseType)			// getString
+                                            -ArgumentListNode (void)
+                                    -ArgumentListNode (void)			// 123
+                                        -ConstantNode (int)			// 123
+                                -ParenthesisOpNode (int)			// b.getString().substring(1,3).length()
+                                    -DotOpNode (BaseType)			// b.getString().substring(1,3).length
+                                        -ParenthesisOpNode (string)			// b.getString().substring(1,3)
+                                            -DotOpNode (BaseType)			// b.getString().substring
+                                                -ParenthesisOpNode (string)			// b.getString()
+                                                    -DotOpNode (BaseType)			// b.getString
+                                                        -IdentifierNode (ClassA)			// b
+                                                    -ArgumentListNode (void)
+                                            -ArgumentListNode (void)			// 1,3
+                                                -ConstantNode (int)			// 1
+                                                -ConstantNode (int)			// 3
+                                    -ArgumentListNode (void)
+            -DeclarationNode (void)			// stringstr1="123";
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// str1="123"
+                    -InitDeclaratorNode (void)			// str1="123"
+                        -DeclaratorNode (void)			// str1
+                        -StringLiteralNode (string)			// "123"
+            -DeclarationNode (void)			// stringstr2="456";
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// str2="456"
+                    -InitDeclaratorNode (void)			// str2="456"
+                        -DeclaratorNode (void)			// str2
+                        -StringLiteralNode (string)			// "456"
+            -DeclarationNode (void)			// intnum=0;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// num=0
+                    -InitDeclaratorNode (void)			// num=0
+                        -DeclaratorNode (void)			// num
+                        -ConstantNode (int)			// 0
+            -IfNode (void)			// if(str1<str2)num++;
+                -LessThanNode (bool)			// str1<str2
+                    -IdentifierNode (string)			// str1
+                    -IdentifierNode (string)			// str2
+                -StatementNode (void)			// num++;
+                    -PostfixAddNode (int)			// num++
+                        -IdentifierNode (int)			// num
+            -IfNode (void)			// if(str1<=str2)num++;
+                -LessOrEqualThanNode (bool)			// str1<=str2
+                    -IdentifierNode (string)			// str1
+                    -IdentifierNode (string)			// str2
+                -StatementNode (void)			// num++;
+                    -PostfixAddNode (int)			// num++
+                        -IdentifierNode (int)			// num
+            -IfNode (void)			// if(str1>str2)num++;
+                -GreaterThanNode (bool)			// str1>str2
+                    -IdentifierNode (string)			// str1
+                    -IdentifierNode (string)			// str2
+                -StatementNode (void)			// num++;
+                    -PostfixAddNode (int)			// num++
+                        -IdentifierNode (int)			// num
+            -IfNode (void)			// if(str1>=str2)num++;
+                -GreaterOrEqualThanNode (bool)			// str1>=str2
+                    -IdentifierNode (string)			// str1
+                    -IdentifierNode (string)			// str2
+                -StatementNode (void)			// num++;
+                    -PostfixAddNode (int)			// num++
+                        -IdentifierNode (int)			// num
+            -IfNode (void)			// if((str1+str2)==(str1+str2)){num++;}elseif(false)num--;else--num;
+                -EqualNode (bool)			// (str1+str2)==(str1+str2)
+                    -AddNode (string)			// (str1+str2)
+                        -IdentifierNode (string)			// str1
+                        -IdentifierNode (string)			// str2
+                    -AddNode (string)			// (str1+str2)
+                        -IdentifierNode (string)			// str1
+                        -IdentifierNode (string)			// str2
+                -BlockNode (void)			// {num++;}
+                    -StatementNode (void)			// num++;
+                        -PostfixAddNode (int)			// num++
+                            -IdentifierNode (int)			// num
+                -IfNode (void)			// if(false)num--;else--num;
+                    -ConstantNode (bool)			// false
+                    -StatementNode (void)			// num--;
+                        -PostfixSubNode (int)			// num--
+                            -IdentifierNode (int)			// num
+                    -StatementNode (void)			// --num;
+                        -PrefixSubNode (int)			// --num
+                            -IdentifierNode (int)			// num
+            -ForNode (void)			// for(;;){break;}
+                -ForConditionNode (void)			// ;;
+                    -ExpressionNode (void)
+                    -ConstantNode (bool)
+                    -ExpressionNode (void)
+                -BlockNode (void)			// {break;}
+                    -BreakNode (void)			// break;
+            -WhileNode (void)			// while(true)continue;
+                -ConstantNode (bool)			// true
+                -ContinueNode (void)			// continue;
+            -StatementNode (void)			// println(str1);
+                -ParenthesisOpNode (void)			// println(str1)
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// str1
+                        -IdentifierNode (string)			// str1
+            -StatementNode (void)			// print(str2);
+                -ParenthesisOpNode (void)			// print(str2)
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// str2
+                        -IdentifierNode (string)			// str2
+            -ReturnNode (void)			// returnnum;
+                -IdentifierNode (int)			// num
+    -FuncDefinitionNode (void)			// intmain(){Main(0);}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {return0;}
-            -ReturnNode (void)			// return0;
-                -ConstantNode (int)			// 0
+        -BlockNode (void)			// {Main(0);}
+            -StatementNode (void)			// Main(0);
+                -ParenthesisOpNode (int)			// Main(0)
+                    -IdentifierNode (BaseType)			// Main
+                    -ArgumentListNode (void)			// 0
+                        -ConstantNode (int)			// 0
