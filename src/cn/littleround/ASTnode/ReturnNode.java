@@ -22,7 +22,7 @@ public class ReturnNode extends JumpNode {
     public void checkType() {
         super.checkType();
         BaseType retType = findFatherRetType();
-        if (retType == null) {
+        if (retType instanceof VoidType) {
             if (getSons().size() > 0)
                 reportError("Semantic", "\'"+getSons().get(0).getCtx().getText()+"\' unexpected after return in void function.");
         } else {

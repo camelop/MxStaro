@@ -1,5 +1,7 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.type.BoolType;
+
 public class ForConditionNode extends StatementNode {
     private boolean declarationExist = false;
     private boolean e1Exist = false;
@@ -37,5 +39,12 @@ public class ForConditionNode extends StatementNode {
 
     public void setE3Exist(boolean e3Exist) {
         this.e3Exist = e3Exist;
+    }
+
+    @Override
+    public void checkType() {
+        super.checkType();
+        if (!(getSons().get(1).type instanceof BoolType))
+            reportError("Semantic", "Non-boolean value in for conditions.");
     }
 }

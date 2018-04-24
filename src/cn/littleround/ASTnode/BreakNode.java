@@ -1,4 +1,4 @@
 package cn.littleround.ASTnode;
 
-public class BreakNode extends JumpNode {
+public class BreakNode extends LoopJumpNode {
 }

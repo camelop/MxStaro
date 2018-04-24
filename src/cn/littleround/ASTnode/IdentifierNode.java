@@ -27,6 +27,9 @@ public class IdentifierNode extends ExpressionNode {
         super.updateType();
         def = getSymbolTable().getSymbol(Identifier);
         //System.out.println(getSymbolTable().toInfoString());
+        if (def == null) {
+            reportError("Semantic", "Can't resolve symbol \'"+Identifier+"\'.");
+        }
         type = symbolToType(def);
     }
 

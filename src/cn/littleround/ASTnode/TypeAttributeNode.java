@@ -73,4 +73,14 @@ public class TypeAttributeNode extends ASTBaseNode {
     public void setPointerExpressionList(ArrayList<ExpressionNode> pointerExpressionList) {
         this.pointerExpressionList = pointerExpressionList;
     }
+
+    @Override
+    public void checkType() {
+        super.checkType();
+        BaseType t = getType();
+        if (t instanceof UserDefinedType) {
+            if (getSymbolTable().getClassSymbol(t.toString()) == null)
+                reportError("Semantic", "Invalid type specifier.");
+        }
+    }
 }
