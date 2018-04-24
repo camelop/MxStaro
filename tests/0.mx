@@ -1,5 +1,29 @@
+class A
+{
+	int a;
+	void f(int b)
+	{
+		a = b;
+	}
+}
+
 int main()
 {
-	println("No main function.");
-	return 0;
+	int c = 10;
+	A a = new A;
+	return 1;
 }
+
+
+/*!! metadata:
+=== comment ===
+5140309234-xietiancheng/function1.txt
+=== assert ===
+failure_compile
+=== phase ===
+semantic pretest
+=== is_public ===
+True
+
+!!*/
+

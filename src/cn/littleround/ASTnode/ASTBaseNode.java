@@ -1,8 +1,9 @@
 package cn.littleround.ASTnode;
 
-import cn.littleround.symbol.Symbol;
-import cn.littleround.symbol.SymbolTable;
+import cn.littleround.symbol.*;
 import cn.littleround.type.BaseType;
+import cn.littleround.type.FuncType;
+import cn.littleround.type.KlassType;
 import cn.littleround.type.VoidType;
 import org.antlr.v4.runtime.ParserRuleContext;
 
@@ -110,5 +111,17 @@ public abstract class ASTBaseNode {
 
     public void checkType() {
         for (ASTBaseNode i:sons) i.checkType();
+    }
+
+    protected BaseType symbolToType(Symbol def) {
+        BaseType ret = null;
+        if (def instanceof VariableSymbol) ret = ((VariableSymbol) def).getType(); else {
+            if (def instanceof FuncSymbol) ret = new FuncType((FuncSymbol) def); else {
+                if (def instanceof ClassSymbol) {
+                    ret = new KlassType((ClassSymbol) def);
+                }
+            }
+        }
+        return ret;
     }
 }

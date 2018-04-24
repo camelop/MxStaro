@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}intmain(){println("No main function.");return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}classA{inta;voidf(intb){a=b;}}intmain(){intc=10;Aa=newA;return1;}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -111,17 +111,51 @@
         -BlockNode (void)			// {return"abracadabra";}
             -ReturnNode (void)			// return"abracadabra";
                 -StringLiteralNode (string)			// "abracadabra"
-    -FuncDefinitionNode (void)			// intmain(){println("No main function.");return0;}
+    -ClassDefinitionNode (void)			// classA{inta;voidf(intb){a=b;}}
+        -DeclarationNode (void)			// inta;
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -DeclaratorListNode (void)			// a
+                -InitDeclaratorNode (void)			// a
+                    -DeclaratorNode (void)			// a
+        -FuncDefinitionNode (void)			// voidf(intb){a=b;}
+            -TypeNode (void)			// void
+                -TypeAttributeNode (void)			// void
+            -FuncDeclaratorNode (void)			// f(intb)
+                -DeclaratorNode (void)			// f
+                -ArgumentTypeListNode (void)			// intb
+                    -ArgumentDeclarationNode (void)			// intb
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// b
+            -BlockNode (void)			// {a=b;}
+                -StatementNode (void)			// a=b;
+                    -AssignNode (void)			// a=b
+                        -IdentifierNode (int)			// a
+                        -IdentifierNode (int)			// b
+    -FuncDefinitionNode (void)			// intmain(){intc=10;Aa=newA;return1;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {println("No main function.");return0;}
-            -StatementNode (void)			// println("No main function.");
-                -ParenthesisOpNode (void)			// println("No main function.")
-                    -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// "No main function."
-                        -StringLiteralNode (string)			// "No main function."
-            -ReturnNode (void)			// return0;
-                -ConstantNode (int)			// 0
+        -BlockNode (void)			// {intc=10;Aa=newA;return1;}
+            -DeclarationNode (void)			// intc=10;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// c=10
+                    -InitDeclaratorNode (void)			// c=10
+                        -DeclaratorNode (void)			// c
+                        -ConstantNode (int)			// 10
+            -DeclarationNode (void)			// Aa=newA;
+                -TypeNode (void)			// A
+                    -TypeAttributeNode (void)			// A
+                -DeclaratorListNode (void)			// a=newA
+                    -InitDeclaratorNode (void)			// a=newA
+                        -DeclaratorNode (void)			// a
+                        -NewNode (A)			// newA
+                            -TypeNode (void)			// A
+                                -TypeAttributeNode (void)			// A
+                            -ArgumentTypeListNode (void)
+            -ReturnNode (void)			// return1;
+                -ConstantNode (int)			// 1
