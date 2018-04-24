@@ -63,7 +63,7 @@ public class FuncDefinitionNode extends DeclarationNode {
             while ((f!=null)&&!(f instanceof ClassDefinitionNode)) f = f.getParent();
             if (f == null)
                 reportError("Semantic", "Where is the function specifiers?");
-            else if (((ClassDefinitionNode) f).getIdentifier() != declarator().getIdentifier()) {
+            else if (((ClassDefinitionNode) f).getIdentifier().equals(declarator().getIdentifier())) {
                 reportError("Semantic", "Constructor should be named \'"+
                         ((ClassDefinitionNode) f).getIdentifier()+
                         "\', not \'"+
