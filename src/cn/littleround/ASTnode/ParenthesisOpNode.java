@@ -14,5 +14,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
             tl.add(i.type);
         }
         type = ((FuncType) op1().type).getRetType(tl);
+        if (type == null)
+            reportError("Semantic", "Cannot find coesponding function form.");
     }
 }
