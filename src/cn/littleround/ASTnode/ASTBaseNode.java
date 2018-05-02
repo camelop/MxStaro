@@ -85,7 +85,7 @@ public abstract class ASTBaseNode {
         for (ASTBaseNode i:sons) {
             if (i instanceof DeclarationNode) {
                 for (Symbol s:((DeclarationNode) i).getSymbols()) {
-                    if (!st.add(s)) reportError("Semantic Error", "Redefined symbol "+s.getName()+".");
+                    if (!st.add(s)) reportError("Semantic", "Redefined symbol "+s.getName()+".");
                 }
             }
             i.createSymbolTable();
@@ -131,5 +131,14 @@ public abstract class ASTBaseNode {
         while ((f!=null) && !(f instanceof FuncDefinitionNode) && !(f instanceof ClassDefinitionNode) && !(f instanceof BlockNode))
             f = f.getParent();
         return f == null;
+    }
+
+    public boolean isSonOf(ASTBaseNode rhs) {
+        ASTBaseNode f = this;
+        while (f.getParent()!=null) {
+            if (f == rhs) return true;
+            f = f.getParent();
+        }
+        return false;
     }
 }

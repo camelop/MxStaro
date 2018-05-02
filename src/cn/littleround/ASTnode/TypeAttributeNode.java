@@ -1,9 +1,7 @@
 package cn.littleround.ASTnode;
 
 import cn.littleround.Constants;
-import cn.littleround.type.BaseType;
-import cn.littleround.type.PointerType;
-import cn.littleround.type.UserDefinedType;
+import cn.littleround.type.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -59,6 +57,8 @@ public class TypeAttributeNode extends ASTBaseNode {
                 break;
         }
         int pl = pointerLevel;
+        if (pl > 0 && ret instanceof VoidType)
+            reportError("Semantic", "Void array is invalid.");
         while (pl > 0) {
             --pl;
             ret = new PointerType(ret);

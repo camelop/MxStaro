@@ -1,5 +1,6 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.symbol.Symbol;
 import cn.littleround.type.BaseType;
 import cn.littleround.type.VoidType;
 
@@ -35,4 +36,5 @@ public class InitDeclaratorNode extends ASTBaseNode {
                 reportError("Semantic", "Declaration init value should be type: "+fatherType().toString()+".");
         }
     }
+
 }

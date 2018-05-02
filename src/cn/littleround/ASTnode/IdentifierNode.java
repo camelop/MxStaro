@@ -30,6 +30,9 @@ public class IdentifierNode extends ExpressionNode {
         if (def == null) {
             reportError("Semantic", "Can't resolve symbol \'"+Identifier+"\'.");
         }
+        if (def instanceof VariableSymbol && isSonOf(def.getSrc())) {
+            reportError("Semantic", "Self reference \'"+Identifier+"\'."); //TODO ? BUG? self ref !!!
+        }
         type = symbolToType(def);
     }
 
