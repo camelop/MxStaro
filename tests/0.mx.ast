@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}intmain(){void[]a;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}classA{inta;}classB{Ab;}classC{Bc;}classD{Cd;}classE{De;}classF{Ef;}classG{Fg;}Gworld=newG;voidhello(intworld){}intmain(){hello(world.g.f.e.d.c.b.a);return0;}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -111,16 +111,94 @@
         -BlockNode (void)			// {return"abracadabra";}
             -ReturnNode (void)			// return"abracadabra";
                 -StringLiteralNode (string)			// "abracadabra"
-    -FuncDefinitionNode (void)			// intmain(){void[]a;}
+    -ClassDefinitionNode (void)			// classA{inta;}
+        -DeclarationNode (void)			// inta;
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -DeclaratorListNode (void)			// a
+                -InitDeclaratorNode (void)			// a
+                    -DeclaratorNode (void)			// a
+    -ClassDefinitionNode (void)			// classB{Ab;}
+        -DeclarationNode (void)			// Ab;
+            -TypeNode (void)			// A
+                -TypeAttributeNode (void)			// A
+            -DeclaratorListNode (void)			// b
+                -InitDeclaratorNode (void)			// b
+                    -DeclaratorNode (void)			// b
+    -ClassDefinitionNode (void)			// classC{Bc;}
+        -DeclarationNode (void)			// Bc;
+            -TypeNode (void)			// B
+                -TypeAttributeNode (void)			// B
+            -DeclaratorListNode (void)			// c
+                -InitDeclaratorNode (void)			// c
+                    -DeclaratorNode (void)			// c
+    -ClassDefinitionNode (void)			// classD{Cd;}
+        -DeclarationNode (void)			// Cd;
+            -TypeNode (void)			// C
+                -TypeAttributeNode (void)			// C
+            -DeclaratorListNode (void)			// d
+                -InitDeclaratorNode (void)			// d
+                    -DeclaratorNode (void)			// d
+    -ClassDefinitionNode (void)			// classE{De;}
+        -DeclarationNode (void)			// De;
+            -TypeNode (void)			// D
+                -TypeAttributeNode (void)			// D
+            -DeclaratorListNode (void)			// e
+                -InitDeclaratorNode (void)			// e
+                    -DeclaratorNode (void)			// e
+    -ClassDefinitionNode (void)			// classF{Ef;}
+        -DeclarationNode (void)			// Ef;
+            -TypeNode (void)			// E
+                -TypeAttributeNode (void)			// E
+            -DeclaratorListNode (void)			// f
+                -InitDeclaratorNode (void)			// f
+                    -DeclaratorNode (void)			// f
+    -ClassDefinitionNode (void)			// classG{Fg;}
+        -DeclarationNode (void)			// Fg;
+            -TypeNode (void)			// F
+                -TypeAttributeNode (void)			// F
+            -DeclaratorListNode (void)			// g
+                -InitDeclaratorNode (void)			// g
+                    -DeclaratorNode (void)			// g
+    -DeclarationNode (void)			// Gworld=newG;
+        -TypeNode (void)			// G
+            -TypeAttributeNode (void)			// G
+        -DeclaratorListNode (void)			// world=newG
+            -InitDeclaratorNode (void)			// world=newG
+                -DeclaratorNode (void)			// world
+                -NewNode (G)			// newG
+                    -TypeNode (void)			// G
+                        -TypeAttributeNode (void)			// G
+                    -ArgumentTypeListNode (void)
+    -FuncDefinitionNode (void)			// voidhello(intworld){}
+        -TypeNode (void)			// void
+            -TypeAttributeNode (void)			// void
+        -FuncDeclaratorNode (void)			// hello(intworld)
+            -DeclaratorNode (void)			// hello
+            -ArgumentTypeListNode (void)			// intworld
+                -ArgumentDeclarationNode (void)			// intworld
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorNode (void)			// world
+        -BlockNode (void)			// {}
+    -FuncDefinitionNode (void)			// intmain(){hello(world.g.f.e.d.c.b.a);return0;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {void[]a;}
-            -DeclarationNode (void)			// void[]a;
-                -TypeNode (void)			// void[]
-                    -TypeAttributeNode (void)			// void[]
-                -DeclaratorListNode (void)			// a
-                    -InitDeclaratorNode (void)			// a
-                        -DeclaratorNode (void)			// a
+        -BlockNode (void)			// {hello(world.g.f.e.d.c.b.a);return0;}
+            -StatementNode (void)			// hello(world.g.f.e.d.c.b.a);
+                -ParenthesisOpNode (void)			// hello(world.g.f.e.d.c.b.a)
+                    -IdentifierNode (BaseType)			// hello
+                    -ArgumentListNode (void)			// world.g.f.e.d.c.b.a
+                        -DotOpNode (int)			// world.g.f.e.d.c.b.a
+                            -DotOpNode (A)			// world.g.f.e.d.c.b
+                                -DotOpNode (B)			// world.g.f.e.d.c
+                                    -DotOpNode (C)			// world.g.f.e.d
+                                        -DotOpNode (D)			// world.g.f.e
+                                            -DotOpNode (E)			// world.g.f
+                                                -DotOpNode (F)			// world.g
+                                                    -IdentifierNode (G)			// world
+            -ReturnNode (void)			// return0;
+                -ConstantNode (int)			// 0

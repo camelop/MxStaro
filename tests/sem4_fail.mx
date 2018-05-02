@@ -1,0 +1,7 @@
+// no main
+int main;
+class Main {
+    int main() {
+        return 0;
+    }
+}
