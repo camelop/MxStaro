@@ -371,10 +371,15 @@ False : 'false';
 Null: 'null';
 
 Identifier
-    :   Nondigit
+    :   Identifierstart
         (   Nondigit
         |   Digit
         )*
+    ;
+
+fragment
+Identifierstart
+    :   [a-zA-Z]
     ;
 
 fragment

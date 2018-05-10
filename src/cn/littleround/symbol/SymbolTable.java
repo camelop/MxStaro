@@ -11,9 +11,17 @@ public class SymbolTable {
         // detect which kind of symbol
         if (s instanceof VariableSymbol) {
             if (vsm.containsKey(s.getName())) return false;
+            // begin stupid standard
+            if (csm.containsKey(s.getName())) return false;
+            if (fsm.containsKey(s.getName())) return false;
+            // end stupid standard
             vsm.put(s.getName(), (VariableSymbol) s);
             return true;
         } else if (s instanceof FuncFormSymbol) {
+            // begin stupid standard
+            if (vsm.containsKey(s.getName())) return false;
+            if (csm.containsKey(s.getName())) return false;
+            // end stupid standard
             FuncFormSymbol ffs = (FuncFormSymbol) s;
             if (fsm.containsKey(ffs.getName())) {
                 FuncSymbol fs = fsm.get(ffs.getName());
@@ -28,6 +36,10 @@ public class SymbolTable {
                 return true;
             }
         } else if (s instanceof FuncSymbol) {
+            // begin stupid standard
+            if (vsm.containsKey(s.getName())) return false;
+            if (csm.containsKey(s.getName())) return false;
+            // end stupid standard
             FuncSymbol fs = (FuncSymbol) s;
             if (fsm.containsKey(fs.getName())) {
                 FuncSymbol fsLocal = fsm.get(fs.getName());
@@ -42,6 +54,10 @@ public class SymbolTable {
             }
         } else if (s instanceof ClassSymbol) {
             if (s instanceof TypeSymbol) return true;
+            // begin stupid standard
+            if (vsm.containsKey(s.getName())) return false;
+            if (fsm.containsKey(s.getName())) return false;
+            // end stupid standard
             ClassSymbol cs = (ClassSymbol) s;
             if (csm.containsKey(cs.getName())) return false;
             csm.put(cs.getName(), cs);
