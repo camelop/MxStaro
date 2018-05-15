@@ -371,7 +371,7 @@ False : 'false';
 Null: 'null';
 
 Identifier
-    :   Identifierstart
+    :   Nondigit
         (   Nondigit
         |   Digit
         )*
