@@ -12,4 +12,9 @@ public class FuncType extends BaseType {
     public BaseType getRetType(TypeList tl) {
         return fs.getRetType(tl);
     }
+
+    @Override
+    public int getSize() {
+        return 0;
+    }
 }

@@ -1,5 +1,7 @@
 package cn.littleround.type;
 
+import cn.littleround.Constants;
+
 public class PointerType extends BaseType {
     private BaseType originType;
     @Override
@@ -21,5 +23,10 @@ public class PointerType extends BaseType {
         if (obj instanceof NullType) return true;
         if (this instanceof NullType) return true;
         return super.equals(obj);
+    }
+
+    @Override
+    public int getSize() {
+        return Constants.sizeOfPointer;
     }
 }

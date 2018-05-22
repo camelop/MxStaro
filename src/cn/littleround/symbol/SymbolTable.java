@@ -7,6 +7,19 @@ public class SymbolTable {
     private HashMap<String, FuncSymbol> fsm = new HashMap<>();
     private HashMap<String, ClassSymbol> csm = new HashMap<>();
 
+    public HashMap<String, VariableSymbol> getVsm() {
+        return vsm;
+    }
+
+    public HashMap<String, FuncSymbol> getFsm() {
+        return fsm;
+    }
+
+    public HashMap<String, ClassSymbol> getCsm() {
+        return csm;
+    }
+
+
     public boolean add(Symbol s) {
         // detect which kind of symbol
         if (s instanceof VariableSymbol) {

@@ -2,6 +2,11 @@ package cn.littleround.symbol;
 
 public class ClassSymbol extends Symbol {
     private SymbolTable st = new SymbolTable();
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     private int size = 0;
 
     @Override
@@ -19,5 +24,10 @@ public class ClassSymbol extends Symbol {
 
     public SymbolTable getSymbolTable() {
         return st;
+    }
+
+    @Override
+    public String toString() {
+        return "Class("+getName()+")";
     }
 }

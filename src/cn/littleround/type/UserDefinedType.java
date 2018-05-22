@@ -1,5 +1,7 @@
 package cn.littleround.type;
 
+import cn.littleround.Constants;
+
 public class UserDefinedType extends BaseType {
     private String typename = null;
     @Override
@@ -16,5 +18,10 @@ public class UserDefinedType extends BaseType {
         if (!(obj instanceof BaseType)) return false;
         if (obj instanceof NullType) return true;
         return super.equals(obj);
+    }
+
+    @Override
+    public int getSize() {
+        return Constants.sizeOfPointer;
     }
 }

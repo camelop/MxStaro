@@ -1,6 +1,7 @@
 package cn.littleround.type;
 
 public abstract class BaseType {
+
     @Override
     public String toString() {
         return "BaseType";
@@ -10,4 +11,6 @@ public abstract class BaseType {
     public boolean equals(Object obj) {
         return this.toString().equals(obj.toString());
     }
+
+    abstract public int getSize();
 }

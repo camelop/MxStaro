@@ -9,12 +9,14 @@ import java.util.HashMap;
 public class Constants {
     public final static int sizeOfInt = 4;
     public final static int sizeOfBoolean = 1;
-    public final static int sizeOfString = 0; //?
+    public final static int sizeOfPointer = 4;
+    public final static int sizeOfString = 4; //?
     public final static BoolType BOOL = new BoolType();
     public final static IntType INT = new IntType();
     public final static StringType STRING = new StringType();
     public final static VoidType VOID = new VoidType();
     public final static NullType NULL = new NullType();
+
     public final static int typeToSize(String typename) {
         switch (typename) {
             case "int":

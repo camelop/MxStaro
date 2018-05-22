@@ -81,6 +81,7 @@ public abstract class ASTBaseNode {
         return sb.toString();
     }
 
+    // Passes below
     public void createSymbolTable() {
         for (ASTBaseNode i:sons) {
             if (i instanceof DeclarationNode) {

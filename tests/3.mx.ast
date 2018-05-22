@@ -1,63 +1,176 @@
--CompilationNode			// intWallace=1<<10;classsometimes{intnaive;voidmake_money(){this.naive++;}}intmain(){sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}<EOF>
-    -DeclarationNode			// intWallace=1<<10;
-        -TypeNode			// int
-            -TypeAttributeNode			// int
-        -DeclaratorListNode			// Wallace=1<<10
-            -InitDeclaratorNode			// Wallace=1<<10
-                -DeclaratorNode			// Wallace
-                -ShiftLeftNode			// 1<<10
-                    -ConstantNode			// 1
-                    -ConstantNode			// 10
-    -ClassDefinitionNode			// classsometimes{intnaive;voidmake_money(){this.naive++;}}
-        -DeclarationNode			// intnaive;
-            -TypeNode			// int
-                -TypeAttributeNode			// int
-            -DeclaratorListNode			// naive
-                -InitDeclaratorNode			// naive
-                    -DeclaratorNode			// naive
-        -FuncDefinitionNode			// voidmake_money(){this.naive++;}
-            -TypeNode			// void
-                -TypeAttributeNode			// void
-            -FuncDeclaratorNode			// make_money()
-                -DeclaratorNode			// make_money
-                -ArgumentTypeListNode
-            -BlockNode			// {this.naive++;}
-                -StatementNode			// this.naive++;
-                    -PostfixAddNode			// this.naive++
-                        -DotOpNode			// this.naive
-                            -ThisNode			// this
-    -FuncDefinitionNode			// intmain(){sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}
-        -TypeNode			// int
-            -TypeAttributeNode			// int
-        -FuncDeclaratorNode			// main()
-            -DeclaratorNode			// main
-            -ArgumentTypeListNode
-        -BlockNode			// {sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}
-            -DeclarationNode			// sometimeskeep=newsometimes;
-                -TypeNode			// sometimes
-                    -TypeAttributeNode			// sometimes
-                -DeclaratorListNode			// keep=newsometimes
-                    -InitDeclaratorNode			// keep=newsometimes
-                        -DeclaratorNode			// keep
-                        -NewNode			// newsometimes
-                            -TypeNode			// sometimes
-                                -TypeAttributeNode			// sometimes
-            -StatementNode			// keep.naive=0;
-                -AssignNode			// keep.naive=0
-                    -DotOpNode			// keep.naive
-                        -IdentifierNode			// keep
-                    -ConstantNode			// 0
-            -WhileNode			// while(getInt()<Wallace){keep.make_money();}
-                -LessThanNode			// getInt()<Wallace
-                    -ParenthesisOpNode			// getInt()
-                        -IdentifierNode			// getInt
-                        -ArgumentListNode
-                    -IdentifierNode			// Wallace
-                -BlockNode			// {keep.make_money();}
-                    -StatementNode			// keep.make_money();
-                        -ParenthesisOpNode			// keep.make_money()
-                            -DotOpNode			// keep.make_money
-                                -IdentifierNode			// keep
-                            -ArgumentListNode
-            -ReturnNode			// return0;
-                -ConstantNode			// 0
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}intWallace=1<<10;classsometimes{intnaive;voidmake_money(){this.naive++;}}intmain(){sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}<EOF>
+    -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
+        -FuncDefinitionNode (void)			// intlength(){return0;}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// length()
+                -DeclaratorNode (void)			// length
+                -ArgumentTypeListNode (void)
+            -BlockNode (void)			// {return0;}
+                -ReturnNode (void)			// return0;
+                    -ConstantNode (int)			// 0
+        -FuncDefinitionNode (void)			// stringsubstring(intleft,intright){return"";}
+            -TypeNode (void)			// string
+                -TypeAttributeNode (void)			// string
+            -FuncDeclaratorNode (void)			// substring(intleft,intright)
+                -DeclaratorNode (void)			// substring
+                -ArgumentTypeListNode (void)			// intleft,intright
+                    -ArgumentDeclarationNode (void)			// intleft
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// left
+                    -ArgumentDeclarationNode (void)			// intright
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// right
+            -BlockNode (void)			// {return"";}
+                -ReturnNode (void)			// return"";
+                    -StringLiteralNode (string)			// ""
+        -FuncDefinitionNode (void)			// intparseInt(){return0;}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// parseInt()
+                -DeclaratorNode (void)			// parseInt
+                -ArgumentTypeListNode (void)
+            -BlockNode (void)			// {return0;}
+                -ReturnNode (void)			// return0;
+                    -ConstantNode (int)			// 0
+        -FuncDefinitionNode (void)			// intord(intpos){return0;}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// ord(intpos)
+                -DeclaratorNode (void)			// ord
+                -ArgumentTypeListNode (void)			// intpos
+                    -ArgumentDeclarationNode (void)			// intpos
+                        -TypeNode (void)			// int
+                            -TypeAttributeNode (void)			// int
+                        -DeclaratorNode (void)			// pos
+            -BlockNode (void)			// {return0;}
+                -ReturnNode (void)			// return0;
+                    -ConstantNode (int)			// 0
+    -ClassDefinitionNode (void)			// classbuilt_in_array{intsize(){return0;}}
+        -FuncDefinitionNode (void)			// intsize(){return0;}
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -FuncDeclaratorNode (void)			// size()
+                -DeclaratorNode (void)			// size
+                -ArgumentTypeListNode (void)
+            -BlockNode (void)			// {return0;}
+                -ReturnNode (void)			// return0;
+                    -ConstantNode (int)			// 0
+    -FuncDefinitionNode (void)			// voidprint(stringstr){}
+        -TypeNode (void)			// void
+            -TypeAttributeNode (void)			// void
+        -FuncDeclaratorNode (void)			// print(stringstr)
+            -DeclaratorNode (void)			// print
+            -ArgumentTypeListNode (void)			// stringstr
+                -ArgumentDeclarationNode (void)			// stringstr
+                    -TypeNode (void)			// string
+                        -TypeAttributeNode (void)			// string
+                    -DeclaratorNode (void)			// str
+        -BlockNode (void)			// {}
+    -FuncDefinitionNode (void)			// voidprintln(stringstr){}
+        -TypeNode (void)			// void
+            -TypeAttributeNode (void)			// void
+        -FuncDeclaratorNode (void)			// println(stringstr)
+            -DeclaratorNode (void)			// println
+            -ArgumentTypeListNode (void)			// stringstr
+                -ArgumentDeclarationNode (void)			// stringstr
+                    -TypeNode (void)			// string
+                        -TypeAttributeNode (void)			// string
+                    -DeclaratorNode (void)			// str
+        -BlockNode (void)			// {}
+    -FuncDefinitionNode (void)			// stringgetString(){return"abracadabra";}
+        -TypeNode (void)			// string
+            -TypeAttributeNode (void)			// string
+        -FuncDeclaratorNode (void)			// getString()
+            -DeclaratorNode (void)			// getString
+            -ArgumentTypeListNode (void)
+        -BlockNode (void)			// {return"abracadabra";}
+            -ReturnNode (void)			// return"abracadabra";
+                -StringLiteralNode (string)			// "abracadabra"
+    -FuncDefinitionNode (void)			// intgetInt(){return0;}
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -FuncDeclaratorNode (void)			// getInt()
+            -DeclaratorNode (void)			// getInt
+            -ArgumentTypeListNode (void)
+        -BlockNode (void)			// {return0;}
+            -ReturnNode (void)			// return0;
+                -ConstantNode (int)			// 0
+    -FuncDefinitionNode (void)			// stringtoString(inti){return"abracadabra";}
+        -TypeNode (void)			// string
+            -TypeAttributeNode (void)			// string
+        -FuncDeclaratorNode (void)			// toString(inti)
+            -DeclaratorNode (void)			// toString
+            -ArgumentTypeListNode (void)			// inti
+                -ArgumentDeclarationNode (void)			// inti
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorNode (void)			// i
+        -BlockNode (void)			// {return"abracadabra";}
+            -ReturnNode (void)			// return"abracadabra";
+                -StringLiteralNode (string)			// "abracadabra"
+    -DeclarationNode (void)			// intWallace=1<<10;
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -DeclaratorListNode (void)			// Wallace=1<<10
+            -InitDeclaratorNode (void)			// Wallace=1<<10
+                -DeclaratorNode (void)			// Wallace
+                -ShiftLeftNode (int)			// 1<<10
+                    -ConstantNode (int)			// 1
+                    -ConstantNode (int)			// 10
+    -ClassDefinitionNode (void)			// classsometimes{intnaive;voidmake_money(){this.naive++;}}
+        -DeclarationNode (void)			// intnaive;
+            -TypeNode (void)			// int
+                -TypeAttributeNode (void)			// int
+            -DeclaratorListNode (void)			// naive
+                -InitDeclaratorNode (void)			// naive
+                    -DeclaratorNode (void)			// naive
+        -FuncDefinitionNode (void)			// voidmake_money(){this.naive++;}
+            -TypeNode (void)			// void
+                -TypeAttributeNode (void)			// void
+            -FuncDeclaratorNode (void)			// make_money()
+                -DeclaratorNode (void)			// make_money
+                -ArgumentTypeListNode (void)
+            -BlockNode (void)			// {this.naive++;}
+                -StatementNode (void)			// this.naive++;
+                    -PostfixAddNode (int)			// this.naive++
+                        -DotOpNode (int)			// this.naive
+                            -ThisNode (sometimes)			// this
+    -FuncDefinitionNode (void)			// intmain(){sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -FuncDeclaratorNode (void)			// main()
+            -DeclaratorNode (void)			// main
+            -ArgumentTypeListNode (void)
+        -BlockNode (void)			// {sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}
+            -DeclarationNode (void)			// sometimeskeep=newsometimes;
+                -TypeNode (void)			// sometimes
+                    -TypeAttributeNode (void)			// sometimes
+                -DeclaratorListNode (void)			// keep=newsometimes
+                    -InitDeclaratorNode (void)			// keep=newsometimes
+                        -DeclaratorNode (void)			// keep
+                        -NewNode (sometimes)			// newsometimes
+                            -TypeNode (void)			// sometimes
+                                -TypeAttributeNode (void)			// sometimes
+                            -ArgumentTypeListNode (void)
+            -StatementNode (void)			// keep.naive=0;
+                -AssignNode (void)			// keep.naive=0
+                    -DotOpNode (int)			// keep.naive
+                        -IdentifierNode (sometimes)			// keep
+                    -ConstantNode (int)			// 0
+            -WhileNode (void)			// while(getInt()<Wallace){keep.make_money();}
+                -LessThanNode (bool)			// getInt()<Wallace
+                    -ParenthesisOpNode (int)			// getInt()
+                        -IdentifierNode (BaseType)			// getInt
+                        -ArgumentListNode (void)
+                    -IdentifierNode (int)			// Wallace
+                -BlockNode (void)			// {keep.make_money();}
+                    -StatementNode (void)			// keep.make_money();
+                        -ParenthesisOpNode (void)			// keep.make_money()
+                            -DotOpNode (BaseType)			// keep.make_money
+                                -IdentifierNode (sometimes)			// keep
+                            -ArgumentListNode (void)
+            -ReturnNode (void)			// return0;
+                -ConstantNode (int)			// 0

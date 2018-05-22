@@ -35,4 +35,8 @@ public class DeclarationNode extends ASTBaseNode {
         if (specifier().getType() instanceof VoidType)
             reportError("Semantic", "Void cannot be declared as variable.");
     }
+
+    public int getSize() {
+        return specifier().getType().getSize() * initDeclaratorList().getSons().size();
+    }
 }

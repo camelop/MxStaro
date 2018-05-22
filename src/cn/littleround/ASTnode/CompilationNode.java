@@ -1,13 +1,12 @@
 package cn.littleround.ASTnode;
 
-import cn.littleround.symbol.ClassSymbol;
-import cn.littleround.symbol.FuncFormSymbol;
 import cn.littleround.symbol.FuncSymbol;
 import cn.littleround.symbol.Symbol;
 import cn.littleround.type.IntType;
 import cn.littleround.type.TypeList;
 
 public class CompilationNode extends ASTBaseNode {
+
     @Override
     public void checkType() {
         super.checkType();

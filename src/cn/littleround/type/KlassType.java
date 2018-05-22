@@ -11,4 +11,9 @@ public class KlassType extends BaseType {
     public KlassType(ClassSymbol cs) {
         this.cs = cs;
     }
+
+    @Override
+    public int getSize() {
+        return 0;
+    }
 }

@@ -2,22 +2,23 @@ package cn.littleround;
 
 
 import cn.littleround.ASTnode.ASTBaseNode;
+import cn.littleround.ASTnode.CompilationNode;
 import cn.littleround.antlr4_gen.MxStarLexer;
 import cn.littleround.antlr4_gen.MxStarParser;
+import cn.littleround.ir.Program;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.*;
-import java.net.URL;
-import java.util.HashMap;
+import java.util.HashSet;
 
 public class Main {
 
     private static void output(String loc, String message) {
         try {
-            Writer out = new FileWriter(loc+".ast");
+            Writer out = new FileWriter(loc);
             out.write(message);
             out.close();
         } catch (IOException e) {
@@ -30,12 +31,14 @@ public class Main {
 //        System.exit(0);
         // check input args
         String sc;
+        HashSet<String> argSet = new HashSet<>();
         //String lib_loc = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"cn/littleround/mxlib/lib.mx";
         if (args.length > 1) {
-            System.out.print("Wrong arg number.");
-            return;
-        } else {
-            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < args.length; ++i) {
+                argSet.add(args[i]);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
             /*
             try {
                 BufferedReader in = new BufferedReader(
@@ -51,40 +54,39 @@ public class Main {
                 e.printStackTrace();
             }
             */
-            sb.append(Constants.lib);
-            if (args.length == 0) {
-                // read source code from stdin
-                try {
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(System.in)
-                    );
-                    String line = in.readLine();
-                    while (line != null) {
-                        sb.append(line).append('\n');
-                        line = in.readLine();
-                    }
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        sb.append(Constants.lib);
+        if (args.length == 0) {
+            // read source code from stdin
+            try {
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(System.in)
+                );
+                String line = in.readLine();
+                while (line != null) {
+                    sb.append(line).append('\n');
+                    line = in.readLine();
                 }
-            } else {
-                // read source code from loc: args[0]
-                try {
-                    BufferedReader in = new BufferedReader(
-                            new FileReader(args[0])
-                    );
-                    String line = in.readLine();
-                    while (line != null) {
-                        sb.append(line).append('\n');
-                        line = in.readLine();
-                    }
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            sc = sb.toString();
+        } else {
+            // read source code from loc: args[0]
+            try {
+                BufferedReader in = new BufferedReader(
+                        new FileReader(args[0])
+                );
+                String line = in.readLine();
+                while (line != null) {
+                    sb.append(line).append('\n');
+                    line = in.readLine();
+                }
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        sc = sb.toString();
         //System.out.println(sc);
 
         // load ANTLR4 frontend
@@ -122,10 +124,30 @@ public class Main {
             System.err.println(ASTBaseNode.getErrors());
             System.exit(-1);
         }
-        output(args[0], root.getSymbolTable().toInfoString());
-        if (args.length > 0) output(args[0], root.toTreeString(0,4));
-        System.err.println();
-        System.err.println("AST:");
-        System.err.println(root.toTreeString(0,4));
+        if (argSet.contains("-AST")) {
+            output(args[0]+".ast", root.toTreeString(0,4));
+            //System.err.println();
+            //System.err.println("AST:");
+            //System.err.println(root.toTreeString(0, 4));
+        }
+
+        // construct IR and generate Code
+        String nasmCode = "Code generation failed.";
+        Program pg = new Program((CompilationNode) root);
+        try {
+            pg.convert();
+            pg.optimize();
+            nasmCode = pg.generateNasmCode();
+        } catch (Exception e) {
+            e.printStackTrace();
+            pg.setValid(false);
+        }
+        if (!pg.isValid()) {
+            System.exit(-1);
+        }
+
+        // output
+        System.out.println(nasmCode);
+        output(args[0]+".asm", nasmCode);
     }
 }

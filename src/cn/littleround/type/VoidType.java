@@ -5,4 +5,9 @@ public class VoidType extends BaseType {
     public String toString() {
         return "void";
     }
+
+    @Override
+    public int getSize() {
+        return 0;
+    }
 }
