@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}int__print(){}intmain(){inta=(newint[123])[31];__print();}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidbuilt_in_data_init(){}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}inta;intb=1+2;intinit(intu,intv){returnu+v;}intmain(){return0;}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -58,6 +58,13 @@
             -BlockNode (void)			// {return0;}
                 -ReturnNode (void)			// return0;
                     -ConstantNode (int)			// 0
+    -FuncDefinitionNode (void)			// voidbuilt_in_data_init(){}
+        -TypeNode (void)			// void
+            -TypeAttributeNode (void)			// void
+        -FuncDeclaratorNode (void)			// built_in_data_init()
+            -DeclaratorNode (void)			// built_in_data_init
+            -ArgumentTypeListNode (void)
+        -BlockNode (void)			// {}
     -FuncDefinitionNode (void)			// voidprint(stringstr){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -111,33 +118,46 @@
         -BlockNode (void)			// {return"abracadabra";}
             -ReturnNode (void)			// return"abracadabra";
                 -StringLiteralNode (string)			// "abracadabra"
-    -FuncDefinitionNode (void)			// int__print(){}
+    -DeclarationNode (void)			// inta;
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
-        -FuncDeclaratorNode (void)			// __print()
-            -DeclaratorNode (void)			// __print
-            -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {}
-    -FuncDefinitionNode (void)			// intmain(){inta=(newint[123])[31];__print();}
+        -DeclaratorListNode (void)			// a
+            -InitDeclaratorNode (void)			// a
+                -DeclaratorNode (void)			// a
+    -DeclarationNode (void)			// intb=1+2;
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -DeclaratorListNode (void)			// b=1+2
+            -InitDeclaratorNode (void)			// b=1+2
+                -DeclaratorNode (void)			// b
+                -AddNode (int)			// 1+2
+                    -ConstantNode (int)			// 1
+                    -ConstantNode (int)			// 2
+    -FuncDefinitionNode (void)			// intinit(intu,intv){returnu+v;}
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -FuncDeclaratorNode (void)			// init(intu,intv)
+            -DeclaratorNode (void)			// init
+            -ArgumentTypeListNode (void)			// intu,intv
+                -ArgumentDeclarationNode (void)			// intu
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorNode (void)			// u
+                -ArgumentDeclarationNode (void)			// intv
+                    -TypeNode (void)			// int
+                        -TypeAttributeNode (void)			// int
+                    -DeclaratorNode (void)			// v
+        -BlockNode (void)			// {returnu+v;}
+            -ReturnNode (void)			// returnu+v;
+                -AddNode (int)			// u+v
+                    -IdentifierNode (int)			// u
+                    -IdentifierNode (int)			// v
+    -FuncDefinitionNode (void)			// intmain(){return0;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {inta=(newint[123])[31];__print();}
-            -DeclarationNode (void)			// inta=(newint[123])[31];
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// a=(newint[123])[31]
-                    -InitDeclaratorNode (void)			// a=(newint[123])[31]
-                        -DeclaratorNode (void)			// a
-                        -SubscriptOpNode (int)			// (newint[123])[31]
-                            -NewNode (int[])			// (newint[123])
-                                -TypeNode (void)			// int[123]
-                                    -TypeAttributeNode (void)			// int[123]
-                                -ArgumentTypeListNode (void)
-                            -ConstantNode (int)			// 31
-            -StatementNode (void)			// __print();
-                -ParenthesisOpNode (int)			// __print()
-                    -IdentifierNode (BaseType)			// __print
-                    -ArgumentListNode (void)
+        -BlockNode (void)			// {return0;}
+            -ReturnNode (void)			// return0;
+                -ConstantNode (int)			// 0

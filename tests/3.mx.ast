@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}intWallace=1<<10;classsometimes{intnaive;voidmake_money(){this.naive++;}}intmain(){sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}intWallace=1<<10,w2;classsometimes{intnaive;voidmake_money(){this.naive++;}}intmain(){sometimeskeep=newsometimes;keep.naive=0;while(getInt()<Wallace){keep.make_money();}return0;}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -111,15 +111,17 @@
         -BlockNode (void)			// {return"abracadabra";}
             -ReturnNode (void)			// return"abracadabra";
                 -StringLiteralNode (string)			// "abracadabra"
-    -DeclarationNode (void)			// intWallace=1<<10;
+    -DeclarationNode (void)			// intWallace=1<<10,w2;
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
-        -DeclaratorListNode (void)			// Wallace=1<<10
+        -DeclaratorListNode (void)			// Wallace=1<<10,w2
             -InitDeclaratorNode (void)			// Wallace=1<<10
                 -DeclaratorNode (void)			// Wallace
                 -ShiftLeftNode (int)			// 1<<10
                     -ConstantNode (int)			// 1
                     -ConstantNode (int)			// 10
+            -InitDeclaratorNode (void)			// w2
+                -DeclaratorNode (void)			// w2
     -ClassDefinitionNode (void)			// classsometimes{intnaive;voidmake_money(){this.naive++;}}
         -DeclarationNode (void)			// intnaive;
             -TypeNode (void)			// int

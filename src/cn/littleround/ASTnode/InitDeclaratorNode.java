@@ -28,6 +28,10 @@ public class InitDeclaratorNode extends ASTBaseNode {
         return (ExpressionNode) getSons().get(1);
     }
 
+    public String getIdentifier() {
+        return declarator().getIdentifier();
+    }
+
     @Override
     public void checkType() {
         super.checkType();

@@ -1,4 +1,4 @@
-int Wallace = 1 << 10;
+int Wallace = 1 << 10, w2;
 class sometimes {
 	int naive;
 	void make_money() {

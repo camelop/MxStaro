@@ -1,5 +1,8 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
 import cn.littleround.symbol.*;
 import cn.littleround.type.BaseType;
 import cn.littleround.type.FuncType;
@@ -7,7 +10,9 @@ import cn.littleround.type.KlassType;
 import cn.littleround.type.VoidType;
 import org.antlr.v4.runtime.ParserRuleContext;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class ASTBaseNode {
 
@@ -30,7 +35,7 @@ public abstract class ASTBaseNode {
 
     protected void reportError(String errorType, String message) {
         isFailed = true;
-        errors.add("[line " +String.valueOf(ctx.getStart().getLine()-38)+" "
+        errors.add("[line " +String.valueOf(ctx.getStart().getLine()- Constants.libLength)+" "
                 +String.valueOf(ctx.getStart().getCharPositionInLine())+"] "
                 +errorType+" Error: "+message+"\n");
         // System.exit(-1);
@@ -141,5 +146,9 @@ public abstract class ASTBaseNode {
             f = f.getParent();
         }
         return false;
+    }
+
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        return new ArrayDeque<>();
     }
 }

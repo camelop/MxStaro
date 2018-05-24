@@ -69,11 +69,11 @@ public class ClassDefinitionNode extends DeclarationNode {
         }
     }
 
-    public ArrayList<ASTBaseNode> innerFuncs() {
-        ArrayList<ASTBaseNode> ret = new ArrayList<>();
+    public ArrayList<FuncDefinitionNode> getInnerFuncs() {
+        ArrayList<FuncDefinitionNode> ret = new ArrayList<>();
         for (ASTBaseNode i:getSons()) {
             if (i instanceof FuncDefinitionNode) {
-                ret.add(i);
+                ret.add((FuncDefinitionNode) i);
             }
         }
         return ret;

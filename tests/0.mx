@@ -1,7 +1,8 @@
-int __print() {
-
+int a;
+int b = 1 + 2;
+int init(int u, int v) {
+    return u+v;
 }
 int main() {
-int a = (new int[123])[31];
-__print();
+    return 0;
 }

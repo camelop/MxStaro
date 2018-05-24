@@ -1,12 +1,23 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.BaseLine;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Instruction.PopLine;
+import cn.littleround.nasm.Instruction.RetLine;
+import cn.littleround.nasm.Operand.RegOperand;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.FuncFormSymbol;
 import cn.littleround.symbol.Symbol;
 import cn.littleround.symbol.VariableSymbol;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class FuncDefinitionNode extends DeclarationNode {
+
     public FuncDeclaratorNode funcDeclarator() { return (FuncDeclaratorNode) getSons().get(1);}
 
     public ArgumentTypeListNode args() {
@@ -19,11 +30,14 @@ public class FuncDefinitionNode extends DeclarationNode {
 
     public BlockNode block() { return (BlockNode) getSons().get(2);}
 
+    public String getIdentifier() {
+        return declarator().getIdentifier();
+    }
 
     public Symbol getSymbol() {
         FuncFormSymbol ffs = new FuncFormSymbol();
         ffs.setRetType(specifier());
-        ffs.setName(declarator().getIdentifier());
+        ffs.setName(getIdentifier());
         for (Symbol i:args().getSymbols()) {
             VariableSymbol vs = (VariableSymbol) i;
             ffs.addParam(vs.getTypeNode());
@@ -76,5 +90,49 @@ public class FuncDefinitionNode extends DeclarationNode {
                         declarator().getIdentifier()+"\'.");
             }
         }
+    }
+
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        // pre (ATTENTION! Do NOT change render order!!!)
+        ArrayList<BaseLine> pre = new ArrayList<>();
+        for (int i=0; i < args().getSons().size(); ++i) {
+            ArgumentDeclarationNode adn = (ArgumentDeclarationNode) args().getSons().get(i);
+            if (i<Constants.callConvRegsLen) {
+                pre.add(new MovLine(
+                            new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer())),
+                            new RegOperand(Constants.callConvRegs[i])
+                        ));
+            } else {
+                pre.add(new PopLine(
+                            new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer()))
+                        ));
+            }
+        }
+        for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
+            pre.add(new MovLine(
+                        new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i])),
+                        new RegOperand(Constants.callConvReservRegs[i])
+                    ));
+        }
+        // mid
+        ArrayDeque<BasicBlock> mid = block().renderNasm(f);
+        // post
+        mid.getLast().add(
+                new MovLine(
+                        new RegOperand("rax"),
+                        new VirtualRegOperand(f.nctx().getVid(block()))
+                )
+        );
+        for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
+            mid.getLast().add(new MovLine(
+                        new RegOperand(Constants.callConvReservRegs[i]),
+                        new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i]))
+                ));
+        }
+        mid.getLast().add(new RetLine());
+        // combine
+        mid.getFirst().addFirst(pre);
+        return mid;
     }
 }

@@ -1,5 +1,7 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
 import cn.littleround.symbol.Symbol;
 import cn.littleround.symbol.VariableSymbol;
 import cn.littleround.type.VoidType;
@@ -12,7 +14,7 @@ public class DeclarationNode extends ASTBaseNode {
         return (TypeNode) getSons().get(0);
     }
 
-    private DeclaratorListNode initDeclaratorList() {
+    public DeclaratorListNode initDeclaratorList() {
         return (DeclaratorListNode) getSons().get(1);
     }
 
@@ -39,4 +41,5 @@ public class DeclarationNode extends ASTBaseNode {
     public int getSize() {
         return specifier().getType().getSize() * initDeclaratorList().getSons().size();
     }
+
 }

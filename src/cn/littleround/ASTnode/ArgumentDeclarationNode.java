@@ -11,6 +11,10 @@ public class ArgumentDeclarationNode extends DeclarationNode {
         return (DeclaratorNode) getSons().get(1);
     }
 
+    public String getIdentifer() {
+        return declarator().getIdentifier();
+    }
+
     public Symbol getSymbol() {
         VariableSymbol v = new VariableSymbol(specifier());
         v.setName(declarator().getIdentifier());

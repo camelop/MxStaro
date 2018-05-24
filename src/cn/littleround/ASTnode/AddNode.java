@@ -5,7 +5,7 @@ import cn.littleround.type.IntType;
 import cn.littleround.type.StringType;
 
 public class AddNode extends BinaryOpNode {
-    //TODO add string
+    //TODO addVariable string
 
     @Override
     public void updateType() {

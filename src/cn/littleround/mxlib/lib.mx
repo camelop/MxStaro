@@ -19,11 +19,11 @@ class built_in_array {
     }
 }
 
-void print(string str) {
-}
+void built_in_data_init() {}
 
-void println(string str) {
-}
+void print(string str) {}
+
+void println(string str) {}
 
 string getString() {
     return "abracadabra";
