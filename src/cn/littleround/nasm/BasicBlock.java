@@ -1,6 +1,7 @@
 package cn.littleround.nasm;
 
 import cn.littleround.nasm.Instruction.BaseLine;
+import cn.littleround.nasm.Instruction.ControlFlowLine;
 import cn.littleround.nasm.Instruction.LabelLine;
 
 import java.util.ArrayDeque;
@@ -9,9 +10,45 @@ import java.util.Collection;
 
 public class BasicBlock {
     private String label;
+    private ArrayDeque<BaseLine> lines;
+    private ArrayList<BasicBlock> next = new ArrayList<>();
+    public static void dequeCombine(ArrayDeque<BasicBlock> lhs, ArrayDeque<BasicBlock> rhs) {
+        if (rhs.size() > 0) {
+            if (lhs.getLast().endsWithJmp()) {
+                lhs.addAll(rhs);
+            } else {
+                lhs.getLast().add(rhs.getFirst());
+                boolean first = true;
+                for (BasicBlock bb: rhs) {
+                    if (first) first = false;
+                    else lhs.add(bb);
+                }
+            }
+        }
+    }
+    public static void dequeCombine(ArrayDeque<BasicBlock> lhs, BasicBlock bb) {
+        ArrayDeque<BasicBlock> rhs = new ArrayDeque<>();
+        rhs.add(bb);
+        dequeCombine(lhs, rhs);
+    }
+    public static void dequeCombine(ArrayDeque<BasicBlock> lhs, BaseLine line) {
+        BasicBlock bb = new BasicBlock();
+        bb.add(line);
+        dequeCombine(lhs, bb);
+    }
+
+    public boolean endsWithJmp() {
+        return lines.getLast() instanceof ControlFlowLine;
+    }
 
     public BasicBlock(String label) {
         this.label = label;
+        lines = new ArrayDeque<>();
+        lines.add(new LabelLine(label));
+    }
+
+    public BasicBlock() {
+        this.label = null;
         lines = new ArrayDeque<>();
         lines.add(new LabelLine(label));
     }
@@ -32,12 +69,16 @@ public class BasicBlock {
         lines.addAll(c);
     }
 
+    public void add(BasicBlock bb) {
+        next = bb.next;
+        label = label+"_WITH_"+bb.label;
+        lines.addAll(bb.lines);
+    }
+
     public void addFirst(ArrayList<BaseLine> c) {
         for (int i=c.size()-1; i>=0; --i) {
             lines.addFirst(c.get(i));
         }
     }
 
-    private ArrayDeque<BaseLine> lines;
-    private ArrayList<BasicBlock> next = new ArrayList<>();
 }

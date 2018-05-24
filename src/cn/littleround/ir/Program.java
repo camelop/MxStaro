@@ -1,6 +1,7 @@
 package cn.littleround.ir;
 
 import cn.littleround.ASTnode.*;
+import cn.littleround.Constants;
 import cn.littleround.nasm.Directives;
 import cn.littleround.nasm.Section;
 
@@ -23,9 +24,14 @@ public class Program {
             Special attention!:
                 in [head]_text__main, function should call "[head]_data_init" first
              */
-    private final String head = ""; // "MxStaro";
+    private final String head = Constants.head;
     private ArrayList<Function> funcs = new ArrayList<>();
     private boolean valid = true;
+
+    public GlobalRecord getGlobalRecord() {
+        return gr;
+    }
+
     private GlobalRecord gr = new GlobalRecord(head+"_data");
     private CompilationNode astSource;
 

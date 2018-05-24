@@ -17,6 +17,15 @@ public abstract class Function {
     protected String label;
     protected FuncDefinitionNode astSource;
     protected ArrayList<String> callList;
+
+    public Program getProgram() {
+        return pg;
+    }
+
+    public GlobalRecord getGlobalRecord() {
+        return pg.getGlobalRecord();
+    }
+
     protected Program pg;
     protected NasmContext nasmCtx = new NasmContext();
     protected ArrayDeque<BasicBlock> cfg;

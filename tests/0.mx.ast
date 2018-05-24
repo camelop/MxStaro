@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidbuilt_in_data_init(){}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}inta;intb=1+2;intinit(intu,intv){returnu+v;}intmain(){return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidbuilt_in_data_init(){}voidprint(stringstr){}voidprintln(stringstr){}stringgetString(){return"abracadabra";}intgetInt(){return0;}stringtoString(inti){return"abracadabra";}inta;intb=1+2;intinit(intu,intv){returnu+v;}intmain(){returnb;}<EOF>
     -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
         -FuncDefinitionNode (void)			// intlength(){return0;}
             -TypeNode (void)			// int
@@ -152,12 +152,12 @@
                 -AddNode (int)			// u+v
                     -IdentifierNode (int)			// u
                     -IdentifierNode (int)			// v
-    -FuncDefinitionNode (void)			// intmain(){return0;}
+    -FuncDefinitionNode (void)			// intmain(){returnb;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {return0;}
-            -ReturnNode (void)			// return0;
-                -ConstantNode (int)			// 0
+        -BlockNode (void)			// {returnb;}
+            -ReturnNode (void)			// returnb;
+                -IdentifierNode (int)			// b

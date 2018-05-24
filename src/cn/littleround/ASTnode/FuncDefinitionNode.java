@@ -117,22 +117,26 @@ public class FuncDefinitionNode extends DeclarationNode {
         }
         // mid
         ArrayDeque<BasicBlock> mid = block().renderNasm(f);
-        // post
-        mid.getLast().add(
-                new MovLine(
-                        new RegOperand("rax"),
-                        new VirtualRegOperand(f.nctx().getVid(block()))
-                )
-        );
+        // combine pre
+        if (mid.size() > 0) {
+            mid.getFirst().addFirst(pre);
+        } else {
+            mid = new ArrayDeque<>();
+            BasicBlock bb = new BasicBlock();
+            bb.add(pre);
+            mid.add(bb);
+        }
+        // post (if return void not explicit)
+        BasicBlock post = new BasicBlock(f.getLabel()+"_inexplicit_return_void");
         for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
-            mid.getLast().add(new MovLine(
+            post.add(new MovLine(
                         new RegOperand(Constants.callConvReservRegs[i]),
                         new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i]))
                 ));
         }
-        mid.getLast().add(new RetLine());
-        // combine
-        mid.getFirst().addFirst(pre);
+        post.add(new RetLine());
+        // combine post
+        BasicBlock.dequeCombine(mid, post);
         return mid;
     }
 }

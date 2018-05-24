@@ -4,5 +4,5 @@ int init(int u, int v) {
     return u+v;
 }
 int main() {
-    return 0;
+    return b;
 }

@@ -19,10 +19,13 @@ public class BlockNode extends StatementNode {
 
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
-        // TODO, below just test :D
-        ArrayDeque<BasicBlock> ad = new ArrayDeque<>();
-        ad.add(new BasicBlock("GZOTPA"));
-        f.nctx().setNodeVid(this, 321);
-        return ad;
+        ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
+        for (ASTBaseNode son:getSons()) {
+            ArrayDeque<BasicBlock> nw = son.renderNasm(f);
+            if (ret.size() == 0) ret = nw; else {
+                BasicBlock.dequeCombine(ret, nw);
+            }
+        }
+        return ret;
     }
 }

@@ -3,6 +3,10 @@ package cn.littleround.nasm.Operand;
 import cn.littleround.Constants;
 
 public class VirtualRegOperand extends BaseOperand {
+    public int getId() {
+        return id;
+    }
+
     private int id;
 
     public VirtualRegOperand(int id) {

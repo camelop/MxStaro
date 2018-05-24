@@ -1,7 +1,14 @@
 package cn.littleround.ASTnode;
 
 import cn.littleround.Constants;
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.ConstantOperand;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.type.PointerType;
+
+import java.util.ArrayDeque;
 
 public class ConstantNode extends ExpressionNode {
     private int constant;
@@ -49,5 +56,19 @@ public class ConstantNode extends ExpressionNode {
         super.updateType();
         if (isNull) type = Constants.NULL; else
             if (isBool) type = Constants.BOOL; else type = Constants.INT;
+    }
+
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
+        BasicBlock bb = new BasicBlock();
+        int vid = f.nctx().getVid(String.valueOf(constant));
+        bb.add(new MovLine(
+                new VirtualRegOperand(vid),
+                new ConstantOperand(constant)
+        ));
+        f.nctx().setNodeVid(this, vid);
+        ret.add(bb);
+        return ret;
     }
 }

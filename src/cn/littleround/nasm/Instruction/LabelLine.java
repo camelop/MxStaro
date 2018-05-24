@@ -12,6 +12,7 @@ public class LabelLine extends BaseLine {
 
     @Override
     public String toString() {
+        if (label == null) return "";
         return label+":"+System.lineSeparator();
     }
 }

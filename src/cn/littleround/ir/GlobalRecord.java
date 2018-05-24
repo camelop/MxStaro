@@ -4,6 +4,7 @@ import cn.littleround.ASTnode.InitDeclaratorNode;
 import cn.littleround.Constants;
 import cn.littleround.nasm.Instruction.DbLine;
 import cn.littleround.nasm.Instruction.ResbLine;
+import cn.littleround.nasm.Operand.ConstantOperand;
 import cn.littleround.nasm.Section;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class GlobalRecord extends Record {
     }
 
     public int addString(String content) {
+        if (stringToSId.containsKey(content)) return stringToSId.get(content);
         stringToSId.put(content, stringId);
         stringId++;
         return stringId-1;
@@ -50,7 +52,7 @@ public class GlobalRecord extends Record {
     public Section getDataSection() {
         Section ret = new Section(".data");
         for (HashMap.Entry<String, Integer> e: stringToSId.entrySet()) {
-            ret.add(new DbLine(head+"_s"+String.valueOf(e.getValue()), e.getKey()));
+            ret.add(new DbLine(head+"_s"+String.valueOf(e.getValue()), e.getKey(), new ConstantOperand(0)));
         }
         return ret;
     }
