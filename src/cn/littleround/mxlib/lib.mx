@@ -1,38 +1,16 @@
 class built_in_string {
-    int length() {
-        return 0;
-    }
-    string substring(int left, int right) {
-        return "";
-    }
-    int parseInt() {
-        return 0;
-    }
-    int ord(int pos) {
-        return 0;
-    }
+    int length() { return 0; }
+    string substring(int left, int right) { return ""; }
+    int parseInt() { return 0; }
+    int ord(int pos) { return 0; }
 }
-
 class built_in_array {
-    int size() {
-        return 0;
-    }
+    int size() { return 0; }
 }
-
+void printf(string f, string src) {}
+string getString() { return "littleRound"; }
+int getInt() { return 0; }
+string toString(int i) { return "littleRound"; }
+void print(string str) { printf("%s",str); }
+void println(string str) { printf("%s\n",str); }
 void built_in_data_init() {}
-
-void print(string str) {}
-
-void println(string str) {}
-
-string getString() {
-    return "abracadabra";
-}
-
-int getInt() {
-    return 0;
-}
-
-string toString(int i) {
-    return "abracadabra";
-}

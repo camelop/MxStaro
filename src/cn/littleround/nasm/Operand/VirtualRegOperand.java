@@ -2,15 +2,16 @@ package cn.littleround.nasm.Operand;
 
 import cn.littleround.Constants;
 
-public class VirtualRegOperand extends BaseOperand {
-    public int getId() {
-        return id;
+public class VirtualRegOperand extends RegOperand {
+    private int vid;
+
+    public int getVid() {
+        return vid;
     }
 
-    private int id;
-
-    public VirtualRegOperand(int id) {
-        this.id = id;
+    public VirtualRegOperand(int vid) {
+        super(-1);
+        this.vid = vid;
     }
 
     @Override
@@ -20,6 +21,6 @@ public class VirtualRegOperand extends BaseOperand {
 
     @Override
     public String toString() {
-        return "v"+String.valueOf(id);
+        return "v"+String.valueOf(vid);
     }
 }

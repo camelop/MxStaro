@@ -16,7 +16,7 @@ public abstract class BaseLine {
 
     @Override
     public String toString() {
-        String sep = "\t";
+        String sep = "\t\t";
         StringBuilder sb = new StringBuilder();
         if (label != null) sb.append(label);
         if (label != null) sb.append(":"+System.lineSeparator());

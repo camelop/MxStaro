@@ -12,6 +12,12 @@ public class DbLine extends BaseLine {
         op2 = c;
     }
 
+    public DbLine(String label, String sym) {
+        this.label = label;
+        op1 = new SymbleOperand("\'"+sym+"\'");
+        op2 = null;
+    }
+
     @Override
     String getIns() {
         return "db";

@@ -49,7 +49,7 @@ public class NasmContext {
     }
 
     public int getVid(String identifier, VirtualRegOperand vl, VirtualRegOperand vr) {
-        if (damaged.contains(vl.getId()) || damaged.contains(vr.getId()) || inIf > 0 || inLoop > 0) {
+        if (damaged.contains(vl.getVid()) || damaged.contains(vr.getVid()) || inIf > 0 || inLoop > 0) {
             vid++;
             return vid-1;
         }

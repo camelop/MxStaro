@@ -1,9 +1,11 @@
 package cn.littleround.ir;
 
 import cn.littleround.ASTnode.FuncDefinitionNode;
+import cn.littleround.Constants;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.BaseLine;
 import cn.littleround.nasm.Instruction.CallLine;
+import cn.littleround.nasm.Instruction.CommentLine;
 import cn.littleround.nasm.NasmContext;
 
 import java.util.ArrayDeque;
@@ -41,6 +43,7 @@ public abstract class Function {
     }
 
     public void convertNasm() throws Exception {
+        if (Constants.libFunc.containsKey(label)) return;
         cfg = new ArrayDeque<>();
         // create a head tag
         cfg.add(new BasicBlock(label));
@@ -59,8 +62,12 @@ public abstract class Function {
     }
 
     public ArrayList<BaseLine> toLines() {
+        if (Constants.libFunc.containsKey(label)) {
+            return Constants.libFunc.get(label);
+        }
         //TODO arrange cfg basic blocks, but for now, output it all
         ArrayList<BaseLine> ret = new ArrayList<>();
+        ret.add(new CommentLine(label));
         for (BasicBlock bb: cfg) {
             for (BaseLine line:bb.getLines()) {
                 ret.add(line);

@@ -1,6 +1,5 @@
 package cn.littleround.ASTnode;
 
-import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.AddLine;
@@ -35,7 +34,7 @@ public class AddNode extends BinaryOpNode {
         BasicBlock bb = new BasicBlock();
         bb.add(new MovLine(vt, vl));
         bb.add(new AddLine(vt, vr));
-        f.nctx().setNodeVid(this, vt.getId());
+        f.nctx().setNodeVid(this, vt.getVid());
         BasicBlock.dequeCombine(ret, bb);
         return ret;
     }

@@ -12,7 +12,13 @@ public class Directives {
     public Directives() {
         lines = new ArrayList<>();
         lines.add(new GlobalLine());
-        lines.add(new ExternLine("puts"));
+        lines.add(new ExternLine("strlen"));
+        lines.add(new ExternLine("malloc"));
+        lines.add(new ExternLine("strncpy"));
+        lines.add(new ExternLine("strtol"));
+        lines.add(new ExternLine("printf"));
+        lines.add(new ExternLine("scanf"));
+        lines.add(new ExternLine("sprintf"));
     }
 
     @Override
