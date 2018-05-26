@@ -22,6 +22,7 @@ public class Constants {
     public final static VoidType VOID = new VoidType();
     public final static NullType NULL = new NullType();
     public final static String[] callConvRegs = new String[]{"rdi", "rsi", "rdx", "rcx", "r8", "r9"};
+    public final static String[] callerRegs = new String[]{"rax", "rbx", "rbp", "r10", "r11", "r12", "r13", "r14", "r15"};
     public final static int callConvRegsLen = 6;
     public final static String[] callConvReservRegs = new String[]{"rbp", "rbx", "r12", "r13", "r14", "r15"};
     public final static int callConvReservRegsLen = 6;

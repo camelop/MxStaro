@@ -1,8 +1,14 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.Symbol;
 import cn.littleround.type.BaseType;
 import cn.littleround.type.VoidType;
+
+import java.util.ArrayDeque;
 
 public class InitDeclaratorNode extends ASTBaseNode {
     private boolean isInitialized;
@@ -41,4 +47,20 @@ public class InitDeclaratorNode extends ASTBaseNode {
         }
     }
 
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
+        if (isInitialized) ret = initValue().renderNasm(f);
+        int vid = f.nctx().getNewVid(declarator().getIdentifier());
+        BasicBlock bb = new BasicBlock();
+        if (isInitialized) {
+            bb.add(new MovLine(
+                    new VirtualRegOperand(vid),
+                    new VirtualRegOperand(f.nctx().getVid(initValue())),
+                    "init->"+getIdentifier()
+            ));
+        }
+        BasicBlock.dequeCombine(ret, bb);
+        return ret;
+    }
 }

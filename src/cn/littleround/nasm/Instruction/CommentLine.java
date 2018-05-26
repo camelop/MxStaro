@@ -12,6 +12,6 @@ public class CommentLine extends BaseLine {
 
     @Override
     public String toString() {
-        return "; --- ["+comment+"] ---"+System.lineSeparator();
+        return ";"+comment+System.lineSeparator();
     }
 }

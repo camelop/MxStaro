@@ -6,6 +6,14 @@ import java.util.HashMap;
 
 public class RegOperand extends BaseOperand {
     private int id;
+    protected boolean isDWORD = false;
+    protected boolean isWORD = false;
+
+    public void setBYTE(boolean BYTE) {
+        isBYTE = BYTE;
+    }
+
+    protected boolean isBYTE = false;
     private static HashMap<String, Integer> toId = new HashMap<>(){{
         put("r0", 0); put("rax", 0);
         put("r1", 1); put("rcx", 1);
@@ -56,6 +64,9 @@ public class RegOperand extends BaseOperand {
 
     @Override
     public String toString() {
+        if (isDWORD) return "r"+String.valueOf(id)+"d";
+        if (isWORD) return "r"+String.valueOf(id)+"w";
+        if (isBYTE) return "r"+String.valueOf(id)+"b";
         return toName.get(id);
     }
 }

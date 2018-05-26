@@ -6,6 +6,7 @@ import cn.littleround.symbol.Symbol;
 import cn.littleround.symbol.VariableSymbol;
 import cn.littleround.type.VoidType;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class DeclarationNode extends ASTBaseNode {
@@ -41,5 +42,8 @@ public class DeclarationNode extends ASTBaseNode {
     public int getSize() {
         return specifier().getType().getSize() * initDeclaratorList().getSons().size();
     }
-
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        return initDeclaratorList().renderNasm(f);
+    }
 }

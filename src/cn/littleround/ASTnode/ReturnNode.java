@@ -61,7 +61,6 @@ public class ReturnNode extends JumpNode {
 
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
-        System.out.println("rendering: "+getCtx().getText());
         ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
         if (retValue() != null) {
             ret = retValue().renderNasm(f);
@@ -82,11 +81,7 @@ public class ReturnNode extends JumpNode {
         if (ret.size() == 0) {
             ret.add(bb);
         } else {
-            if (ret.getLast().endsWithJmp()) {
-                ret.add(bb);
-            } else {
-                ret.getLast().add(bb);
-            }
+            BasicBlock.dequeCombine(ret, bb);
         }
         return ret;
     }

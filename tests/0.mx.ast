@@ -1,63 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}inta;intb=1+2;intinit(intu,intv){returnu+v;}intmain(){returnb;}<EOF>
-    -ClassDefinitionNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}
-        -FuncDefinitionNode (void)			// intlength(){return0;}
-            -TypeNode (void)			// int
-                -TypeAttributeNode (void)			// int
-            -FuncDeclaratorNode (void)			// length()
-                -DeclaratorNode (void)			// length
-                -ArgumentTypeListNode (void)
-            -BlockNode (void)			// {return0;}
-                -ReturnNode (void)			// return0;
-                    -ConstantNode (int)			// 0
-        -FuncDefinitionNode (void)			// stringsubstring(intleft,intright){return"";}
-            -TypeNode (void)			// string
-                -TypeAttributeNode (void)			// string
-            -FuncDeclaratorNode (void)			// substring(intleft,intright)
-                -DeclaratorNode (void)			// substring
-                -ArgumentTypeListNode (void)			// intleft,intright
-                    -ArgumentDeclarationNode (void)			// intleft
-                        -TypeNode (void)			// int
-                            -TypeAttributeNode (void)			// int
-                        -DeclaratorNode (void)			// left
-                    -ArgumentDeclarationNode (void)			// intright
-                        -TypeNode (void)			// int
-                            -TypeAttributeNode (void)			// int
-                        -DeclaratorNode (void)			// right
-            -BlockNode (void)			// {return"";}
-                -ReturnNode (void)			// return"";
-                    -StringLiteralNode (string)			// ""
-        -FuncDefinitionNode (void)			// intparseInt(){return0;}
-            -TypeNode (void)			// int
-                -TypeAttributeNode (void)			// int
-            -FuncDeclaratorNode (void)			// parseInt()
-                -DeclaratorNode (void)			// parseInt
-                -ArgumentTypeListNode (void)
-            -BlockNode (void)			// {return0;}
-                -ReturnNode (void)			// return0;
-                    -ConstantNode (int)			// 0
-        -FuncDefinitionNode (void)			// intord(intpos){return0;}
-            -TypeNode (void)			// int
-                -TypeAttributeNode (void)			// int
-            -FuncDeclaratorNode (void)			// ord(intpos)
-                -DeclaratorNode (void)			// ord
-                -ArgumentTypeListNode (void)			// intpos
-                    -ArgumentDeclarationNode (void)			// intpos
-                        -TypeNode (void)			// int
-                            -TypeAttributeNode (void)			// int
-                        -DeclaratorNode (void)			// pos
-            -BlockNode (void)			// {return0;}
-                -ReturnNode (void)			// return0;
-                    -ConstantNode (int)			// 0
-    -ClassDefinitionNode (void)			// classbuilt_in_array{intsize(){return0;}}
-        -FuncDefinitionNode (void)			// intsize(){return0;}
-            -TypeNode (void)			// int
-                -TypeAttributeNode (void)			// int
-            -FuncDeclaratorNode (void)			// size()
-                -DeclaratorNode (void)			// size
-                -ArgumentTypeListNode (void)
-            -BlockNode (void)			// {return0;}
-                -ReturnNode (void)			// return0;
-                    -ConstantNode (int)			// 0
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){intn=5;intsum=0;inti;intj;for(i=1;i<=n;++i)for(j=1;j<=n;++j)sum=sum+i;returnsum;}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -138,53 +79,64 @@
                     -ArgumentListNode (void)			// "%s\n",str
                         -StringLiteralNode (string)			// "%s\n"
                         -IdentifierNode (string)			// str
-    -FuncDefinitionNode (void)			// voidbuilt_in_data_init(){}
-        -TypeNode (void)			// void
-            -TypeAttributeNode (void)			// void
-        -FuncDeclaratorNode (void)			// built_in_data_init()
-            -DeclaratorNode (void)			// built_in_data_init
-            -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {}
-    -DeclarationNode (void)			// inta;
-        -TypeNode (void)			// int
-            -TypeAttributeNode (void)			// int
-        -DeclaratorListNode (void)			// a
-            -InitDeclaratorNode (void)			// a
-                -DeclaratorNode (void)			// a
-    -DeclarationNode (void)			// intb=1+2;
-        -TypeNode (void)			// int
-            -TypeAttributeNode (void)			// int
-        -DeclaratorListNode (void)			// b=1+2
-            -InitDeclaratorNode (void)			// b=1+2
-                -DeclaratorNode (void)			// b
-                -AddNode (int)			// 1+2
-                    -ConstantNode (int)			// 1
-                    -ConstantNode (int)			// 2
-    -FuncDefinitionNode (void)			// intinit(intu,intv){returnu+v;}
-        -TypeNode (void)			// int
-            -TypeAttributeNode (void)			// int
-        -FuncDeclaratorNode (void)			// init(intu,intv)
-            -DeclaratorNode (void)			// init
-            -ArgumentTypeListNode (void)			// intu,intv
-                -ArgumentDeclarationNode (void)			// intu
-                    -TypeNode (void)			// int
-                        -TypeAttributeNode (void)			// int
-                    -DeclaratorNode (void)			// u
-                -ArgumentDeclarationNode (void)			// intv
-                    -TypeNode (void)			// int
-                        -TypeAttributeNode (void)			// int
-                    -DeclaratorNode (void)			// v
-        -BlockNode (void)			// {returnu+v;}
-            -ReturnNode (void)			// returnu+v;
-                -AddNode (int)			// u+v
-                    -IdentifierNode (int)			// u
-                    -IdentifierNode (int)			// v
-    -FuncDefinitionNode (void)			// intmain(){returnb;}
+    -FuncDefinitionNode (void)			// intmain(){intn=5;intsum=0;inti;intj;for(i=1;i<=n;++i)for(j=1;j<=n;++j)sum=sum+i;returnsum;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {returnb;}
-            -ReturnNode (void)			// returnb;
-                -IdentifierNode (int)			// b
+        -BlockNode (void)			// {intn=5;intsum=0;inti;intj;for(i=1;i<=n;++i)for(j=1;j<=n;++j)sum=sum+i;returnsum;}
+            -DeclarationNode (void)			// intn=5;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// n=5
+                    -InitDeclaratorNode (void)			// n=5
+                        -DeclaratorNode (void)			// n
+                        -ConstantNode (int)			// 5
+            -DeclarationNode (void)			// intsum=0;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// sum=0
+                    -InitDeclaratorNode (void)			// sum=0
+                        -DeclaratorNode (void)			// sum
+                        -ConstantNode (int)			// 0
+            -DeclarationNode (void)			// inti;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// i
+                    -InitDeclaratorNode (void)			// i
+                        -DeclaratorNode (void)			// i
+            -DeclarationNode (void)			// intj;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// j
+                    -InitDeclaratorNode (void)			// j
+                        -DeclaratorNode (void)			// j
+            -ForNode (void)			// for(i=1;i<=n;++i)for(j=1;j<=n;++j)sum=sum+i;
+                -ForConditionNode (void)			// i=1;i<=n;++i
+                    -AssignNode (void)			// i=1
+                        -IdentifierNode (int)			// i
+                        -ConstantNode (int)			// 1
+                    -LessOrEqualThanNode (bool)			// i<=n
+                        -IdentifierNode (int)			// i
+                        -IdentifierNode (int)			// n
+                    -PrefixAddNode (int)			// ++i
+                        -IdentifierNode (int)			// i
+                -ForNode (void)			// for(j=1;j<=n;++j)sum=sum+i;
+                    -ForConditionNode (void)			// j=1;j<=n;++j
+                        -AssignNode (void)			// j=1
+                            -IdentifierNode (int)			// j
+                            -ConstantNode (int)			// 1
+                        -LessOrEqualThanNode (bool)			// j<=n
+                            -IdentifierNode (int)			// j
+                            -IdentifierNode (int)			// n
+                        -PrefixAddNode (int)			// ++j
+                            -IdentifierNode (int)			// j
+                    -StatementNode (void)			// sum=sum+i;
+                        -AssignNode (void)			// sum=sum+i
+                            -IdentifierNode (int)			// sum
+                            -AddNode (int)			// sum+i
+                                -IdentifierNode (int)			// sum
+                                -IdentifierNode (int)			// i
+            -ReturnNode (void)			// returnsum;
+                -IdentifierNode (int)			// sum

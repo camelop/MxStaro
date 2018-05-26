@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class FuncDefinitionNode extends DeclarationNode {
 
+    private String fatherClass = null;
+
     public FuncDeclaratorNode funcDeclarator() { return (FuncDeclaratorNode) getSons().get(1);}
 
     public ArgumentTypeListNode args() {
@@ -138,5 +140,17 @@ public class FuncDefinitionNode extends DeclarationNode {
         // combine post
         BasicBlock.dequeCombine(mid, post);
         return mid;
+    }
+
+    @Override
+    public String toTreeString(int blank, int step) {
+        // hide built-in
+        if (getIdentifier().startsWith("built_in_"))
+            return "";
+        return super.toTreeString(blank, step);
+    }
+
+    public void setFatherClass(String fatherClass) {
+        this.fatherClass = fatherClass;
     }
 }

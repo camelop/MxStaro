@@ -78,4 +78,12 @@ public class ClassDefinitionNode extends DeclarationNode {
         }
         return ret;
     }
+
+    @Override
+    public String toTreeString(int blank, int step) {
+        // hide built-in
+        if (getIdentifier().startsWith("built_in_"))
+            return "";
+        return super.toTreeString(blank, step);
+    }
 }

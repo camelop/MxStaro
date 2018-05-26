@@ -42,6 +42,11 @@ public abstract class Function {
         this.pg = pg;
     }
 
+    private void reportVirtualReg() {
+        System.err.print(label+"-VR: ");
+        System.err.println(nctx().getIdentifierToVid().toString());
+    }
+
     public void convertNasm() throws Exception {
         if (Constants.libFunc.containsKey(label)) return;
         cfg = new ArrayDeque<>();
@@ -57,7 +62,7 @@ public abstract class Function {
         }
         // construct cfg
         cfg.addAll(astSource.renderNasm(this));
-
+        reportVirtualReg();
         // TODO make BasicBlock.next correct
     }
 
@@ -67,11 +72,12 @@ public abstract class Function {
         }
         //TODO arrange cfg basic blocks, but for now, output it all
         ArrayList<BaseLine> ret = new ArrayList<>();
-        ret.add(new CommentLine(label));
+        ret.add(new CommentLine(" --- [ "+label+" ] ---"));
         for (BasicBlock bb: cfg) {
             for (BaseLine line:bb.getLines()) {
                 ret.add(line);
             }
+            ret.add(new CommentLine("-----------------------------"));
         }
         return ret;
     }

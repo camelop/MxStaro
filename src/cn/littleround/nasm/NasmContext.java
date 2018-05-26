@@ -10,20 +10,58 @@ public class NasmContext {
     private int vid = 0;
     private int retId = 0;
     private int addId = 0;
+    private int callId = 0;
+    private int forId = 0;
+    private String scopeHead = "";
+
     private int inLoop = 0;
     private int inIf = 0;
     private HashMap<ASTBaseNode, Integer> nodeToVid = new HashMap<>();
+
+    public HashMap<String, Integer> getIdentifierToVid() {
+        return identifierToVid;
+    }
+
     private HashMap<String, Integer> identifierToVid = new HashMap<>();
     private HashSet<Integer> damaged = new HashSet<>();
 
-    public boolean contains(String identifier) {
-        return identifierToVid.containsKey(identifier);
+    public boolean inside() {
+        return (inLoop > 0 || inIf > 0);
     }
 
-    public int getVid(String identifier) {
-        if (identifierToVid.containsKey(identifier)) return identifierToVid.get(identifier);
-        identifierToVid.put(identifier, vid);
+    public void enterLoop() { ++inLoop; }
+    public void leaveLoop() { --inLoop; }
+    public void enterIf() { ++inIf; }
+    public void leaveIf() { --inIf; }
+    public void enterScope() {
+        scopeHead = scopeHead + "@";
+    }
+    public void leaveScope() {
+        scopeHead = scopeHead.substring(1);
+    }
+
+    private String find(String identifier) {
+        String nw = scopeHead;
+        while (nw.length() > 0) {
+            if (identifierToVid.containsKey(nw+identifier)) return nw+identifier;
+            nw = nw.substring(1);
+        }
+        if (identifierToVid.containsKey(identifier)) return identifier;
+        return null;
+    }
+
+    public boolean contains(String identifier) {
+        return (find(identifier) != null);
+    }
+
+    public int getVid(String id) {
+        String identifier = find(id);
+        if (identifier!=null && identifierToVid.containsKey(identifier))
+            return identifierToVid.get(identifier);
+        identifierToVid.put(id, vid);
         vid++;
+        //System.err.println("Try to find \'"+identifier+"\', get "+String.valueOf(vid-1));
+        //System.err.println("\t"+identifierToVid.toString());
         return vid-1;
     }
 
@@ -48,6 +86,16 @@ public class NasmContext {
         return "add"+String.valueOf(addId-1);
     }
 
+    public String getCallCnt() {
+        callId++;
+        return "call"+String.valueOf(callId-1);
+    }
+
+    public String getForCnt() {
+        forId++;
+        return "for"+String.valueOf(forId-1);
+    }
+
     public int getVid(String identifier, VirtualRegOperand vl, VirtualRegOperand vr) {
         if (damaged.contains(vl.getVid()) || damaged.contains(vr.getVid()) || inIf > 0 || inLoop > 0) {
             vid++;
@@ -66,5 +114,12 @@ public class NasmContext {
 
     public void damage(int vid) {
         damaged.add(vid);
+    }
+
+    public int getNewVid(String identifier) {
+        identifier = scopeHead+identifier;
+        identifierToVid.put(identifier, vid);
+        vid++;
+        return vid-1;
     }
 }

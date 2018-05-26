@@ -7,7 +7,15 @@ public class ForConditionNode extends StatementNode {
     private boolean e1Exist = false;
     private boolean e2Exist = false;
     private boolean e3Exist = false;
-
+    public ASTBaseNode e1() {
+        return getSons().get(0);
+    }
+    public ASTBaseNode e2() {
+        return getSons().get(1);
+    }
+    public ASTBaseNode e3() {
+        return getSons().get(2);
+    }
 
     public boolean isDeclarationExist() {
         return declarationExist;

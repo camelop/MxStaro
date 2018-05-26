@@ -796,6 +796,8 @@ public class ASTCreator extends MxStarBaseListener {
         if (ctx.classDeclarationList() != null) {
             ASTBaseNode cdln = nodeStack.pop();
             for (ASTBaseNode i : cdln.getSons()) {
+                if (i instanceof FuncDefinitionNode)
+                    ((FuncDefinitionNode) i).setFatherClass(ctx.Identifier().getText());
                 cdn.addSon(i);
                 i.setParent(cdn);
             }

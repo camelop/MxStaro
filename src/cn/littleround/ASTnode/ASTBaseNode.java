@@ -149,6 +149,20 @@ public abstract class ASTBaseNode {
     }
 
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        System.err.println("You really want to see ME? ( not overrided in "+this.getClass().getSimpleName()+")");
         return new ArrayDeque<>();
     }
+
+    public ArrayDeque<BasicBlock> renderAllSonNasm(Function f) throws Exception {
+        // a default method for renderNasm
+        ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
+        for (ASTBaseNode son:getSons()) {
+            ArrayDeque<BasicBlock> nw = son.renderNasm(f);
+            if (ret.size() == 0) ret = nw; else {
+                BasicBlock.dequeCombine(ret, nw);
+            }
+        }
+        return ret;
+    }
+
 }

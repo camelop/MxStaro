@@ -8,12 +8,12 @@
 		extern		sprintf		
 
 		section		.data		
+_data_s1:
+		db		'%s\n', 0		
+_data_s0:
+		db		'%s', 0		
 
 		section		.bss		
-_data_bss_a:
-		resb		8		
-_data_bss_b:
-		resb		8		
 
 		section		.text		
 _text_built_in_string_length:
@@ -114,8 +114,9 @@ _text__toString_format:
 		pop		rbp		
 		ret				
 						
-; --- [_text__print] ---
+; --- [ _text__print ] ---
 _text__print:
+;-----------------------------
 		mov		v0, rdi		
 		mov		v1, rbp		
 		mov		v2, rbx		
@@ -123,6 +124,30 @@ _text__print:
 		mov		v4, r13		
 		mov		v5, r14		
 		mov		v6, r15		
+		mov		v7, _data_s0		
+_text__print_call0:
+		mov		v8, rax		
+		mov		v2, rbx		
+		mov		v1, rbp		
+		mov		v9, r10		
+		mov		v10, r11		
+		mov		v3, r12		
+		mov		v4, r13		
+		mov		v5, r14		
+		mov		v6, r15		
+		mov		rdi, v7		
+		mov		rsi, v0		
+		call		_text__printf		
+		mov		v11, rax		
+		mov		rax, v8		
+		mov		rbx, v2		
+		mov		rbp, v1		
+		mov		r10, v9		
+		mov		r11, v10		
+		mov		r12, v3		
+		mov		r13, v4		
+		mov		r14, v5		
+		mov		r15, v6		
 _text__print_inexplicit_return_void:
 		mov		rbp, v1		
 		mov		rbx, v2		
@@ -131,9 +156,11 @@ _text__print_inexplicit_return_void:
 		mov		r14, v5		
 		mov		r15, v6		
 		ret				
+;-----------------------------
 						
-; --- [_text__println] ---
+; --- [ _text__println ] ---
 _text__println:
+;-----------------------------
 		mov		v0, rdi		
 		mov		v1, rbp		
 		mov		v2, rbx		
@@ -141,6 +168,30 @@ _text__println:
 		mov		v4, r13		
 		mov		v5, r14		
 		mov		v6, r15		
+		mov		v7, _data_s1		
+_text__println_call0:
+		mov		v8, rax		
+		mov		v2, rbx		
+		mov		v1, rbp		
+		mov		v9, r10		
+		mov		v10, r11		
+		mov		v3, r12		
+		mov		v4, r13		
+		mov		v5, r14		
+		mov		v6, r15		
+		mov		rdi, v7		
+		mov		rsi, v0		
+		call		_text__printf		
+		mov		v11, rax		
+		mov		rax, v8		
+		mov		rbx, v2		
+		mov		rbp, v1		
+		mov		r10, v9		
+		mov		r11, v10		
+		mov		r12, v3		
+		mov		r13, v4		
+		mov		r14, v5		
+		mov		r15, v6		
 _text__println_inexplicit_return_void:
 		mov		rbp, v1		
 		mov		rbx, v2		
@@ -149,9 +200,11 @@ _text__println_inexplicit_return_void:
 		mov		r14, v5		
 		mov		r15, v6		
 		ret				
+;-----------------------------
 						
-; --- [_datainit] ---
+; --- [ _datainit ] ---
 _datainit:
+;-----------------------------
 		mov		v0, rbp		
 		mov		v1, rbx		
 		mov		v2, r12		
@@ -166,50 +219,67 @@ _datainit_inexplicit_return_void:
 		mov		r14, v4		
 		mov		r15, v5		
 		ret				
+;-----------------------------
 						
-; --- [_text__init] ---
-_text__init:
-		mov		v0, rdi		
-		mov		v1, rsi		
-		mov		v2, rbp		
-		mov		v3, rbx		
-		mov		v4, r12		
-		mov		v5, r13		
-		mov		v6, r14		
-		mov		v7, r15		
-		mov		v8, v0		
-		add		v8, v1		
-_text__init_ret0:
-		mov		rax, v8		
-		mov		rbp, v2		
-		mov		rbx, v3		
-		mov		r12, v4		
-		mov		r13, v5		
-		mov		r14, v6		
-		mov		r15, v7		
-		ret				
-_text__init_inexplicit_return_void:
-		mov		rbp, v2		
-		mov		rbx, v3		
-		mov		r12, v4		
-		mov		r13, v5		
-		mov		r14, v6		
-		mov		r15, v7		
-		ret				
-						
-; --- [_text__main] ---
+; --- [ _text__main ] ---
 _text__main:
+;-----------------------------
 _text__main_built_in_call_data_init:
 		call		_datainit		; protocol required, built_in
+;-----------------------------
 		mov		v0, rbp		
 		mov		v1, rbx		
 		mov		v2, r12		
 		mov		v3, r13		
 		mov		v4, r14		
 		mov		v5, r15		
-		mov		v6, _data_b		
+		mov		v6, 5		
+		mov		v7, v6		; init->n
+		mov		v8, 0		
+		mov		v9, v8		; init->sum
+_text__main_for0_init:
+		mov		v12, 1		
+		mov		v13, v12		; assign->i
+		cmp		v13, v7		
+		xor		v14, v14		
+		setbe		v14		
+_text__main_for0_init_check:
+		cmp		v14, 0		
+		je		_text__main_for0_end		
+;-----------------------------
+_text__main_for0_start:
+_text__main_for1_init:
+		mov		v12, 1		
+		mov		v11, v12		; assign->j
+		cmp		v11, v7		
+		xor		v15, v15		
+		setbe		v15		
+_text__main_for1_init_check:
+		cmp		v15, 0		
+		je		_text__main_for1_end		
+;-----------------------------
+_text__main_for1_start:
+		mov		v16, v9		
+		add		v16, v13		
+		mov		v9, v16		; assign->sum
+		add		v11, 1		
+		cmp		v11, v7		
+		xor		v17, v17		
+		setbe		v17		
+		cmp		v17, 0		
+		jne		_text__main_for1_start		
+;-----------------------------
+_text__main_for1_end:
+		add		v13, 1		
+		cmp		v13, v7		
+		xor		v18, v18		
+		setbe		v18		
+		cmp		v18, 0		
+		jne		_text__main_for0_start		
+;-----------------------------
+_text__main_for0_end:
 _text__main_ret0:
-		mov		rax, v6		
+		mov		rax, v9		
 		mov		rbp, v0		
 		mov		rbx, v1		
 		mov		r12, v2		
@@ -217,6 +287,7 @@ _text__main_ret0:
 		mov		r14, v4		
 		mov		r15, v5		
 		ret				
+;-----------------------------
 _text__main_inexplicit_return_void:
 		mov		rbp, v0		
 		mov		rbx, v1		
@@ -225,4 +296,5 @@ _text__main_inexplicit_return_void:
 		mov		r14, v4		
 		mov		r15, v5		
 		ret				
+;-----------------------------
 						

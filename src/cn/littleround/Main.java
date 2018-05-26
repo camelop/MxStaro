@@ -144,10 +144,10 @@ public class Main {
         }
         if (!pg.isValid()) {
             System.exit(-1);
-        }
+        };
 
         // output
-        System.out.println(nasmCode);
-        output(args[0]+".asm", nasmCode);
+        if (!argSet.contains("-out")) System.out.println(nasmCode);
+            else output(args[0]+".asm", nasmCode);
     }
 }
