@@ -1,6 +1,6 @@
 package cn.littleround.nasm.Operand;
 
-public class SymbleOperand extends BaseOperand {
+public class SymbleOperand extends ImmOperand {
     private String sym;
 
     public SymbleOperand(String sym) {

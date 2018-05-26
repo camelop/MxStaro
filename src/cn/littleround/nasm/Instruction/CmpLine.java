@@ -1,7 +1,10 @@
 package cn.littleround.nasm.Instruction;
 
+import cn.littleround.Constants;
 import cn.littleround.nasm.Operand.BaseOperand;
 import cn.littleround.nasm.Operand.DecimalOperand;
+
+import java.util.ArrayList;
 
 public class CmpLine extends BinaryOpLine {
     public CmpLine(BaseOperand op1, BaseOperand op2) {
@@ -15,5 +18,20 @@ public class CmpLine extends BinaryOpLine {
     @Override
     String getIns() {
         return "cmp";
+    }
+
+    @Override
+    public ArrayList<Integer> getSrc() {
+        return new ArrayList<>(){{
+            add(toId(op1));
+            add(toId(op2));
+        }};
+    }
+
+    @Override
+    public ArrayList<Integer> getDes() {
+        return new ArrayList<>(){{
+            add(Constants.flagId);
+        }};
     }
 }

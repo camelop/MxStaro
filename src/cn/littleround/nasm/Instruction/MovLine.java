@@ -2,6 +2,8 @@ package cn.littleround.nasm.Instruction;
 
 import cn.littleround.nasm.Operand.BaseOperand;
 
+import java.util.ArrayList;
+
 public class MovLine extends BinaryOpLine {
 
     public MovLine(BaseOperand op1, BaseOperand op2) {
@@ -17,5 +19,19 @@ public class MovLine extends BinaryOpLine {
     @Override
     String getIns() {
         return "mov";
+    }
+
+    @Override
+    public ArrayList<Integer> getSrc() {
+        return new ArrayList<>(){{
+            add(toId(op2));
+        }};
+    }
+
+    @Override
+    public ArrayList<Integer> getDes() {
+        return new ArrayList<>(){{
+            add(toId(op1));
+        }};
     }
 }

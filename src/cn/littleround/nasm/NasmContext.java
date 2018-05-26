@@ -29,6 +29,10 @@ public class NasmContext {
         return (inLoop > 0 || inIf > 0);
     }
 
+    public int countVid() {
+        return vid;
+    }
+
     public void enterLoop() { ++inLoop; }
     public void leaveLoop() { --inLoop; }
     public void enterIf() { ++inIf; }

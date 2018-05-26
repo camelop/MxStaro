@@ -82,9 +82,14 @@ public class Program {
         for (Function f:funcs) f.convertNasm();
     }
 
+    private void regAlloc(){
+        for (Function f:funcs) f.regAlloc();
+    }
+
     public void convert() throws Exception {
         //TODO
         convertIR();
+        regAlloc();
     }
 
     public void optimize() {

@@ -77,8 +77,50 @@ public abstract class Function {
             for (BaseLine line:bb.getLines()) {
                 ret.add(line);
             }
-            ret.add(new CommentLine("-----------------------------"));
+            ret.add(new CommentLine("-----------------------------------"));
         }
         return ret;
+    }
+
+    private _GraphNode[] dependGraph = null;
+    public void regAlloc() {
+        if (cfg == null) return;
+        int vSize = nasmCtx.countVid()+18;
+        dependGraph = new _GraphNode[vSize];
+        for (int i=0; i<vSize; ++i) dependGraph[i] = new _GraphNode();
+
+        for (BasicBlock bb: cfg) {
+            for (BaseLine line:bb.getLines()) {
+                for (Integer src:line.getSrc()) {
+                    if (src.equals(Constants.noId)) continue;
+                    for (Integer des:line.getDes()) {
+                        if (des.equals(Constants.noId)) continue;
+                        dependGraph[src]._out.add(des);
+                        dependGraph[des]._in.add(src);
+                    }
+                }
+            }
+        }
+        reportDependency();
+    }
+
+    public void reportDependency() {
+        if (dependGraph == null) return;
+        int vSize = nasmCtx.countVid()+18;
+        System.out.println("Data Dependency Graph of ["+label+"]");
+        for (int i=0; i<vSize; ++i) {
+            System.out.println("point-"+String.valueOf(i));
+            System.out.println(dependGraph[i].toString());
+        }
+    }
+}
+
+class _GraphNode{
+    public ArrayList<Integer> _in = new ArrayList<>();
+    public ArrayList<Integer> _out = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "\tin: "+_in.toString()+System.lineSeparator()+"\tout: "+_out.toString();
     }
 }

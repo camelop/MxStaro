@@ -179,6 +179,11 @@ public class Constants {
         }});
     }};
 
+    //0-15: regs, 16: flags, 17: mem, 18-...: vregs
+    public final static int noId = -1;
+    public final static int flagId = 16;
+    public final static int memOperandId = 17;
+    public final static int virtualRegOperandIdOffset=18;
 
     public final static int libLength = 16;
     // copied from lib.mx file

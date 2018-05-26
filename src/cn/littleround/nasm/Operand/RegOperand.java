@@ -5,6 +5,10 @@ import cn.littleround.Constants;
 import java.util.HashMap;
 
 public class RegOperand extends BaseOperand {
+    public int getId() {
+        return id;
+    }
+
     private int id;
     protected boolean isDWORD = false;
     protected boolean isWORD = false;
