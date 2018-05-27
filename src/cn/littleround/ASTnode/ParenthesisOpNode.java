@@ -3,10 +3,9 @@ package cn.littleround.ASTnode;
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
-import cn.littleround.nasm.Instruction.CallLine;
-import cn.littleround.nasm.Instruction.MovLine;
-import cn.littleround.nasm.Instruction.PopLine;
-import cn.littleround.nasm.Instruction.PushLine;
+import cn.littleround.nasm.Instruction.*;
+import cn.littleround.nasm.Operand.DecimalOperand;
+import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.VariableSymbol;
@@ -64,6 +63,9 @@ public class ParenthesisOpNode extends BinaryOpNode {
         }
         // fill in args
         int cnt = 0;
+        int nArgs = op2().getSons().size();
+        boolean align = nArgs > 6 && nArgs % 2 == 1;
+        int downArea = align ? (nArgs-5)*Constants.sizeOfReg : (nArgs-6)*Constants.sizeOfReg;
         for (ASTBaseNode node: op2().getSons()) {
             if (cnt < Constants.callConvRegsLen) {
                 bb.add(new MovLine(
@@ -72,13 +74,25 @@ public class ParenthesisOpNode extends BinaryOpNode {
                 ));
                 ++cnt;
             } else {
-                bb.add(new PushLine(
+                MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
+                mro.setOffset((cnt-5)*Constants.sizeOfReg-downArea-(align?Constants.sizeOfReg:0));
+                bb.add(new MovLine(
+                        mro,
                         new VirtualRegOperand(f.nctx().getVid(node))
                 ));
+                ++cnt;
             }
+        }
+        // check align
+        if (align) {
+            bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
         }
         // call
         bb.add(new CallLine(funcLabel));
+        // restore align-assigned space
+        if (align) {
+            bb.add(new AddLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
+        }
         // get returns, set nctx
         int vid = f.nctx().getVid();
         bb.add(new MovLine(

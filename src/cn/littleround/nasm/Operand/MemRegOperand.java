@@ -13,7 +13,13 @@ public class MemRegOperand extends MemOperand {
         this.offset = offset;
     }
 
+    public void addOffset(int a) {
+        offset += a;
+    }
+
     private int offset = 0;
+    public boolean needAddRspOffset = false;
+
 
     public MemRegOperand(RegOperand op1, RegOperand op2) {
         this.op1 = op1;

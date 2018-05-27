@@ -165,28 +165,26 @@ public class Constants {
             add(new DbLine(head+"_text__toString_format", "%d", new DecimalOperand(0)));
             add(new LabelLine(head+"_text__toString"));
             // save
+            add(new SubLine(new RegOperand("rsp"), new DecimalOperand(8)));
             add(new PushLine(new RegOperand("r12")));
             add(new PushLine(new RegOperand("rbx")));
             // rbx=rdi, rdi=@limit, malloc
             add(new MovLine(new RegOperand("rbx"), new RegOperand("rdi")));
             add(new MovLine(new RegOperand("rdi"), new DecimalOperand(Constants.defaultStringLimit)));
-            add(new SubLine(new RegOperand("rsp"), new DecimalOperand(8)));
             add(new CallLine("malloc"));
-            add(new AddLine(new RegOperand("rsp"), new DecimalOperand(8)));
             // r12=rax, rdi=rax, rsi=@format, rdx=rbx, rcx=0, call sprintf
             add(new MovLine(new RegOperand("r12"), new RegOperand("rax")));
             add(new MovLine(new RegOperand("rdi"), new RegOperand("rax")));
             add(new MovLine(new RegOperand("rsi"), new SymbleOperand(head+"_text__toString_format")));
             add(new MovLine(new RegOperand("rdx"), new RegOperand("rbx")));
             add(new XorLine(new RegOperand("rcx")));
-            add(new SubLine(new RegOperand("rsp"), new DecimalOperand(8)));
             add(new CallLine("sprintf"));
-            add(new AddLine(new RegOperand("rsp"), new DecimalOperand(8)));
             // rax=r12
             add(new MovLine(new RegOperand("rax"), new RegOperand("r12")));
             // load
             add(new PopLine(new RegOperand("rbx")));
             add(new PopLine(new RegOperand("r12")));
+            add(new AddLine(new RegOperand("rsp"), new DecimalOperand(8)));
             add(new RetLine());
         }});
     }};

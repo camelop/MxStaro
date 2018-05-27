@@ -4,6 +4,7 @@ import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
+import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.FuncFormSymbol;
@@ -103,8 +104,12 @@ public class FuncDefinitionNode extends DeclarationNode {
                             new RegOperand(Constants.callConvRegs[i])
                         ));
             } else {
-                pre.add(new PopLine(
-                            new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer()))
+                MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
+                mro.setOffset((i-5)*Constants.sizeOfReg);
+                mro.needAddRspOffset = true;
+                pre.add(new MovLine(
+                            new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer())),
+                            mro
                         ));
             }
         }

@@ -103,6 +103,12 @@ public abstract class Function {
                             new DecimalOperand(nasmCtx.getRspOffset())
                     ));
                 }
+                if (line.op1 instanceof MemRegOperand && ((MemRegOperand) line.op1).needAddRspOffset) {
+                    ((MemRegOperand) line.op1).addOffset(nasmCtx.getRspOffset());
+                }
+                if (line.op2 instanceof MemRegOperand && ((MemRegOperand) line.op2).needAddRspOffset) {
+                    ((MemRegOperand) line.op2).addOffset(nasmCtx.getRspOffset());
+                }
                 if (line.isVirtual()) {
                     // eliminate useless lines
                     /* for now... TODO recover this
@@ -205,23 +211,23 @@ public abstract class Function {
     }
 
     public void reportUnusedVRs() {
-        System.out.print("in ["+label+"] unused vr: ");
+        System.err.print("in ["+label+"] unused vr: ");
         for (int i=0; i<nasmCtx.countVid()+Constants.virtualRegOperandIdOffset; ++i) {
             if (!visited.contains(i)) {
-                System.out.print(i);
-                System.out.print(", ");
+                System.err.print(i);
+                System.err.print(", ");
             }
         }
-        System.out.println();
+        System.err.println();
     }
 
     public void reportDependency() {
         if (dependGraph == null) return;
         int vSize = nasmCtx.countVid()+Constants.virtualRegOperandIdOffset;
-        System.out.println("Data Dependency Graph of ["+label+"]");
+        System.err.println("Data Dependency Graph of ["+label+"]");
         for (int i=0; i<vSize; ++i) {
-            System.out.println("point-"+String.valueOf(i));
-            System.out.println(dependGraph[i].toString());
+            System.err.println("point-"+String.valueOf(i));
+            System.err.println(dependGraph[i].toString());
         }
     }
 }
