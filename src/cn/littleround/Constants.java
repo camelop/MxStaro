@@ -42,7 +42,7 @@ public class Constants {
                 return 0;
         }
     }
-    public final static HashMap<String, ArrayList<BaseLine>> libFunc = new HashMap<>(){{
+    public final static HashMap<String, ArrayList<BaseLine>> libFunc = new HashMap<String, ArrayList<BaseLine>>(){{
         put(head+"_text_built_in_string_length", new ArrayList<BaseLine>(){{
             add(new LabelLine(head+"_text_built_in_string_length"));
             add(new CallLine("strlen"));

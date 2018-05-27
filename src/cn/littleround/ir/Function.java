@@ -73,7 +73,12 @@ public abstract class Function {
         }
         //TODO arrange cfg basic blocks, but for now, output it all
         // create a head label
-        BasicBlock head = new BasicBlock(label);
+        BasicBlock head;
+        if (label.equals(pg.getHead()+"_text__main")) {
+            head = new BasicBlock("main");
+        } else {
+            head = new BasicBlock(label);
+        }
         // add rsp change
         head.add(new SubLine(
                 new RegOperand("rsp"),
@@ -120,24 +125,27 @@ public abstract class Function {
                     BaseLine newLine = line.clone();
                     if (line.op1 instanceof VirtualRegOperand) {
                         newLine.op1 = new RegOperand("r10");
+                        RegOperand.transferRegLength((RegOperand) newLine.op1, (RegOperand) line.op1);
+
                     }
                     if (line.op2 instanceof VirtualRegOperand) {
                         newLine.op2 = new RegOperand("r11");
+                        RegOperand.transferRegLength((RegOperand) newLine.op2, (RegOperand) line.op2);
                     }
                     ret.add(newLine);
                     // move out
-                    if (line.op1 instanceof VirtualRegOperand) {
-                        ret.add(new MovLine(
-                                nasmCtx.convertVid(((VirtualRegOperand) line.op1).getVid()),
-                                new RegOperand("r10"),
-                                "save->v"+String.valueOf(((VirtualRegOperand) line.op1).getVid())
-                        ));
-                    }
                     if (line.op2 instanceof VirtualRegOperand) {
                         ret.add(new MovLine(
                                 nasmCtx.convertVid(((VirtualRegOperand) line.op2).getVid()),
                                 new RegOperand("r11"),
                                 "save->v"+String.valueOf(((VirtualRegOperand) line.op2).getVid())
+                        ));
+                    }
+                    if (line.op1 instanceof VirtualRegOperand) {
+                        ret.add(new MovLine(
+                                nasmCtx.convertVid(((VirtualRegOperand) line.op1).getVid()),
+                                new RegOperand("r10"),
+                                "save->v"+String.valueOf(((VirtualRegOperand) line.op1).getVid())
                         ));
                     }
                 } else ret.add(line);

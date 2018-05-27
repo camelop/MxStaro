@@ -28,7 +28,7 @@ public class MemRegOperand extends MemOperand {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("[qword ");
+        sb.append("qword [");
         if (op1 != null) sb.append(op1.toString());
         if (op2 != null) {
             if (scale >= 0) {

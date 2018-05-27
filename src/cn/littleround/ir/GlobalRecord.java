@@ -3,6 +3,7 @@ package cn.littleround.ir;
 import cn.littleround.ASTnode.InitDeclaratorNode;
 import cn.littleround.Constants;
 import cn.littleround.nasm.Instruction.DbLine;
+import cn.littleround.nasm.Instruction.LabelLine;
 import cn.littleround.nasm.Instruction.ResbLine;
 import cn.littleround.nasm.Operand.ConstantOperand;
 import cn.littleround.nasm.Section;
@@ -52,7 +53,35 @@ public class GlobalRecord extends Record {
     public Section getDataSection() {
         Section ret = new Section(".data");
         for (HashMap.Entry<String, Integer> e: stringToSId.entrySet()) {
-            ret.add(new DbLine(head+"_s"+String.valueOf(e.getValue()), e.getKey(), new ConstantOperand(0)));
+            String label = head+"_s"+String.valueOf(e.getValue());
+            ret.add(new LabelLine(label));
+            String contentSrc = e.getKey();
+            StringBuilder sb = new StringBuilder();
+            char[] content = contentSrc.toCharArray();
+            int l = contentSrc.length();
+            for (int i = 0; i < l; ++i) {
+                if (content[i] == '\\') {
+                    if (i == l - 1) {
+                        System.err.println("WTF");
+                        System.exit(-1);
+                    } else {
+                        ret.add(new DbLine(sb.toString()));
+                        sb = new StringBuilder();
+                        ++i;
+                        switch (content[i]) {
+                            case 'n':{
+                                ret.add(new DbLine(10));
+                            }
+                        }
+                    }
+                } else {
+                    sb.append(content[i]);
+                }
+            }
+            if (sb.toString().length() > 0) {
+                ret.add(new DbLine(sb.toString()));
+            }
+            ret.add(new DbLine(0));
         }
         return ret;
     }

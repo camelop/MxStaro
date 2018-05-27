@@ -10,15 +10,11 @@ public class RegOperand extends BaseOperand {
     }
 
     private int id;
-    protected boolean isDWORD = false;
-    protected boolean isWORD = false;
+    public boolean isDWORD = false;
+    public boolean isWORD = false;
+    public boolean isBYTE = false;
 
-    public void setBYTE(boolean BYTE) {
-        isBYTE = BYTE;
-    }
-
-    protected boolean isBYTE = false;
-    private static HashMap<String, Integer> toId = new HashMap<>(){{
+    private static HashMap<String, Integer> toId = new HashMap<String, Integer>(){{
         put("r0", 0); put("rax", 0);
         put("r1", 1); put("rcx", 1);
         put("r2", 2); put("rdx", 2);
@@ -36,7 +32,7 @@ public class RegOperand extends BaseOperand {
         put("r14", 14);
         put("r15", 15);
     }};
-    private static HashMap<Integer, String> toName = new HashMap<>(){{
+    private static HashMap<Integer, String> toName = new HashMap<Integer, String>(){{
         put(0, "rax");
         put(1, "rcx");
         put(2, "rdx");
@@ -72,5 +68,11 @@ public class RegOperand extends BaseOperand {
         if (isWORD) return "r"+String.valueOf(id)+"w";
         if (isBYTE) return "r"+String.valueOf(id)+"b";
         return toName.get(id);
+    }
+
+    static public void transferRegLength(RegOperand lhs, RegOperand rhs) {
+        lhs.isBYTE = rhs.isBYTE;
+        lhs.isWORD = rhs.isWORD;
+        lhs.isDWORD = rhs.isDWORD;
     }
 }

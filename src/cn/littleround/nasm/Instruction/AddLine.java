@@ -16,7 +16,7 @@ public class AddLine extends BinaryOpLine {
 
     @Override
     public ArrayList<Integer> getSrc() {
-        return new ArrayList<>(){{
+        return new ArrayList<Integer>(){{
             add(toId(op1));
             add(toId(op2));
         }};
@@ -24,7 +24,7 @@ public class AddLine extends BinaryOpLine {
 
     @Override
     public ArrayList<Integer> getDes() {
-        return new ArrayList<>(){{
+        return new ArrayList<Integer>(){{
             add(toId(op1));
         }};
     }

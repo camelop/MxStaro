@@ -2,6 +2,7 @@ package cn.littleround.nasm.Instruction;
 
 import cn.littleround.nasm.Operand.BaseOperand;
 import cn.littleround.nasm.Operand.ConstantOperand;
+import cn.littleround.nasm.Operand.DecimalOperand;
 import cn.littleround.nasm.Operand.SymbleOperand;
 
 public class DbLine extends BaseLine {
@@ -12,10 +13,12 @@ public class DbLine extends BaseLine {
         op2 = c;
     }
 
-    public DbLine(String label, String sym) {
-        this.label = label;
+    public DbLine(String sym) {
         op1 = new SymbleOperand("\'"+sym+"\'");
-        op2 = null;
+    }
+
+    public DbLine(int c) {
+        op1 = new DecimalOperand(c);
     }
 
     @Override
