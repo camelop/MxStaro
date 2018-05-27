@@ -194,7 +194,7 @@ public abstract class Function {
             }
         }
 
-        reportUnusedVRs();
+        //reportUnusedVRs();
         //reportDependency();
 
         for (int i=0; i<nasmCtx.countVid(); ++i) {
