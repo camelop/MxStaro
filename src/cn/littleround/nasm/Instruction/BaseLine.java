@@ -1,12 +1,13 @@
 package cn.littleround.nasm.Instruction;
 
 import cn.littleround.Constants;
+import cn.littleround.ir.Function;
 import cn.littleround.nasm.Operand.*;
 import org.abego.treelayout.internal.util.java.lang.string.StringUtil;
 
 import java.util.ArrayList;
 
-public abstract class BaseLine {
+public abstract class BaseLine implements Cloneable{
     protected String label;
     abstract String getIns();
 
@@ -15,7 +16,14 @@ public abstract class BaseLine {
     }
 
     protected String comment;
-    protected BaseOperand op1, op2;
+    public BaseOperand op1 = null;
+    public BaseOperand op2 = null;
+
+    public boolean isVirtual() {
+        if (op1 instanceof VirtualRegOperand) return true;
+        if (op2 instanceof VirtualRegOperand) return true;
+        return false;
+    }
 
     private String align(String src, int length) {
         String ret = src;
@@ -43,13 +51,13 @@ public abstract class BaseLine {
         sb.append(sep);
         sb.append(align(getIns(), 8));
         sb.append(sep);
-        if (op1 != null) sb.append(align(op1.toString(), 5));
-            else sb.append("     ");//5
+        if (op1 != null) sb.append(align(op1.toString(), 15));
+            else sb.append("               ");//15
         if (op2 != null) {
             sb.append(", ");
-            sb.append(align(op2.toString(),5));
+            sb.append(align(op2.toString(),15));
         } else
-            sb.append("     ");//5
+            sb.append("                 ");//17
         sb.append(sep);
         if (comment != null) sb.append("; ");
         if (comment != null) sb.append(comment);
@@ -66,11 +74,20 @@ public abstract class BaseLine {
         System.err.println("Oops?");
         return -1;
     }
-
     public ArrayList<Integer> getSrc() {
         return new ArrayList<>();
     }
     public ArrayList<Integer> getDes() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public BaseLine clone() {
+        try {
+            return (BaseLine) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

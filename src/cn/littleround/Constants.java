@@ -25,6 +25,7 @@ public class Constants {
     public final static String[] callerRegs = new String[]{"rax", "rbx", "rbp", "r10", "r11", "r12", "r13", "r14", "r15"};
     public final static int callConvRegsLen = 6;
     public final static String[] callConvReservRegs = new String[]{"rbp", "rbx", "r12", "r13", "r14", "r15"};
+    public final static String[] funcDesRegs = new String[]{"rax", "rbp", "rbx", "r12", "r13", "r14", "r15"};
     public final static int callConvReservRegsLen = 6;
     public final static int defaultStringLimit = 1024;
     public final static String head = "";// "MxStaro";

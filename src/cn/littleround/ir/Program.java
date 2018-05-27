@@ -89,7 +89,6 @@ public class Program {
     public void convert() throws Exception {
         //TODO
         convertIR();
-        regAlloc();
     }
 
     public void optimize() {
@@ -97,6 +96,7 @@ public class Program {
     }
 
     public String generateNasmCode() {
+        regAlloc();
         Directives d = new Directives();
         Section funcSection = new Section(funcs);
         Section dataSection = gr.getDataSection();

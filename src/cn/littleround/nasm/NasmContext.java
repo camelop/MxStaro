@@ -1,6 +1,7 @@
 package cn.littleround.nasm;
 
 import cn.littleround.ASTnode.ASTBaseNode;
+import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
 import java.util.HashMap;
@@ -24,6 +25,15 @@ public class NasmContext {
 
     private HashMap<String, Integer> identifierToVid = new HashMap<>();
     private HashSet<Integer> damaged = new HashSet<>();
+    private HashMap<Integer, MemRegOperand> assignVR = new HashMap<>();
+
+    public void assign(int vid, MemRegOperand mro) {
+        assignVR.put(vid, mro);
+    }
+
+    public MemRegOperand convertVid(int vid) {
+        return assignVR.get(vid);
+    }
 
     public boolean inside() {
         return (inLoop > 0 || inIf > 0);
