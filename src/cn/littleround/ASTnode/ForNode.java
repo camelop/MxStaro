@@ -27,9 +27,11 @@ public class ForNode extends LoopNode {
         }
         // first check
         BasicBlock.dequeCombine(ret, condition().e2().renderNasm(f));
+        VirtualRegOperand vRegE2 = new VirtualRegOperand(f.nctx().getVid(condition().e2()));
+        vRegE2.isBYTE = true;
         BasicBlock bb1 = new BasicBlock(forLabel+"_init_check");
         bb1.add(new CmpLine(
-                new VirtualRegOperand(f.nctx().getVid(condition().e2()))
+                vRegE2
         ));
         bb1.add(new JeLine(
                 new SymbleOperand(forLabel+"_end")
@@ -44,8 +46,10 @@ public class ForNode extends LoopNode {
         // check and jump
         BasicBlock bb2 = new BasicBlock();
         BasicBlock.dequeCombine(ret, condition().e2().renderNasm(f));
+        vRegE2 = new VirtualRegOperand(f.nctx().getVid(condition().e2())); //again
+        vRegE2.isBYTE = true;
         bb2.add(new CmpLine(
-                new VirtualRegOperand(f.nctx().getVid(condition().e2()))
+                vRegE2
         ));
         bb2.add(new JneLine(
                 new SymbleOperand(forLabel+"_start")

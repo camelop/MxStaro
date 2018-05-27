@@ -6,15 +6,15 @@ import cn.littleround.nasm.Operand.RegOperand;
 
 import java.util.ArrayList;
 
-public class SetBELine extends SetLine {
+public class SetLELine extends SetLine {
 
-    public SetBELine(RegOperand op) {
+    public SetLELine(RegOperand op) {
         super(op);
     }
 
     @Override
     String getIns() {
-        return "setbe";
+        return "setle";
     }
 
 }

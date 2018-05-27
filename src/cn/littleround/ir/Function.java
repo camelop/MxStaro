@@ -80,10 +80,11 @@ public abstract class Function {
             head = new BasicBlock(label);
         }
         // add rsp change
-        head.add(new SubLine(
+        if (dependGraph != null)
+            head.add(new SubLine(
                 new RegOperand("rsp"),
-                new DecimalOperand(Constants.sizeOfReg * nasmCtx.countVid())
-        ));
+                new DecimalOperand(nasmCtx.getRspOffset())
+            ));
         cfg.addFirst(head);
 
         ArrayList<BaseLine> ret = new ArrayList<>();
@@ -91,21 +92,27 @@ public abstract class Function {
         for (BasicBlock bb: cfg) {
             ret.add(new CommentLine("[----------------------------------"));
             for (BaseLine line:bb.getLines()) {
+                if (dependGraph == null) {
+                    ret.add(line);
+                    continue;
+                }
                 if (line instanceof RetLine) {
                     // add rsp change
                     ret.add(new AddLine(
                             new RegOperand("rsp"),
-                            new DecimalOperand(Constants.sizeOfReg * nasmCtx.countVid())
+                            new DecimalOperand(nasmCtx.getRspOffset())
                     ));
                 }
                 if (line.isVirtual()) {
                     // eliminate useless lines
+                    /* for now... TODO recover this
                     if (line.op1 instanceof VirtualRegOperand) {
-                        if (!visited.contains(((VirtualRegOperand) line.op1).getVid())) continue;
+                        if (!visited.contains(((VirtualRegOperand) line.op1).getVid()+Constants.virtualRegOperandIdOffset)) continue;
                     }
                     if (line.op2 instanceof VirtualRegOperand) {
-                        if (!visited.contains(((VirtualRegOperand) line.op2).getVid())) continue;
+                        if (!visited.contains(((VirtualRegOperand) line.op2).getVid()+Constants.virtualRegOperandIdOffset)) continue;
                     }
+                    */
                     // move in
                     if (line.op1 instanceof VirtualRegOperand) {
                         ret.add(new MovLine(
@@ -134,13 +141,6 @@ public abstract class Function {
                     }
                     ret.add(newLine);
                     // move out
-                    if (line.op2 instanceof VirtualRegOperand) {
-                        ret.add(new MovLine(
-                                nasmCtx.convertVid(((VirtualRegOperand) line.op2).getVid()),
-                                new RegOperand("r11"),
-                                "save->v"+String.valueOf(((VirtualRegOperand) line.op2).getVid())
-                        ));
-                    }
                     if (line.op1 instanceof VirtualRegOperand) {
                         ret.add(new MovLine(
                                 nasmCtx.convertVid(((VirtualRegOperand) line.op1).getVid()),
@@ -159,7 +159,7 @@ public abstract class Function {
     HashSet<Integer> visited = new HashSet<>();
     public void regAlloc() {
         if (cfg == null) return;
-        int vSize = nasmCtx.countVid()+18;
+        int vSize = nasmCtx.countVid()+Constants.virtualRegOperandIdOffset;
         dependGraph = new _GraphNode[vSize];
         for (int i=0; i<vSize; ++i) dependGraph[i] = new _GraphNode();
 
@@ -194,8 +194,9 @@ public abstract class Function {
             }
         }
 
-        //reportUnusedVRs();
+        reportUnusedVRs();
         //reportDependency();
+
         for (int i=0; i<nasmCtx.countVid(); ++i) {
             MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
             mro.setOffset(i*8);
@@ -205,7 +206,7 @@ public abstract class Function {
 
     public void reportUnusedVRs() {
         System.out.print("in ["+label+"] unused vr: ");
-        for (int i=0; i<nasmCtx.countVid()+18; ++i) {
+        for (int i=0; i<nasmCtx.countVid()+Constants.virtualRegOperandIdOffset; ++i) {
             if (!visited.contains(i)) {
                 System.out.print(i);
                 System.out.print(", ");
@@ -216,7 +217,7 @@ public abstract class Function {
 
     public void reportDependency() {
         if (dependGraph == null) return;
-        int vSize = nasmCtx.countVid()+18;
+        int vSize = nasmCtx.countVid()+Constants.virtualRegOperandIdOffset;
         System.out.println("Data Dependency Graph of ["+label+"]");
         for (int i=0; i<vSize; ++i) {
             System.out.println("point-"+String.valueOf(i));

@@ -3,8 +3,10 @@ int main() {
     int sum = 0;
     int i;
     int j;
-    for (i = 1; i <= n; ++i)
+    for (i = 1; i <= n; ++i) {
         for (j = 1; j <= n; ++j)
             sum = sum + i;
+        sum = sum + 1;
+    }
     return sum;
 }

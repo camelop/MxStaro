@@ -1,6 +1,7 @@
 package cn.littleround.nasm;
 
 import cn.littleround.ASTnode.ASTBaseNode;
+import cn.littleround.Constants;
 import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
@@ -41,6 +42,14 @@ public class NasmContext {
 
     public int countVid() {
         return vid;
+    }
+
+    public int getRspOffset() {
+        if (vid%2 == 1) {
+            return vid * Constants.sizeOfReg;
+        } else {
+            return (vid+1) * Constants.sizeOfReg;
+        }
     }
 
     public void enterLoop() { ++inLoop; }
