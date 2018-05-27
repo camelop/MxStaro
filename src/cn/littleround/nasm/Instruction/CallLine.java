@@ -18,7 +18,7 @@ public class CallLine extends ControlFlowLine {
 
     @Override
     public ArrayList<Integer> getSrc() {
-        return new ArrayList<>(){{
+        return new ArrayList<Integer>(){{
             add(toId(new RegOperand("rdi")));
             add(toId(new RegOperand("rsi")));
             add(toId(new RegOperand("rdx")));
@@ -31,7 +31,7 @@ public class CallLine extends ControlFlowLine {
 
     @Override
     public ArrayList<Integer> getDes() {
-        return new ArrayList<>(){{
+        return new ArrayList<Integer>(){{
             add(toId(new RegOperand("rax")));
             add(toId(new RegOperand("rdi")));
             add(toId(new RegOperand("rsi")));
