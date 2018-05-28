@@ -1,7 +1,11 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
 import cn.littleround.type.BaseType;
 import cn.littleround.type.UserDefinedType;
+
+import java.util.ArrayDeque;
 
 public class TypeNode extends ASTBaseNode {
     private boolean isInline = false;
@@ -38,5 +42,12 @@ public class TypeNode extends ASTBaseNode {
             }
         }
         return attribute().getType();
+    }
+
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        ArrayDeque<BasicBlock> ret = attribute().renderNasm(f);
+        f.nctx().setNodeVid(this, f.nctx().getVid(attribute()));
+        return ret;
     }
 }

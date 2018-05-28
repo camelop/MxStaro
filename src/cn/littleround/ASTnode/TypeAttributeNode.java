@@ -1,14 +1,25 @@
 package cn.littleround.ASTnode;
 
 import cn.littleround.Constants;
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.DecimalOperand;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.type.*;
 
 import java.lang.reflect.Type;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class TypeAttributeNode extends ASTBaseNode {
     private String identifier;
     private int pointerLevel = 0;
+
+    public ArrayList<ExpressionNode> getPointerExpressionList() {
+        return pointerExpressionList;
+    }
+
     private ArrayList<ExpressionNode> pointerExpressionList = new ArrayList<>();
     public String getIdentifier() {
         return identifier;
@@ -34,7 +45,7 @@ public class TypeAttributeNode extends ASTBaseNode {
     public boolean equals(Object obj) {
         if (!(obj instanceof ASTBaseNode)) return false;
         TypeAttributeNode tan = (TypeAttributeNode) obj;
-        return this.identifier == tan.identifier && this.pointerLevel == tan.pointerLevel;
+        return this.identifier.equals(tan.identifier) && this.pointerLevel == tan.pointerLevel;
     }
 
     public BaseType getType() {
@@ -81,6 +92,36 @@ public class TypeAttributeNode extends ASTBaseNode {
         if (t instanceof UserDefinedType) {
             if (getSymbolTable().getClassSymbol(t.toString()) == null)
                 reportError("Semantic", "Invalid type specifier.");
+        }
+    }
+
+    public int getWidth() {
+        if (pointerLevel > 1) {
+            return Constants.sizeOfReg;
+        } else {
+            return getType().getSize();
+        }
+    }
+
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        if (pointerLevel == 0 || pointerExpressionList.get(0) instanceof EmptyExpressionNode) {
+            ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
+            BasicBlock bb = new BasicBlock();
+            int vid = f.nctx().getVid();
+            bb.add(new MovLine(
+                    new VirtualRegOperand(vid),
+                    new DecimalOperand(1)
+            ));
+            f.nctx().setNodeVid(this, vid);
+            ret.add(bb);
+            return ret;
+        } else {
+            // only get rid of the first one
+            ExpressionNode en = pointerExpressionList.get(0);
+            ArrayDeque<BasicBlock> ret = en.renderNasm(f);
+            f.nctx().setNodeVid(this, f.nctx().getVid(en));
+            return ret;
         }
     }
 }

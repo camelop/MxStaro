@@ -119,40 +119,8 @@ public abstract class Function {
                         if (!visited.contains(((VirtualRegOperand) line.op2).getVid()+Constants.virtualRegOperandIdOffset)) continue;
                     }
                     */
-                    // move in
-                    if (line.op1 instanceof VirtualRegOperand) {
-                        ret.add(new MovLine(
-                                new RegOperand("r10"),
-                                nasmCtx.convertVid(((VirtualRegOperand) line.op1).getVid()),
-                                "load->v"+String.valueOf(((VirtualRegOperand) line.op1).getVid())
-                        ));
-                    }
-                    if (line.op2 instanceof VirtualRegOperand) {
-                        ret.add(new MovLine(
-                                new RegOperand("r11"),
-                                nasmCtx.convertVid(((VirtualRegOperand) line.op2).getVid()),
-                                "load->v"+String.valueOf(((VirtualRegOperand) line.op2).getVid())
-                        ));
-                    }
-                    // convert
-                    BaseLine newLine = line.clone();
-                    if (line.op1 instanceof VirtualRegOperand) {
-                        newLine.op1 = new RegOperand("r10");
-                        RegOperand.transferRegLength((RegOperand) newLine.op1, (RegOperand) line.op1);
-
-                    }
-                    if (line.op2 instanceof VirtualRegOperand) {
-                        newLine.op2 = new RegOperand("r11");
-                        RegOperand.transferRegLength((RegOperand) newLine.op2, (RegOperand) line.op2);
-                    }
-                    ret.add(newLine);
-                    // move out
-                    if (line.op1 instanceof VirtualRegOperand) {
-                        ret.add(new MovLine(
-                                nasmCtx.convertVid(((VirtualRegOperand) line.op1).getVid()),
-                                new RegOperand("r10"),
-                                "save->v"+String.valueOf(((VirtualRegOperand) line.op1).getVid())
-                        ));
+                    for (BaseLine nline: line.render(this)) {
+                        ret.add(nline);
                     }
                 } else ret.add(line);
             }

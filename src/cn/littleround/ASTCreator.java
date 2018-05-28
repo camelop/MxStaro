@@ -484,7 +484,7 @@ public class ASTCreator extends MxStarBaseListener {
         } else if (ctx.functionSpecifier() != null) {
             tan = new FuncAttributeNode(ctx.functionSpecifier().getText());
         } else /* '[]' */ {
-            ASTBaseNode en = null;
+            ASTBaseNode en = new EmptyExpressionNode(); // to support int[3][4][5]
             if (ctx.expression() != null) {
                 en = nodeStack.pop();
             }

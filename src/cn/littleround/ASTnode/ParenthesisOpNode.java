@@ -55,12 +55,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
         ArrayDeque<BasicBlock> ret = op2().renderNasm(f);
         BasicBlock bb = new BasicBlock(f.getLabel()+"_"+f.nctx().getCallCnt());
         // save regs
-        for (String r: Constants.callerRegs) {
-            bb.add(new MovLine(
-                    new VirtualRegOperand(f.nctx().getVid("_"+r)),
-                    new RegOperand(r)
-            ));
-        }
+        saveCallerRegs(bb, f);
         // fill in args
         int cnt = 0;
         int nArgs = op2().getSons().size();
@@ -101,12 +96,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
         ));
         f.nctx().setNodeVid(this, vid);
         // load regs
-        for (String r: Constants.callerRegs) {
-            bb.add(new MovLine(
-                    new RegOperand(r),
-                    new VirtualRegOperand(f.nctx().getVid("_"+r))
-            ));
-        }
+        loadCallerRegs(bb, f);
         // add bb
         if (ret.size() == 0) {
             ret.add(bb);

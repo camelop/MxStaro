@@ -3,6 +3,9 @@ package cn.littleround.ASTnode;
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.RegOperand;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.*;
 import cn.littleround.type.BaseType;
 import cn.littleround.type.FuncType;
@@ -149,7 +152,7 @@ public abstract class ASTBaseNode {
     }
 
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
-        System.err.println("You really want to see ME? ( not overrided in "+this.getClass().getSimpleName()+")");
+        System.err.println("You really want to see ME? ( not overrided in "+this.getClass().getSimpleName()+") //"+ctx.getText());
         return new ArrayDeque<>();
     }
 
@@ -165,4 +168,23 @@ public abstract class ASTBaseNode {
         return ret;
     }
 
+    static public void saveCallerRegs(BasicBlock bb, Function f) {
+        // save regs
+        for (String r: Constants.callerRegs) {
+            bb.add(new MovLine(
+                    new VirtualRegOperand(f.nctx().getVid("_"+r)),
+                    new RegOperand(r)
+            ));
+        }
+    }
+
+    static public void loadCallerRegs(BasicBlock bb, Function f) {
+        // load regs
+        for (String r: Constants.callerRegs) {
+            bb.add(new MovLine(
+                    new RegOperand(r),
+                    new VirtualRegOperand(f.nctx().getVid("_"+r))
+            ));
+        }
+    }
 }

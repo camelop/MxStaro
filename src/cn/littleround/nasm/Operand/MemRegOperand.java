@@ -1,7 +1,7 @@
 package cn.littleround.nasm.Operand;
 
 public class MemRegOperand extends MemOperand {
-    private RegOperand op1, op2;
+    public RegOperand op1, op2;
 
     public void setScale(int scale) {
         this.scale = scale;
@@ -20,6 +20,9 @@ public class MemRegOperand extends MemOperand {
     private int offset = 0;
     public boolean needAddRspOffset = false;
 
+    public boolean isVirtual() {
+        return (op1 instanceof VirtualRegOperand || op2 instanceof VirtualRegOperand);
+    }
 
     public MemRegOperand(RegOperand op1, RegOperand op2) {
         this.op1 = op1;

@@ -60,6 +60,13 @@ public class AssignNode extends BinaryOpNode {
                         vsrc
                 ));
             }
+        } else if (op1() instanceof SubscriptOpNode) {
+            BasicBlock.dequeCombine(ret, op1().renderNasm(f));
+            bb.add(new MovLine(
+                    f.nctx().findMemRef(op1()),
+                    vsrc,
+                    "assign->"+op1().getCtx().getText()
+            ));
         }
         BasicBlock.dequeCombine(ret, bb);
         return ret;
