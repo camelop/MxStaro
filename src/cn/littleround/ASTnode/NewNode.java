@@ -34,9 +34,8 @@ public class NewNode extends BinaryOpNode {
         bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(width)));
         // call malloc
         saveCallerRegs(bb, f);
-        int vrdi = f.nctx().getVid();
         bb.add(new MovLine(
-                new VirtualRegOperand(vrdi),
+                new RegOperand("rdi"),
                 new VirtualRegOperand(vid)
         ));
         bb.add(new CallLine("malloc"));

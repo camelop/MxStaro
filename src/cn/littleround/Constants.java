@@ -12,10 +12,16 @@ import java.util.HashMap;
 
 public class Constants {
     public final static int sizeOfReg = 8;
+    /*
     public final static int sizeOfInt = 4;
     public final static int sizeOfBoolean = 1;
     public final static int sizeOfPointer = 4;
     public final static int sizeOfString = 4; //?
+    */
+    public final static int sizeOfInt = 8;
+    public final static int sizeOfBoolean = 8;
+    public final static int sizeOfPointer = 8;
+    public final static int sizeOfString = 8; //?
     public final static BoolType BOOL = new BoolType();
     public final static IntType INT = new IntType();
     public final static StringType STRING = new StringType();
