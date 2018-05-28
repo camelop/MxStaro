@@ -17,6 +17,7 @@ public class NasmContext {
     private int addId = 0;
     private int callId = 0;
     private int forId = 0;
+    private int ifId = 0;
     private String scopeHead = "";
 
     private int inLoop = 0;
@@ -131,6 +132,11 @@ public class NasmContext {
     public String getForCnt() {
         forId++;
         return "for"+String.valueOf(forId-1);
+    }
+
+    public String getIfCnt() {
+        ifId++;
+        return "if"+String.valueOf(ifId-1);
     }
 
     public int getVid(String identifier, VirtualRegOperand vl, VirtualRegOperand vr) {

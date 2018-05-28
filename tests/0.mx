@@ -1,4 +1,8 @@
 int main() {
-    int[] a = new int[20];
-    return a.size();
+    int i=2;
+    if (i<5) {
+        return 2;
+    } else {
+        return 3;
+    }
 }

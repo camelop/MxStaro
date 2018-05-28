@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){int[]a=newint[20];returna.size();}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){inti=2;if(i<5){return2;}else{return3;}}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -79,25 +79,27 @@
                     -ArgumentListNode (void)			// "%s\n",str
                         -StringLiteralNode (string)			// "%s\n"
                         -IdentifierNode (string)			// str
-    -FuncDefinitionNode (void)			// intmain(){int[]a=newint[20];returna.size();}
+    -FuncDefinitionNode (void)			// intmain(){inti=2;if(i<5){return2;}else{return3;}}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {int[]a=newint[20];returna.size();}
-            -DeclarationNode (void)			// int[]a=newint[20];
-                -TypeNode (void)			// int[]
-                    -TypeAttributeNode (void)			// int[]
-                -DeclaratorListNode (void)			// a=newint[20]
-                    -InitDeclaratorNode (void)			// a=newint[20]
-                        -DeclaratorNode (void)			// a
-                        -NewNode (int[])			// newint[20]
-                            -TypeNode (void)			// int[20]
-                                -TypeAttributeNode (void)			// int[20]
-                            -ArgumentTypeListNode (void)
-            -ReturnNode (void)			// returna.size();
-                -ParenthesisOpNode (int)			// a.size()
-                    -DotOpNode (BaseType)			// a.size
-                        -IdentifierNode (int[])			// a
-                    -ArgumentListNode (void)
+        -BlockNode (void)			// {inti=2;if(i<5){return2;}else{return3;}}
+            -DeclarationNode (void)			// inti=2;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// i=2
+                    -InitDeclaratorNode (void)			// i=2
+                        -DeclaratorNode (void)			// i
+                        -ConstantNode (int)			// 2
+            -IfNode (void)			// if(i<5){return2;}else{return3;}
+                -LessThanNode (bool)			// i<5
+                    -IdentifierNode (int)			// i
+                    -ConstantNode (int)			// 5
+                -BlockNode (void)			// {return2;}
+                    -ReturnNode (void)			// return2;
+                        -ConstantNode (int)			// 2
+                -BlockNode (void)			// {return3;}
+                    -ReturnNode (void)			// return3;
+                        -ConstantNode (int)			// 3

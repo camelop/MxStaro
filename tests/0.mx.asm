@@ -79,7 +79,7 @@ _text__getString_format:
               db      '%s'           , 0              
 _text__getString:
               push    rbx                             
-              mov     rdi            , 1024           
+              mov     rdi            , 512            
               call    malloc                          
               mov     rbx            , rax            
               mov     rdi            , _text__getString_format
@@ -112,7 +112,7 @@ _text__toString:
               push    r12                             
               push    rbx                             
               mov     rbx            , rdi            
-              mov     rdi            , 1024           
+              mov     rdi            , 512            
               call    malloc                          
               mov     r12            , rax            
               mov     rdi            , rax            
@@ -372,7 +372,7 @@ _datainit_inexplicit_return_void:
 ; --- [ _text__main ] ---
 ;[----------------------------------
 main:
-              sub     rsp            , 120            
+              sub     rsp            , 88             
 ;----------------------------------]
 ;[----------------------------------
 _text__main_built_in_call_data_init:
@@ -398,129 +398,36 @@ _text__main_built_in_call_data_init:
               mov     r10            , r15            
               mov     qword [rsp+40] , r10            ; save->v5
               mov     r10            , qword [rsp+48] ; load->v6
-              mov     r10            , 20             
+              mov     r10            , 2              
               mov     qword [rsp+48] , r10            ; save->v6
               mov     r10            , qword [rsp+56] ; load->v7
               mov     r11            , qword [rsp+48] ; load->v6
-              mov     r10            , r11            
+              mov     r10            , r11            ; init->i
               mov     qword [rsp+56] , r10            ; save->v7
-              mov     r10            , qword [rsp+56] ; load->v7
-              imul    r10            , 8              
-              mov     qword [rsp+56] , r10            ; save->v7
-              mov     r10            , qword [rsp+56] ; load->v7
-              add     r10            , 8              
-              mov     qword [rsp+56] , r10            ; save->v7
+_text__main_if0_init:
               mov     r10            , qword [rsp+64] ; load->v8
-              mov     r10            , rax            
+              mov     r10            , 5              
               mov     qword [rsp+64] , r10            ; save->v8
-              mov     r10            , qword [rsp+8]  ; load->v1
-              mov     r10            , rbx            
-              mov     qword [rsp+8]  , r10            ; save->v1
-              mov     r10            , qword [rsp]    ; load->v0
-              mov     r10            , rbp            
-              mov     qword [rsp]    , r10            ; save->v0
-              mov     r10            , qword [rsp+72] ; load->v9
-              mov     r10            , r10            
-              mov     qword [rsp+72] , r10            ; save->v9
-              mov     r10            , qword [rsp+80] ; load->v10
-              mov     r10            , r11            
-              mov     qword [rsp+80] , r10            ; save->v10
-              mov     r10            , qword [rsp+16] ; load->v2
-              mov     r10            , r12            
-              mov     qword [rsp+16] , r10            ; save->v2
-              mov     r10            , qword [rsp+24] ; load->v3
-              mov     r10            , r13            
-              mov     qword [rsp+24] , r10            ; save->v3
-              mov     r10            , qword [rsp+32] ; load->v4
-              mov     r10            , r14            
-              mov     qword [rsp+32] , r10            ; save->v4
-              mov     r10            , qword [rsp+40] ; load->v5
-              mov     r10            , r15            
-              mov     qword [rsp+40] , r10            ; save->v5
-              mov     r11            , qword [rsp+56] ; load->v7
-              mov     rdi            , r11            
-              call    malloc                          
-              mov     r10            , qword [rsp+88] ; load->v11
-              mov     r10            , rax            
-              mov     qword [rsp+88] , r10            ; save->v11
-              mov     r11            , qword [rsp+48] ; load->v6
-              mov     qword [rax]    , r11            
+              mov     r10            , qword [rsp+56] ; load->v7
               mov     r11            , qword [rsp+64] ; load->v8
-              mov     rax            , r11            
-              mov     r11            , qword [rsp+8]  ; load->v1
-              mov     rbx            , r11            
-              mov     r11            , qword [rsp]    ; load->v0
-              mov     rbp            , r11            
-              mov     r11            , qword [rsp+72] ; load->v9
-              mov     r10            , r11            
-              mov     r11            , qword [rsp+80] ; load->v10
-              mov     r11            , r11            
-              mov     r11            , qword [rsp+16] ; load->v2
-              mov     r12            , r11            
-              mov     r11            , qword [rsp+24] ; load->v3
-              mov     r13            , r11            
-              mov     r11            , qword [rsp+32] ; load->v4
-              mov     r14            , r11            
-              mov     r11            , qword [rsp+40] ; load->v5
-              mov     r15            , r11            
-              mov     r10            , qword [rsp+96] ; load->v12
-              mov     r11            , qword [rsp+88] ; load->v11
-              mov     r10            , r11            ; init->a
-              mov     qword [rsp+96] , r10            ; save->v12
-_text__main_call0:
-              mov     r10            , qword [rsp+64] ; load->v8
-              mov     r10            , rax            
-              mov     qword [rsp+64] , r10            ; save->v8
-              mov     r10            , qword [rsp+8]  ; load->v1
-              mov     r10            , rbx            
-              mov     qword [rsp+8]  , r10            ; save->v1
-              mov     r10            , qword [rsp]    ; load->v0
-              mov     r10            , rbp            
-              mov     qword [rsp]    , r10            ; save->v0
+              cmp     r10            , r11            
+              mov     qword [rsp+56] , r10            ; save->v7
               mov     r10            , qword [rsp+72] ; load->v9
-              mov     r10            , r10            
+              setl    r10b                            
               mov     qword [rsp+72] , r10            ; save->v9
-              mov     r10            , qword [rsp+80] ; load->v10
-              mov     r10            , r11            
-              mov     qword [rsp+80] , r10            ; save->v10
-              mov     r10            , qword [rsp+16] ; load->v2
-              mov     r10            , r12            
-              mov     qword [rsp+16] , r10            ; save->v2
-              mov     r10            , qword [rsp+24] ; load->v3
-              mov     r10            , r13            
-              mov     qword [rsp+24] , r10            ; save->v3
-              mov     r10            , qword [rsp+32] ; load->v4
-              mov     r10            , r14            
-              mov     qword [rsp+32] , r10            ; save->v4
-              mov     r10            , qword [rsp+40] ; load->v5
-              mov     r10            , r15            
-              mov     qword [rsp+40] , r10            ; save->v5
-              mov     r11            , qword [rsp+96] ; load->v12
-              mov     rdi            , r11            
-              call    _text_built_in_array_size                 
-              mov     r10            , qword [rsp+104]; load->v13
-              mov     r10            , rax            
-              mov     qword [rsp+104], r10            ; save->v13
-              mov     r11            , qword [rsp+64] ; load->v8
-              mov     rax            , r11            
-              mov     r11            , qword [rsp+8]  ; load->v1
-              mov     rbx            , r11            
-              mov     r11            , qword [rsp]    ; load->v0
-              mov     rbp            , r11            
-              mov     r11            , qword [rsp+72] ; load->v9
-              mov     r10            , r11            
-              mov     r11            , qword [rsp+80] ; load->v10
-              mov     r11            , r11            
-              mov     r11            , qword [rsp+16] ; load->v2
-              mov     r12            , r11            
-              mov     r11            , qword [rsp+24] ; load->v3
-              mov     r13            , r11            
-              mov     r11            , qword [rsp+32] ; load->v4
-              mov     r14            , r11            
-              mov     r11            , qword [rsp+40] ; load->v5
-              mov     r15            , r11            
+_text__main_if0_check:
+              mov     r10            , qword [rsp+72] ; load->v9
+              cmp     r10b           , 0              
+              mov     qword [rsp+72] , r10            ; save->v9
+              je      _text__main_if0_else                 
+;----------------------------------]
+;[----------------------------------
+_text__main_if0_start:
+              mov     r10            , qword [rsp+48] ; load->v6
+              mov     r10            , 2              
+              mov     qword [rsp+48] , r10            ; save->v6
 _text__main_ret0:
-              mov     r11            , qword [rsp+104]; load->v13
+              mov     r11            , qword [rsp+48] ; load->v6
               mov     rax            , r11            
               mov     r11            , qword [rsp]    ; load->v0
               mov     rbp            , r11            
@@ -534,10 +441,37 @@ _text__main_ret0:
               mov     r14            , r11            
               mov     r11            , qword [rsp+40] ; load->v5
               mov     r15            , r11            
-              add     rsp            , 120            
+              add     rsp            , 88             
               ret                                     
 ;----------------------------------]
 ;[----------------------------------
+              jmp     _text__main_if0_end                 
+;----------------------------------]
+;[----------------------------------
+_text__main_if0_else:
+              mov     r10            , qword [rsp+80] ; load->v10
+              mov     r10            , 3              
+              mov     qword [rsp+80] , r10            ; save->v10
+_text__main_ret1:
+              mov     r11            , qword [rsp+80] ; load->v10
+              mov     rax            , r11            
+              mov     r11            , qword [rsp]    ; load->v0
+              mov     rbp            , r11            
+              mov     r11            , qword [rsp+8]  ; load->v1
+              mov     rbx            , r11            
+              mov     r11            , qword [rsp+16] ; load->v2
+              mov     r12            , r11            
+              mov     r11            , qword [rsp+24] ; load->v3
+              mov     r13            , r11            
+              mov     r11            , qword [rsp+32] ; load->v4
+              mov     r14            , r11            
+              mov     r11            , qword [rsp+40] ; load->v5
+              mov     r15            , r11            
+              add     rsp            , 88             
+              ret                                     
+;----------------------------------]
+;[----------------------------------
+_text__main_if0_end:
 _text__main_inexplicit_return_void:
               mov     r11            , qword [rsp]    ; load->v0
               mov     rbp            , r11            
@@ -551,7 +485,7 @@ _text__main_inexplicit_return_void:
               mov     r14            , r11            
               mov     r11            , qword [rsp+40] ; load->v5
               mov     r15            , r11            
-              add     rsp            , 120            
+              add     rsp            , 88             
               ret                                     
 ;----------------------------------]
                                                       
