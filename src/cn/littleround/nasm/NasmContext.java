@@ -109,7 +109,7 @@ public class NasmContext {
 
     public int getVid(ASTBaseNode node) throws Exception {
         if (!nodeToVid.containsKey(node)) {
-            throw new Exception("Vid assign failed.");
+            throw new Exception("Vid assign failed. ("+node.getCtx().getText()+")");
         }
         return nodeToVid.get(node);
     }
