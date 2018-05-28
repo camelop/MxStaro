@@ -3,6 +3,7 @@ package cn.littleround.ASTnode;
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.CmpLine;
 import cn.littleround.nasm.Instruction.SetELine;
 import cn.littleround.nasm.Instruction.SetLELine;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
@@ -27,6 +28,10 @@ public class EqualNode extends BinaryOpNode {
         ArrayDeque<BasicBlock> ret = super.renderNasm(f);
         int vid = f.nctx().getVid();
         BasicBlock bb = new BasicBlock();
+        bb.add(new CmpLine(
+                new VirtualRegOperand(f.nctx().getVid(op1())),
+                new VirtualRegOperand(f.nctx().getVid(op2()))
+        ));
         //bb.add(new XorLine(new VirtualRegOperand(vid))); // xor change flags!!!
         bb.add(new SetELine(new VirtualRegOperand(vid)));
         f.nctx().setNodeVid(this ,vid);

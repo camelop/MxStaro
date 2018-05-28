@@ -1,8 +1,6 @@
 int main() {
-    int i=2;
-    if (i<5) {
-        return 2;
-    } else {
-        return 3;
-    }
+    int x = 10;
+    if (x == 10) x = 20;
+    else x = 30;
+    return x;
 }
