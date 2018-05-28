@@ -10,6 +10,7 @@ import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.VariableSymbol;
 import cn.littleround.type.FuncType;
+import cn.littleround.type.PointerType;
 import cn.littleround.type.TypeList;
 
 import java.util.ArrayDeque;
@@ -48,60 +49,127 @@ public class ParenthesisOpNode extends BinaryOpNode {
         if (isClassFuncCall()) {
             DotOpNode don = (DotOpNode) op1();
             funcLabel = Constants.head+"_text_"+don.op1().type.toString()+"_"+don.getIdentifier();
+            if (don.op1().type instanceof PointerType && don.getIdentifier().equals("size")) {
+                funcLabel = "_text_built_in_array_size";
+            }
         } else {
             IdentifierNode idn = (IdentifierNode) op1();
             funcLabel = Constants.head+"_text__"+idn.getIdentifier();
         }
         ArrayDeque<BasicBlock> ret = op2().renderNasm(f);
-        BasicBlock bb = new BasicBlock(f.getLabel()+"_"+f.nctx().getCallCnt());
-        // save regs
-        saveCallerRegs(bb, f);
-        // fill in args
-        int cnt = 0;
-        int nArgs = op2().getSons().size();
-        boolean align = nArgs > 6 && nArgs % 2 == 1;
-        int downArea = align ? (nArgs-5)*Constants.sizeOfReg : (nArgs-6)*Constants.sizeOfReg;
-        for (ASTBaseNode node: op2().getSons()) {
-            if (cnt < Constants.callConvRegsLen) {
-                bb.add(new MovLine(
-                        new RegOperand(Constants.callConvRegs[cnt]),
-                        new VirtualRegOperand(f.nctx().getVid(node))
-                ));
-                ++cnt;
+        if (isClassFuncCall()) {
+            if (ret.size() > 0) {
+                BasicBlock.dequeCombine(ret, op1().renderNasm(f));
             } else {
-                MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
-                mro.setOffset((cnt-5)*Constants.sizeOfReg-downArea-(align?Constants.sizeOfReg:0));
-                bb.add(new MovLine(
-                        mro,
-                        new VirtualRegOperand(f.nctx().getVid(node))
-                ));
-                ++cnt;
+                ret = op1().renderNasm(f);
             }
-        }
-        // check align
-        if (align) {
-            bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
-        }
-        // call
-        bb.add(new CallLine(funcLabel));
-        // restore align-assigned space
-        if (align) {
-            bb.add(new AddLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
-        }
-        // get returns, set nctx
-        int vid = f.nctx().getVid();
-        bb.add(new MovLine(
-                new VirtualRegOperand(vid),
-                new RegOperand("rax")
-        ));
-        f.nctx().setNodeVid(this, vid);
-        // load regs
-        loadCallerRegs(bb, f);
-        // add bb
-        if (ret.size() == 0) {
-            ret.add(bb);
+            BasicBlock bb = new BasicBlock(f.getLabel() + "_" + f.nctx().getCallCnt());
+            // save regs
+            saveCallerRegs(bb, f);
+            // fill in args
+            int cnt = 0;
+            int nArgs = op2().getSons().size() + 1;
+            boolean align = nArgs > 6 && nArgs % 2 == 1;
+            int downArea = align ? (nArgs - 5) * Constants.sizeOfReg : (nArgs - 6) * Constants.sizeOfReg;
+            // fill in 'this'
+            bb.add(new MovLine(
+                    new RegOperand(Constants.callConvRegs[0]),
+                    new VirtualRegOperand(f.nctx().getVid(op1().getSons().get(0)))
+            ));
+            ++cnt;
+            for (ASTBaseNode node : op2().getSons()) {
+                if (cnt < Constants.callConvRegsLen) {
+                    bb.add(new MovLine(
+                            new RegOperand(Constants.callConvRegs[cnt]),
+                            new VirtualRegOperand(f.nctx().getVid(node))
+                    ));
+                    ++cnt;
+                } else {
+                    MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
+                    mro.setOffset((cnt - 5) * Constants.sizeOfReg - downArea - (align ? Constants.sizeOfReg : 0));
+                    bb.add(new MovLine(
+                            mro,
+                            new VirtualRegOperand(f.nctx().getVid(node))
+                    ));
+                    ++cnt;
+                }
+            }
+            // check align
+            if (align) {
+                bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
+            }
+            // call
+            bb.add(new CallLine(funcLabel));
+            // restore align-assigned space
+            if (align) {
+                bb.add(new AddLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
+            }
+            // get returns, set nctx
+            int vid = f.nctx().getVid();
+            bb.add(new MovLine(
+                    new VirtualRegOperand(vid),
+                    new RegOperand("rax")
+            ));
+            f.nctx().setNodeVid(this, vid);
+            // load regs
+            loadCallerRegs(bb, f);
+            // add bb
+            if (ret.size() == 0) {
+                ret.add(bb);
+            } else {
+                BasicBlock.dequeCombine(ret, bb);
+            }
         } else {
-            BasicBlock.dequeCombine(ret, bb);
+            BasicBlock bb = new BasicBlock(f.getLabel() + "_" + f.nctx().getCallCnt());
+            // save regs
+            saveCallerRegs(bb, f);
+            // fill in args
+            int cnt = 0;
+            int nArgs = op2().getSons().size();
+            boolean align = nArgs > 6 && nArgs % 2 == 1;
+            int downArea = align ? (nArgs - 5) * Constants.sizeOfReg : (nArgs - 6) * Constants.sizeOfReg;
+            for (ASTBaseNode node : op2().getSons()) {
+                if (cnt < Constants.callConvRegsLen) {
+                    bb.add(new MovLine(
+                            new RegOperand(Constants.callConvRegs[cnt]),
+                            new VirtualRegOperand(f.nctx().getVid(node))
+                    ));
+                    ++cnt;
+                } else {
+                    MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
+                    mro.setOffset((cnt - 5) * Constants.sizeOfReg - downArea - (align ? Constants.sizeOfReg : 0));
+                    bb.add(new MovLine(
+                            mro,
+                            new VirtualRegOperand(f.nctx().getVid(node))
+                    ));
+                    ++cnt;
+                }
+            }
+            // check align
+            if (align) {
+                bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
+            }
+            // call
+            bb.add(new CallLine(funcLabel));
+            // restore align-assigned space
+            if (align) {
+                bb.add(new AddLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
+            }
+            // get returns, set nctx
+            int vid = f.nctx().getVid();
+            bb.add(new MovLine(
+                    new VirtualRegOperand(vid),
+                    new RegOperand("rax")
+            ));
+            f.nctx().setNodeVid(this, vid);
+            // load regs
+            loadCallerRegs(bb, f);
+            // add bb
+            if (ret.size() == 0) {
+                ret.add(bb);
+            } else {
+                BasicBlock.dequeCombine(ret, bb);
+            }
         }
         return ret;
     }

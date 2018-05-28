@@ -6,8 +6,10 @@ import cn.littleround.nasm.Operand.BaseOperand;
 import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Stack;
 
 public class NasmContext {
     private int vid = 0;
@@ -30,6 +32,7 @@ public class NasmContext {
     private HashMap<Integer, MemRegOperand> assignVR = new HashMap<>();
 
     private HashMap<ASTBaseNode, BaseOperand> findMem = new HashMap<>();
+    public Stack<Integer> lastThis = new Stack<>();
 
     public void assign(int vid, MemRegOperand mro) {
         assignVR.put(vid, mro);

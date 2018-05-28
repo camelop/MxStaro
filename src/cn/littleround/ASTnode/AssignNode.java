@@ -56,7 +56,7 @@ public class AssignNode extends BinaryOpNode {
             } else {
                 // global
                 bb.add(new MovLine(
-                        new MemSymOperand(Constants.head+"_data_"+((IdentifierNode) op1()).getIdentifier()),
+                        new MemSymOperand(Constants.head+"_data_bss_"+((IdentifierNode) op1()).getIdentifier()),
                         vsrc
                 ));
             }

@@ -46,7 +46,7 @@ public class NewNode extends BinaryOpNode {
         ));
         bb.add(new MovLine(
                 new MemRegOperand(new RegOperand("rax")),
-                new VirtualRegOperand(vid)
+                new VirtualRegOperand(f.nctx().getVid(op1()))
         ));
         loadCallerRegs(bb, f);
         // set return new value

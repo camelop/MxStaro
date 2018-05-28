@@ -11,6 +11,6 @@ public class GlobalVariableOperand extends MemOperand {
 
     @Override
     public String toString() {
-        return Constants.head+"_data_"+identifier;
+        return Constants.head+"_data_bss_"+identifier;
     }
 }

@@ -1,10 +1,18 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.MemSymOperand;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.ClassSymbol;
 import cn.littleround.symbol.Symbol;
 import cn.littleround.type.PointerType;
 import cn.littleround.type.StringType;
 import cn.littleround.type.UserDefinedType;
+
+import java.util.ArrayDeque;
 
 
 public class DotOpNode extends UnaryOpNode {
@@ -39,4 +47,5 @@ public class DotOpNode extends UnaryOpNode {
             type = symbolToType(s);
         }
     }
+
 }

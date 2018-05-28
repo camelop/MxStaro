@@ -5,6 +5,7 @@ import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Operand.GlobalVariableOperand;
+import cn.littleround.nasm.Operand.MemSymOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.*;
 import cn.littleround.type.FuncType;
@@ -68,7 +69,7 @@ public class IdentifierNode extends ExpressionNode {
             f.nctx().damage(newVid);
             bb.add(new MovLine(
                     new VirtualRegOperand(newVid),
-                    new GlobalVariableOperand(Identifier)
+                    new MemSymOperand(Constants.head+"_data_bss_"+Identifier)
             ));
             f.nctx().setNodeVid(this, newVid);
         }

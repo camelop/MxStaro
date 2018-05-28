@@ -34,6 +34,15 @@ public class FuncDefinitionNode extends DeclarationNode {
         return declarator().getIdentifier();
     }
 
+    public boolean inClass() {
+        ASTBaseNode f = this;
+        while (f.getParent()!=null) {
+            if (f instanceof ClassDefinitionNode) return true;
+            f = f.getParent();
+        }
+        return false;
+    }
+
     public Symbol getSymbol() {
         FuncFormSymbol ffs = new FuncFormSymbol();
         ffs.setRetType(specifier());
@@ -96,28 +105,53 @@ public class FuncDefinitionNode extends DeclarationNode {
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         // pre (ATTENTION! Do NOT change render order!!!)
         ArrayList<BaseLine> pre = new ArrayList<>();
-        for (int i=0; i < args().getSons().size(); ++i) {
-            ArgumentDeclarationNode adn = (ArgumentDeclarationNode) args().getSons().get(i);
-            if (i<Constants.callConvRegsLen) {
-                pre.add(new MovLine(
+        if (inClass()) {
+            int vid = f.nctx().getVid("this");
+            pre.add(new MovLine(
+                    new VirtualRegOperand(vid),
+                    new RegOperand(Constants.callConvRegs[0])
+            ));
+            for (int i=0; i < args().getSons().size(); ++i) {
+                ArgumentDeclarationNode adn = (ArgumentDeclarationNode) args().getSons().get(i);
+                if (i+1<Constants.callConvRegsLen) {
+                    pre.add(new MovLine(
                             new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer())),
-                            new RegOperand(Constants.callConvRegs[i])
-                        ));
-            } else {
-                MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
-                mro.setOffset((i-5)*Constants.sizeOfReg);
-                mro.needAddRspOffset = true;
-                pre.add(new MovLine(
+                            new RegOperand(Constants.callConvRegs[i+1])
+                    ));
+                } else {
+                    MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
+                    mro.setOffset((i+1-5)*Constants.sizeOfReg);
+                    mro.needAddRspOffset = true;
+                    pre.add(new MovLine(
                             new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer())),
                             mro
-                        ));
+                    ));
+                }
+            }
+        } else {
+            for (int i=0; i < args().getSons().size(); ++i) {
+                ArgumentDeclarationNode adn = (ArgumentDeclarationNode) args().getSons().get(i);
+                if (i<Constants.callConvRegsLen) {
+                    pre.add(new MovLine(
+                            new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer())),
+                            new RegOperand(Constants.callConvRegs[i])
+                    ));
+                } else {
+                    MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
+                    mro.setOffset((i-5)*Constants.sizeOfReg);
+                    mro.needAddRspOffset = true;
+                    pre.add(new MovLine(
+                            new VirtualRegOperand(f.nctx().getVid(adn.getIdentifer())),
+                            mro
+                    ));
+                }
             }
         }
         for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
             pre.add(new MovLine(
-                        new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i])),
-                        new RegOperand(Constants.callConvReservRegs[i])
-                    ));
+                    new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i])),
+                    new RegOperand(Constants.callConvReservRegs[i])
+            ));
         }
         // mid
         ArrayDeque<BasicBlock> mid = block().renderNasm(f);
@@ -134,9 +168,9 @@ public class FuncDefinitionNode extends DeclarationNode {
         BasicBlock post = new BasicBlock(f.getLabel()+"_inexplicit_return_void");
         for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
             post.add(new MovLine(
-                        new RegOperand(Constants.callConvReservRegs[i]),
-                        new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i]))
-                ));
+                    new RegOperand(Constants.callConvReservRegs[i]),
+                    new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i]))
+            ));
         }
         post.add(new RetLine());
         // combine post

@@ -5,6 +5,7 @@ import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Operand.GlobalVariableOperand;
+import cn.littleround.nasm.Operand.SymbleOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
 import java.util.ArrayDeque;
@@ -38,7 +39,7 @@ public class StringLiteralNode extends ExpressionNode {
         int vid = f.nctx().getVid("@s"+String.valueOf(sid));
         bb.add(new MovLine(
                 new VirtualRegOperand(vid),
-                new GlobalVariableOperand("s"+String.valueOf(sid))
+                new SymbleOperand(Constants.head+"_data_s"+String.valueOf(sid))
         ));
         f.nctx().setNodeVid(this, vid);
         ret.add(bb);
