@@ -7,7 +7,7 @@ public class KlassType extends BaseType {
     // example: A x = new A();
     // First A --- UserDefinedType
     // Second A --- KlassType
-
+    // x --- UserDefinedType
     public KlassType(ClassSymbol cs) {
         this.cs = cs;
     }

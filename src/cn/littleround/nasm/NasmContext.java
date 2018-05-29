@@ -165,4 +165,5 @@ public class NasmContext {
         vid++;
         return vid-1;
     }
+
 }

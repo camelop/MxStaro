@@ -11,6 +11,7 @@ import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.VariableSymbol;
 import cn.littleround.type.FuncType;
 import cn.littleround.type.PointerType;
+import cn.littleround.type.StringType;
 import cn.littleround.type.TypeList;
 
 import java.util.ArrayDeque;
@@ -50,7 +51,10 @@ public class ParenthesisOpNode extends BinaryOpNode {
             DotOpNode don = (DotOpNode) op1();
             funcLabel = Constants.head+"_text_"+don.op1().type.toString()+"_"+don.getIdentifier();
             if (don.op1().type instanceof PointerType && don.getIdentifier().equals("size")) {
-                funcLabel = "_text_built_in_array_size";
+                funcLabel = Constants.head+"_text_built_in_array_size";
+            }
+            if (don.op1().type instanceof StringType) {
+                funcLabel = Constants.head+"_text_built_in_string_"+don.getIdentifier();
             }
         } else {
             IdentifierNode idn = (IdentifierNode) op1();
@@ -66,12 +70,11 @@ public class ParenthesisOpNode extends BinaryOpNode {
             BasicBlock bb = new BasicBlock(f.getLabel() + "_" + f.nctx().getCallCnt());
             // save regs
             saveCallerRegs(bb, f);
-            // fill in args
+            // fill in 'this' and other args
             int cnt = 0;
             int nArgs = op2().getSons().size() + 1;
             boolean align = nArgs > 6 && nArgs % 2 == 1;
             int downArea = align ? (nArgs - 5) * Constants.sizeOfReg : (nArgs - 6) * Constants.sizeOfReg;
-            // fill in 'this'
             bb.add(new MovLine(
                     new RegOperand(Constants.callConvRegs[0]),
                     new VirtualRegOperand(f.nctx().getVid(op1().getSons().get(0)))

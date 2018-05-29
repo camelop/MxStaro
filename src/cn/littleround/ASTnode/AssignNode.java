@@ -60,7 +60,7 @@ public class AssignNode extends BinaryOpNode {
                         vsrc
                 ));
             }
-        } else if (op1() instanceof SubscriptOpNode) {
+        } else if (op1() instanceof SubscriptOpNode || op1() instanceof DotOpNode) {
             BasicBlock.dequeCombine(ret, op1().renderNasm(f));
             bb.add(new MovLine(
                     f.nctx().findMemRef(op1()),

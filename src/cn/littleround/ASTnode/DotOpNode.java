@@ -3,7 +3,10 @@ package cn.littleround.ASTnode;
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.AddLine;
 import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.DecimalOperand;
+import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.MemSymOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.ClassSymbol;
@@ -48,4 +51,36 @@ public class DotOpNode extends UnaryOpNode {
         }
     }
 
+    private boolean isFunc() {
+        return (getParent() instanceof ParenthesisOpNode);
+    }
+
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        ArrayDeque<BasicBlock> ret = super.renderNasm(f);
+        BasicBlock bb = new BasicBlock();
+        if (isFunc()) return ret;
+        // if not func -> calc offset and store value in setMemRef
+        int offset = ((ClassSymbol) getSymbolTable().getClassSymbol(op1().type.toString())).getOffset(identifier);
+        int vid = f.nctx().getVid(op1());
+        int vdes = f.nctx().getVid();
+        bb.add(new MovLine(
+                new VirtualRegOperand(vdes),
+                new VirtualRegOperand(vid)
+        ));
+        bb.add(new AddLine(
+                new VirtualRegOperand(vdes),
+                new DecimalOperand(offset)
+        ));
+        MemRegOperand des = new MemRegOperand(new VirtualRegOperand(vdes));
+        f.nctx().setMemRef(this, des);
+        int vValue = f.nctx().getVid();
+        bb.add(new MovLine(
+                new VirtualRegOperand(vValue),
+                des
+        ));
+        f.nctx().setNodeVid(this, vValue);
+        BasicBlock.dequeCombine(ret, bb);
+        return ret;
+    }
 }

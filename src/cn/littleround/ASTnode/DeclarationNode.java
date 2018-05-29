@@ -40,8 +40,22 @@ public class DeclarationNode extends ASTBaseNode {
     }
 
     public int getSize() {
-        return specifier().getType().getSize() * initDeclaratorList().getSons().size();
+        return getTypeSize() * initDeclaratorList().getSons().size();
     }
+
+    public int getTypeSize() {
+        return specifier().getType().getSize();
+    }
+
+    public ArrayList<String> getIdentifiers() {
+        ArrayList<String> ret = new ArrayList<String>();
+        for (ASTBaseNode node: initDeclaratorList().getSons()) {
+            InitDeclaratorNode idn = (InitDeclaratorNode) node;
+            ret.add(idn.getIdentifier());
+        }
+        return ret;
+    }
+
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         return initDeclaratorList().renderNasm(f);

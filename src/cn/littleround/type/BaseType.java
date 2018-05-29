@@ -13,4 +13,5 @@ public abstract class BaseType {
     }
 
     abstract public int getSize();
+
 }

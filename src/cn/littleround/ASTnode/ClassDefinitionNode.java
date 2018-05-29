@@ -3,6 +3,7 @@ package cn.littleround.ASTnode;
 import cn.littleround.symbol.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ClassDefinitionNode extends DeclarationNode {
     private String identifier;
@@ -26,12 +27,29 @@ public class ClassDefinitionNode extends DeclarationNode {
         return ret;
     }
 
+    private HashMap<String, Integer> collectOffset() {
+        HashMap<String, Integer> ret = new HashMap<String, Integer>();
+        int nw = 0;
+        for (ASTBaseNode i:getSons()) {
+            if (i instanceof DeclarationNode && !(i instanceof FuncDefinitionNode)) {
+                DeclarationNode dn = (DeclarationNode) i;
+                int size = dn.getTypeSize();
+                for (String id:dn.getIdentifiers()) {
+                    ret.put(id, nw);
+                    nw += dn.getSize();
+                }
+            }
+        }
+        return ret;
+    }
+
     // sons are declarations and functionDefinitions
     public ClassSymbol toClassSymbol() {
         ClassSymbol cs = new ClassSymbol();
         cs.setName(identifier);
         // update size
         cs.setSize(collectSize());
+        cs.setOffset(collectOffset());
         // System.out.println(identifier+" "+String.valueOf(cs.size()));
         for (ASTBaseNode i:getSons()) {
             DeclarationNode dn = (DeclarationNode) i;

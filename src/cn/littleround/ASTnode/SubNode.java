@@ -15,7 +15,7 @@ public class SubNode extends IntBinaryOpNode {
         ArrayDeque<BasicBlock> ret = super.renderNasm(f);
         VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(op1()));
         VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(op2()));
-        VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid(vl.toString()+"+"+vr.toString(), vl, vr));
+        VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
         BasicBlock bb = new BasicBlock();
         bb.add(new MovLine(vt, vl));
         bb.add(new SubLine(vt, vr));

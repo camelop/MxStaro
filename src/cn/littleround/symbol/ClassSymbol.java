@@ -1,5 +1,7 @@
 package cn.littleround.symbol;
 
+import java.util.HashMap;
+
 public class ClassSymbol extends Symbol {
     private SymbolTable st = new SymbolTable();
 
@@ -29,5 +31,14 @@ public class ClassSymbol extends Symbol {
     @Override
     public String toString() {
         return "Class("+getName()+")";
+    }
+
+    private HashMap<String, Integer> offsets = null;
+    public void setOffset(HashMap<String, Integer> stringIntegerHashMap) {
+        offsets = stringIntegerHashMap;
+    }
+
+    public int getOffset(String id) {
+        return offsets.get(id);
     }
 }
