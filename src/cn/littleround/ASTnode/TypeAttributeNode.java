@@ -83,6 +83,8 @@ public class TypeAttributeNode extends ASTBaseNode {
                 reportError("Semantic", "Invalid pointer expression.");
         }
         pointerExpressionList.add(e);
+        addSon(e);
+        e.setParent(this);
     }
 
     @Override

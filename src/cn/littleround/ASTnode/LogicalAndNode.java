@@ -16,7 +16,7 @@ public class LogicalAndNode extends BoolBinaryOpNode {
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
-        String label = f.nctx().getAndCnt();
+        String label = f.getLabel()+"_"+f.nctx().getAndCnt();
         BasicBlock bb_init = new BasicBlock(label+"_lvalue");
         VirtualRegOperand vdes = new VirtualRegOperand(f.nctx().getVid());
         bb_init.add(new MovLine(
