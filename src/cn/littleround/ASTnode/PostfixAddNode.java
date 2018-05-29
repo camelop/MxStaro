@@ -19,16 +19,16 @@ public class PostfixAddNode extends IntUnaryOpNode {
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = super.renderNasm(f);
-        BasicBlock bb = new BasicBlock();
         int vid = f.nctx().getVid(op1());
-        int temp = f.nctx().getVid();
-        bb.add(new MovLine(
-                new VirtualRegOperand(temp),
-                new VirtualRegOperand(vid)
-        ));
-        bb.add(new IncLine(new VirtualRegOperand(vid)));
-        f.nctx().setNodeVid(this, temp);
-        BasicBlock.dequeCombine(ret, bb);
+        f.nctx().setNodeVid(this, vid);
+        //construct an assign node
+        AssignNode assn = new AssignNode();
+        assn.addSon(op1());
+        AddNode addn = new AddNode();
+        addn.addSon(op1());
+        addn.addSon(new ConstantNode(1));
+        assn.addSon(addn);
+        BasicBlock.dequeCombine(ret, assn.renderNasm(f));
         return ret;
     }
 }

@@ -29,7 +29,7 @@ public class ConstantNode extends ExpressionNode {
 
     public ConstantNode(boolean constant) {
         this.isBool = true;
-        this.constant = constant ? 1 : 0;
+        this.constant = constant ? Constants.True : 0;
     }
 
     public ConstantNode() {

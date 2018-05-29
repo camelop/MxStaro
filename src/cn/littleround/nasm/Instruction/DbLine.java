@@ -9,12 +9,12 @@ public class DbLine extends BaseLine {
 
     public DbLine(String label, String sym, BaseOperand c) {
         this.label = label;
-        op1 = new SymbleOperand("\'"+sym+"\'");
+        op1 = new SymbleOperand("`"+sym+"`");
         op2 = c;
     }
 
     public DbLine(String sym) {
-        op1 = new SymbleOperand("\'"+sym+"\'");
+        op1 = new SymbleOperand("`"+sym+"`");
     }
 
     public DbLine(int c) {

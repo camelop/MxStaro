@@ -60,6 +60,8 @@ public class GlobalRecord extends Record {
             char[] content = contentSrc.toCharArray();
             int l = contentSrc.length();
             for (int i = 0; i < l; ++i) {
+                sb.append(content[i]);
+                /* I don't know about `/n`...
                 if (content[i] == '\\') {
                     if (i == l - 1) {
                         System.err.println("WTF");
@@ -74,9 +76,13 @@ public class GlobalRecord extends Record {
                             }
                         }
                     }
+                } else if (content[i]=='\''){
+                    sb.append("\\");
+                    sb.append(content[i]);
                 } else {
                     sb.append(content[i]);
                 }
+                */
             }
             if (sb.toString().length() > 0) {
                 ret.add(new DbLine(sb.toString()));

@@ -21,10 +21,16 @@ public class PrefixAddNode extends IntUnaryOpNode {
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = super.renderNasm(f);
-        BasicBlock bb = new BasicBlock();
-        bb.add(new IncLine(new VirtualRegOperand(f.nctx().getVid(op1()))));
+        //construct an assign node
+        AssignNode assn = new AssignNode();
+        assn.addSon(op1());
+        AddNode addn = new AddNode();
+        addn.addSon(op1());
+        addn.addSon(new ConstantNode(1));
+        assn.addSon(addn);
+        BasicBlock.dequeCombine(ret, assn.renderNasm(f));
+        // set vid
         f.nctx().setNodeVid(this, f.nctx().getVid(op1()));
-        BasicBlock.dequeCombine(ret, bb);
         return ret;
     }
 }
