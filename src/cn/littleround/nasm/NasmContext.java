@@ -6,7 +6,6 @@ import cn.littleround.nasm.Operand.BaseOperand;
 import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Stack;
@@ -20,6 +19,8 @@ public class NasmContext {
     private int ifId = 0;
     private int andId = 0;
     private int orId = 0;
+    private int breakId = 0;
+    private int continueId = 0;
 
     private String scopeHead = "";
 
@@ -61,9 +62,18 @@ public class NasmContext {
             return (vid+1) * Constants.sizeOfReg;
         }
     }
-
-    public void enterLoop() { ++inLoop; }
-    public void leaveLoop() { --inLoop; }
+    private Stack<Integer> loopId = new Stack<>();
+    public void enterLoop() {
+        loopId.push(forId-1);
+        ++inLoop;
+    }
+    public void leaveLoop() {
+        loopId.pop();
+        --inLoop;
+    }
+    public int getCurrentLoop() {
+        return loopId.peek();
+    }
     public void enterIf() { ++inIf; }
     public void leaveIf() { --inIf; }
     public void enterScope() {
@@ -151,6 +161,14 @@ public class NasmContext {
     public String getOrCnt() {
         orId++;
         return "or"+String.valueOf(orId-1);
+    }
+    public String getBreakCnt() {
+        breakId++;
+        return "break"+String.valueOf(breakId-1);
+    }
+    public String getContinueCnt() {
+        continueId++;
+        return "continue"+String.valueOf(continueId-1);
     }
 
 

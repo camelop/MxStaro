@@ -41,6 +41,7 @@ public class ForNode extends LoopNode {
         // run block
         ret.add(new BasicBlock(forLabel+"_start"));
         BasicBlock.dequeCombine(ret, statement().renderNasm(f));
+        BasicBlock.dequeCombine(ret, new BasicBlock(forLabel+"_continue"));
         // do e3
         BasicBlock.dequeCombine(ret, condition().e3().renderNasm(f));
         // check and jump
