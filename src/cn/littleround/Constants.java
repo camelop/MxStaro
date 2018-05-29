@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 public class Constants {
     public final static int True = 0xff;
+    public final static int byteMask = 0x0000000f;
     public final static int sizeOfReg = 8;
     /*
     public final static int sizeOfInt = 4;
