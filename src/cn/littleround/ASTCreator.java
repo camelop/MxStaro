@@ -3,11 +3,8 @@ package cn.littleround;
 import cn.littleround.ASTnode.*;
 import cn.littleround.antlr4_gen.MxStarBaseListener;
 import cn.littleround.antlr4_gen.MxStarParser;
-import org.antlr.v4.runtime.ANTLRErrorStrategy;
-import org.antlr.v4.runtime.DefaultErrorStrategy;
 import org.antlr.v4.runtime.ParserRuleContext;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -170,7 +167,7 @@ public class ASTCreator extends MxStarBaseListener {
                 default:
                     /* '!' */
 
-                    en = new NotNode();
+                    en = new LogicalNotNode();
                     break;
             }
             ASTBaseNode en1 = nodeStack.pop();

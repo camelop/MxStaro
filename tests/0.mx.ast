@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){inta=5;intb=0;intc;boold=b!=0&&a/b!=1;if(d){c=10;}else{c=20;}boole;e=!(c==10&&a/b==0&&a==5);if(e)c=30;returnc;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){println(toString(1<<4));return1;}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -79,88 +79,22 @@
                     -ArgumentListNode (void)			// "%s\n",str
                         -StringLiteralNode (string)			// "%s\n"
                         -IdentifierNode (string)			// str
-    -FuncDefinitionNode (void)			// intmain(){inta=5;intb=0;intc;boold=b!=0&&a/b!=1;if(d){c=10;}else{c=20;}boole;e=!(c==10&&a/b==0&&a==5);if(e)c=30;returnc;}
+    -FuncDefinitionNode (void)			// intmain(){println(toString(1<<4));return1;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {inta=5;intb=0;intc;boold=b!=0&&a/b!=1;if(d){c=10;}else{c=20;}boole;e=!(c==10&&a/b==0&&a==5);if(e)c=30;returnc;}
-            -DeclarationNode (void)			// inta=5;
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// a=5
-                    -InitDeclaratorNode (void)			// a=5
-                        -DeclaratorNode (void)			// a
-                        -ConstantNode (int)			// 5
-            -DeclarationNode (void)			// intb=0;
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// b=0
-                    -InitDeclaratorNode (void)			// b=0
-                        -DeclaratorNode (void)			// b
-                        -ConstantNode (int)			// 0
-            -DeclarationNode (void)			// intc;
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// c
-                    -InitDeclaratorNode (void)			// c
-                        -DeclaratorNode (void)			// c
-            -DeclarationNode (void)			// boold=b!=0&&a/b!=1;
-                -TypeNode (void)			// bool
-                    -TypeAttributeNode (void)			// bool
-                -DeclaratorListNode (void)			// d=b!=0&&a/b!=1
-                    -InitDeclaratorNode (void)			// d=b!=0&&a/b!=1
-                        -DeclaratorNode (void)			// d
-                        -LogicalAndNode (bool)			// b!=0&&a/b!=1
-                            -InequalNode (bool)			// b!=0
-                                -IdentifierNode (int)			// b
-                                -ConstantNode (int)			// 0
-                            -InequalNode (bool)			// a/b!=1
-                                -DivideNode (int)			// a/b
-                                    -IdentifierNode (int)			// a
-                                    -IdentifierNode (int)			// b
-                                -ConstantNode (int)			// 1
-            -IfNode (void)			// if(d){c=10;}else{c=20;}
-                -IdentifierNode (bool)			// d
-                -BlockNode (void)			// {c=10;}
-                    -StatementNode (void)			// c=10;
-                        -AssignNode (void)			// c=10
-                            -IdentifierNode (int)			// c
-                            -ConstantNode (int)			// 10
-                -BlockNode (void)			// {c=20;}
-                    -StatementNode (void)			// c=20;
-                        -AssignNode (void)			// c=20
-                            -IdentifierNode (int)			// c
-                            -ConstantNode (int)			// 20
-            -DeclarationNode (void)			// boole;
-                -TypeNode (void)			// bool
-                    -TypeAttributeNode (void)			// bool
-                -DeclaratorListNode (void)			// e
-                    -InitDeclaratorNode (void)			// e
-                        -DeclaratorNode (void)			// e
-            -StatementNode (void)			// e=!(c==10&&a/b==0&&a==5);
-                -AssignNode (void)			// e=!(c==10&&a/b==0&&a==5)
-                    -IdentifierNode (bool)			// e
-                    -NotNode (bool)			// !(c==10&&a/b==0&&a==5)
-                        -LogicalAndNode (bool)			// (c==10&&a/b==0&&a==5)
-                            -LogicalAndNode (bool)			// c==10&&a/b==0
-                                -EqualNode (bool)			// c==10
-                                    -IdentifierNode (int)			// c
-                                    -ConstantNode (int)			// 10
-                                -EqualNode (bool)			// a/b==0
-                                    -DivideNode (int)			// a/b
-                                        -IdentifierNode (int)			// a
-                                        -IdentifierNode (int)			// b
-                                    -ConstantNode (int)			// 0
-                            -EqualNode (bool)			// a==5
-                                -IdentifierNode (int)			// a
-                                -ConstantNode (int)			// 5
-            -IfNode (void)			// if(e)c=30;
-                -IdentifierNode (bool)			// e
-                -StatementNode (void)			// c=30;
-                    -AssignNode (void)			// c=30
-                        -IdentifierNode (int)			// c
-                        -ConstantNode (int)			// 30
-            -ReturnNode (void)			// returnc;
-                -IdentifierNode (int)			// c
+        -BlockNode (void)			// {println(toString(1<<4));return1;}
+            -StatementNode (void)			// println(toString(1<<4));
+                -ParenthesisOpNode (void)			// println(toString(1<<4))
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// toString(1<<4)
+                        -ParenthesisOpNode (string)			// toString(1<<4)
+                            -IdentifierNode (BaseType)			// toString
+                            -ArgumentListNode (void)			// 1<<4
+                                -ShiftLeftNode (int)			// 1<<4
+                                    -ConstantNode (int)			// 1
+                                    -ConstantNode (int)			// 4
+            -ReturnNode (void)			// return1;
+                -ConstantNode (int)			// 1

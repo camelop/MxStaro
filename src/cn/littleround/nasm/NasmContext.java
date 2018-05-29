@@ -18,6 +18,9 @@ public class NasmContext {
     private int callId = 0;
     private int forId = 0;
     private int ifId = 0;
+    private int andId = 0;
+    private int orId = 0;
+
     private String scopeHead = "";
 
     private int inLoop = 0;
@@ -138,6 +141,18 @@ public class NasmContext {
         ifId++;
         return "if"+String.valueOf(ifId-1);
     }
+
+
+    public String getAndCnt() {
+        andId++;
+        return "and"+String.valueOf(andId-1);
+    }
+
+    public String getOrCnt() {
+        orId++;
+        return "or"+String.valueOf(orId-1);
+    }
+
 
     public int getVid(String identifier, VirtualRegOperand vl, VirtualRegOperand vr) {
         if (damaged.contains(vl.getVid()) || damaged.contains(vr.getVid()) || inIf > 0 || inLoop > 0) {

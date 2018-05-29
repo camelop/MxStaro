@@ -7,4 +7,7 @@ public abstract class BinaryOpLine extends BaseLine {
         this.op1 = op1;
         this.op2 = op2;
     }
+    public BinaryOpLine(BaseOperand op1) {
+        this.op1 = op1;
+    }
 }

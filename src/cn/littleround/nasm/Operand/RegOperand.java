@@ -64,9 +64,9 @@ public class RegOperand extends BaseOperand {
 
     @Override
     public String toString() {
-        if (isDWORD) return "r"+String.valueOf(id)+"d";
-        if (isWORD) return "r"+String.valueOf(id)+"w";
-        if (isBYTE) return "r"+String.valueOf(id)+"b";
+        if (isDWORD) return Constants.regDwordNames[id];
+        if (isWORD) return  Constants.regWordNames[id];
+        if (isBYTE) return Constants.regByteNames[id];
         return toName.get(id);
     }
 

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Constants {
+    public final static int True = 0xff;
     public final static int sizeOfReg = 8;
     /*
     public final static int sizeOfInt = 4;
@@ -27,6 +28,18 @@ public class Constants {
     public final static StringType STRING = new StringType();
     public final static VoidType VOID = new VoidType();
     public final static NullType NULL = new NullType();
+    public final static String[] regDwordNames = new String[]{
+            "eax", "ecx", "edx","ebx","esi","edi","esp","ebp",
+            "r8d", "r9d", "r10d", "r11d", "r12d", "r13d", "r14d", "r15d"
+    };
+    public final static String[] regWordNames = new String[]{
+            "ax","cx","dx","bx","si","di","sp","bp",
+            "r8w", "r9w", "r10w", "r11w", "r12w","r13w","r14w","r15w"
+    };
+    public final static String[] regByteNames = new String[]{
+            "al","cl","dl","bl","sil","dil","spl","bpl",
+            "r8b", "r9b", "r10b", "r11b", "r12b","r13b","r14b","r15b"
+    };
     public final static String[] callConvRegs = new String[]{"rdi", "rsi", "rdx", "rcx", "r8", "r9"};
     public final static String[] callerRegs = new String[]{"rax", "rbx", "rbp", "r10", "r11", "r12", "r13", "r14", "r15"};
     public final static int callConvRegsLen = 6;
