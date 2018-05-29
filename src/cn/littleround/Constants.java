@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class Constants {
     public final static int True = 0xff;
     public final static int byteMask = 0x0000000f;
+    public final static int wordMask = 0x000000ff;
     public final static int sizeOfReg = 8;
     /*
     public final static int sizeOfInt = 4;
@@ -94,9 +95,9 @@ public class Constants {
             // call strncpy, rax is correct
             add(new CallLine("strncpy"));
             // add '\0': 0<-[r12 + r13]
-            add(new AddLine(
+            add(new MovLine(
                     new MemRegOperand(new RegOperand("r12"), new RegOperand("r13")),
-                    new SymbleOperand("\' \'")));
+                    new DecimalOperand(0)));
             // load r13, rbx, r12
             add(new PopLine(new RegOperand("r12")));
             add(new PopLine(new RegOperand("rbx")));
@@ -125,6 +126,10 @@ public class Constants {
             add(new MovLine(
                     new RegOperand("rax"),
                     new MemRegOperand(new RegOperand("rdi"), new RegOperand("rsi"))
+            ));
+            add(new AndLine(
+                    new RegOperand("rax"),
+                    new DecimalOperand(Constants.wordMask)
             ));
             add(new RetLine());
         }});
