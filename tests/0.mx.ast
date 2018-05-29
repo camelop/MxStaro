@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){println(toString(1<<4));return1;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){strings1="aaa";strings2="bbbbb";strings3=s1+s2;returns3.length()+s3.ord(5);}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -79,22 +79,44 @@
                     -ArgumentListNode (void)			// "%s\n",str
                         -StringLiteralNode (string)			// "%s\n"
                         -IdentifierNode (string)			// str
-    -FuncDefinitionNode (void)			// intmain(){println(toString(1<<4));return1;}
+    -FuncDefinitionNode (void)			// intmain(){strings1="aaa";strings2="bbbbb";strings3=s1+s2;returns3.length()+s3.ord(5);}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {println(toString(1<<4));return1;}
-            -StatementNode (void)			// println(toString(1<<4));
-                -ParenthesisOpNode (void)			// println(toString(1<<4))
-                    -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// toString(1<<4)
-                        -ParenthesisOpNode (string)			// toString(1<<4)
-                            -IdentifierNode (BaseType)			// toString
-                            -ArgumentListNode (void)			// 1<<4
-                                -ShiftLeftNode (int)			// 1<<4
-                                    -ConstantNode (int)			// 1
-                                    -ConstantNode (int)			// 4
-            -ReturnNode (void)			// return1;
-                -ConstantNode (int)			// 1
+        -BlockNode (void)			// {strings1="aaa";strings2="bbbbb";strings3=s1+s2;returns3.length()+s3.ord(5);}
+            -DeclarationNode (void)			// strings1="aaa";
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// s1="aaa"
+                    -InitDeclaratorNode (void)			// s1="aaa"
+                        -DeclaratorNode (void)			// s1
+                        -StringLiteralNode (string)			// "aaa"
+            -DeclarationNode (void)			// strings2="bbbbb";
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// s2="bbbbb"
+                    -InitDeclaratorNode (void)			// s2="bbbbb"
+                        -DeclaratorNode (void)			// s2
+                        -StringLiteralNode (string)			// "bbbbb"
+            -DeclarationNode (void)			// strings3=s1+s2;
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// s3=s1+s2
+                    -InitDeclaratorNode (void)			// s3=s1+s2
+                        -DeclaratorNode (void)			// s3
+                        -AddNode (string)			// s1+s2
+                            -IdentifierNode (string)			// s1
+                            -IdentifierNode (string)			// s2
+            -ReturnNode (void)			// returns3.length()+s3.ord(5);
+                -AddNode (int)			// s3.length()+s3.ord(5)
+                    -ParenthesisOpNode (int)			// s3.length()
+                        -DotOpNode (BaseType)			// s3.length
+                            -IdentifierNode (string)			// s3
+                        -ArgumentListNode (void)
+                    -ParenthesisOpNode (int)			// s3.ord(5)
+                        -DotOpNode (BaseType)			// s3.ord
+                            -IdentifierNode (string)			// s3
+                        -ArgumentListNode (void)			// 5
+                            -ConstantNode (int)			// 5

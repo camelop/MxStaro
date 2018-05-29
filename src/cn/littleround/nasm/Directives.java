@@ -14,6 +14,7 @@ public class Directives {
         lines.add(new GlobalLine());
         lines.add(new ExternLine("strlen"));
         lines.add(new ExternLine("malloc"));
+        lines.add(new ExternLine("strcpy"));
         lines.add(new ExternLine("strncpy"));
         lines.add(new ExternLine("strtol"));
         lines.add(new ExternLine("printf"));
