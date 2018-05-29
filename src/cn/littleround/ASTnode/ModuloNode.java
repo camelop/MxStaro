@@ -1,10 +1,9 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
-import cn.littleround.nasm.Instruction.DivLine;
-import cn.littleround.nasm.Instruction.MovLine;
-import cn.littleround.nasm.Instruction.SarLine;
+import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.DecimalOperand;
 import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
@@ -20,7 +19,7 @@ public class ModuloNode extends IntBinaryOpNode {
         VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
         BasicBlock bb = new BasicBlock();
         int vdx = f.nctx().getVid("_"+"rdx");
-        int vax = f.nctx().getVid("_"+"rda");
+        int vax = f.nctx().getVid("_"+"rax");
         // save regs
         bb.add(new MovLine(
                 new VirtualRegOperand(vdx),
@@ -32,18 +31,12 @@ public class ModuloNode extends IntBinaryOpNode {
         ));
         // operate idiv
         VirtualRegOperand vdivisor = vr;
-        vdivisor.isDWORD = true;
         bb.add(new MovLine(
                 new RegOperand("rax"),
                 vl
         ));
-        bb.add(new MovLine(
-                new RegOperand("rdx"),
-                vl
-        ));
-        bb.add(new SarLine(
-                new RegOperand("rdx"),
-                new DecimalOperand(32)
+        bb.add(new XorLine(
+                new RegOperand("rdx")
         ));
         bb.add(new DivLine(vdivisor));
         bb.add(new MovLine(

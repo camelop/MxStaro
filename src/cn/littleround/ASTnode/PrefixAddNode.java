@@ -30,7 +30,7 @@ public class PrefixAddNode extends IntUnaryOpNode {
         assn.addSon(addn);
         BasicBlock.dequeCombine(ret, assn.renderNasm(f));
         // set vid
-        f.nctx().setNodeVid(this, f.nctx().getVid(op1()));
+        f.nctx().setNodeVid(this, f.nctx().getVid(addn));
         return ret;
     }
 }

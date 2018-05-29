@@ -34,6 +34,7 @@ public class ConstantNode extends ExpressionNode {
 
     public ConstantNode() {
         this.isNull = true;
+        this.constant = 0;
     }
 
     public boolean isBool() {

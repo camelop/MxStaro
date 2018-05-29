@@ -1,5 +1,6 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.AddLine;
@@ -35,7 +36,7 @@ public class SubscriptOpNode extends BinaryOpNode {
         bb.add(new MovLine(new VirtualRegOperand(vid), new VirtualRegOperand(vOp2)));
         int vsize = op1().type.getSize();
         bb.add(new MulLine(new VirtualRegOperand(vid), new DecimalOperand(vsize)));
-        bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(vsize)));
+        bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(Constants.sizeOfReg)));
         bb.add(new AddLine(new VirtualRegOperand(vid), new VirtualRegOperand(vOp1)));
 
         MemRegOperand src = new MemRegOperand(new VirtualRegOperand(vid));

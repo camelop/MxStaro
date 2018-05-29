@@ -26,7 +26,7 @@ public class PrefixSubNode extends IntUnaryOpNode {
         assn.addSon(subn);
         BasicBlock.dequeCombine(ret, assn.renderNasm(f));
         // set vid
-        f.nctx().setNodeVid(this, f.nctx().getVid(op1()));
+        f.nctx().setNodeVid(this, f.nctx().getVid(subn));
         return ret;
     }
 }

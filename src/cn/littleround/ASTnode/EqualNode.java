@@ -9,6 +9,8 @@ import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.type.BoolType;
 import cn.littleround.type.IntType;
+import cn.littleround.type.PointerType;
+import cn.littleround.type.StringType;
 
 import java.util.ArrayDeque;
 
@@ -25,7 +27,7 @@ public class EqualNode extends BinaryOpNode {
 
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
-        if (op1().type instanceof IntType) {
+        if (!(op1().type instanceof StringType)) {
             ArrayDeque<BasicBlock> ret = super.renderNasm(f);
             int vid = f.nctx().getVid();
             BasicBlock bb = new BasicBlock();

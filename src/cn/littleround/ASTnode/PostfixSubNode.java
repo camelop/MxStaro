@@ -2,6 +2,8 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Operand.VirtualRegOperand;
 
 import java.util.ArrayDeque;
 
@@ -16,7 +18,13 @@ public class PostfixSubNode extends IntUnaryOpNode {
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = super.renderNasm(f);
-        int vid = f.nctx().getVid(op1());
+        BasicBlock bb = new BasicBlock();
+        int vid = f.nctx().getVid();
+        bb.add(new MovLine(
+                new VirtualRegOperand(vid),
+                new VirtualRegOperand(f.nctx().getVid(op1()))
+        ));
+        BasicBlock.dequeCombine(ret, bb);
         f.nctx().setNodeVid(this, vid);
         //construct an assign node
         AssignNode assn = new AssignNode();

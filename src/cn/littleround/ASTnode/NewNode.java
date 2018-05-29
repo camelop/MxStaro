@@ -31,7 +31,7 @@ public class NewNode extends BinaryOpNode {
         bb.add(new MovLine(new VirtualRegOperand(vid), new VirtualRegOperand(f.nctx().getVid(op1()))));
         int width = ((TypeNode) op1()).attribute().getWidth();
         bb.add(new MulLine(new VirtualRegOperand(vid), new DecimalOperand(width)));
-        bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(width)));
+        bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(Constants.sizeOfReg)));
         // call malloc
         saveCallerRegs(bb, f);
         bb.add(new MovLine(

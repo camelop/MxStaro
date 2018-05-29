@@ -6,6 +6,7 @@ import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Operand.DecimalOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
+import cn.littleround.symbol.ClassSymbol;
 import cn.littleround.type.*;
 
 import java.lang.reflect.Type;
@@ -98,10 +99,13 @@ public class TypeAttributeNode extends ASTBaseNode {
     }
 
     public int getWidth() {
-        if (pointerLevel > 1) {
+        if (pointerLevel >= 1) {
             return Constants.sizeOfReg;
         } else {
-            return getType().getSize();
+            //System.err.println("get type->"+getType().toString());
+            int size = ((ClassSymbol) getSymbolTable().getClassSymbol(identifier)).size();
+            //System.err.println("get size->"+String.valueOf(size));
+            return size;
         }
     }
 
