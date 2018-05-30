@@ -105,6 +105,14 @@ public class FuncDefinitionNode extends DeclarationNode {
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         // pre (ATTENTION! Do NOT change render order!!!)
         ArrayList<BaseLine> pre = new ArrayList<>();
+        for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
+            int vnow = f.nctx().getVid("_"+Constants.callConvReservRegs[i]);
+            f.nctx().uncache(vnow);
+            pre.add(new MovLine(
+                    new VirtualRegOperand(vnow),
+                    new RegOperand(Constants.callConvReservRegs[i])
+            ));
+        }
         if (inClass()) {
             int vid = f.nctx().getVid("this");
             pre.add(new MovLine(
@@ -146,12 +154,6 @@ public class FuncDefinitionNode extends DeclarationNode {
                     ));
                 }
             }
-        }
-        for (int i=0; i<Constants.callConvReservRegsLen; ++i) {
-            pre.add(new MovLine(
-                    new VirtualRegOperand(f.nctx().getVid("_"+Constants.callConvReservRegs[i])),
-                    new RegOperand(Constants.callConvReservRegs[i])
-            ));
         }
         // mid
         ArrayDeque<BasicBlock> mid = block().renderNasm(f);

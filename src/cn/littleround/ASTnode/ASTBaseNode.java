@@ -186,8 +186,10 @@ public abstract class ASTBaseNode {
     static public void saveCallerRegs(BasicBlock bb, Function f) {
         // save regs
         for (String r: Constants.callerRegs) {
+            int vnow = f.nctx().getVid("_"+r);
+            f.nctx().uncache(vnow);
             bb.add(new MovLine(
-                    new VirtualRegOperand(f.nctx().getVid("_"+r)),
+                    new VirtualRegOperand(vnow),
                     new RegOperand(r)
             ));
         }
@@ -196,9 +198,11 @@ public abstract class ASTBaseNode {
     static public void loadCallerRegs(BasicBlock bb, Function f) {
         // load regs
         for (String r: Constants.callerRegs) {
+            int vnow = f.nctx().getVid("_"+r);
+            f.nctx().uncache(vnow);
             bb.add(new MovLine(
                     new RegOperand(r),
-                    new VirtualRegOperand(f.nctx().getVid("_"+r))
+                    new VirtualRegOperand(vnow)
             ));
         }
     }

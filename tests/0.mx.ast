@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intMAXN=10005;intMAXM=10005;intmain(){intM;intN;M=getInt();N=getInt();int[]w=newint[MAXN];int[]t=newint[MAXN];int[]DP=newint[MAXN];inti;intj;for(i=0;i<N;++i){w[i]=getInt();t[i]=getInt();}for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i]){}print(toString(DP[M]));return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intMAXN=10005;intMAXM=10005;intmain(){intM;intN;M=getInt();N=getInt();int[]w=newint[MAXN];int[]t=newint[MAXN];int[]DP=newint[MAXN];inti;intj;for(i=0;i<N;++i){w[i]=getInt();t[i]=getInt();}for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i])DP[j]=DP[j-t[i]]+w[i];print(toString(DP[M]));return0;}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -93,13 +93,13 @@
             -InitDeclaratorNode (void)			// MAXM=10005
                 -DeclaratorNode (void)			// MAXM
                 -ConstantNode (int)			// 10005
-    -FuncDefinitionNode (void)			// intmain(){intM;intN;M=getInt();N=getInt();int[]w=newint[MAXN];int[]t=newint[MAXN];int[]DP=newint[MAXN];inti;intj;for(i=0;i<N;++i){w[i]=getInt();t[i]=getInt();}for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i]){}print(toString(DP[M]));return0;}
+    -FuncDefinitionNode (void)			// intmain(){intM;intN;M=getInt();N=getInt();int[]w=newint[MAXN];int[]t=newint[MAXN];int[]DP=newint[MAXN];inti;intj;for(i=0;i<N;++i){w[i]=getInt();t[i]=getInt();}for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i])DP[j]=DP[j-t[i]]+w[i];print(toString(DP[M]));return0;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {intM;intN;M=getInt();N=getInt();int[]w=newint[MAXN];int[]t=newint[MAXN];int[]DP=newint[MAXN];inti;intj;for(i=0;i<N;++i){w[i]=getInt();t[i]=getInt();}for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i]){}print(toString(DP[M]));return0;}
+        -BlockNode (void)			// {intM;intN;M=getInt();N=getInt();int[]w=newint[MAXN];int[]t=newint[MAXN];int[]DP=newint[MAXN];inti;intj;for(i=0;i<N;++i){w[i]=getInt();t[i]=getInt();}for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i])DP[j]=DP[j-t[i]]+w[i];print(toString(DP[M]));return0;}
             -DeclarationNode (void)			// intM;
                 -TypeNode (void)			// int
                     -TypeAttributeNode (void)			// int
@@ -199,7 +199,7 @@
                             -ParenthesisOpNode (int)			// getInt()
                                 -IdentifierNode (BaseType)			// getInt
                                 -ArgumentListNode (void)
-            -ForNode (void)			// for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i]){}
+            -ForNode (void)			// for(i=0;i<N;++i)for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i])DP[j]=DP[j-t[i]]+w[i];
                 -ForConditionNode (void)			// i=0;i<N;++i
                     -AssignNode (void)			// i=0
                         -IdentifierNode (int)			// i
@@ -209,7 +209,7 @@
                         -IdentifierNode (int)			// N
                     -PrefixAddNode (int)			// ++i
                         -IdentifierNode (int)			// i
-                -ForNode (void)			// for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i]){}
+                -ForNode (void)			// for(j=t[i];j<=M;++j)if(DP[j]<=DP[j-t[i]]+w[i])DP[j]=DP[j-t[i]]+w[i];
                     -ForConditionNode (void)			// j=t[i];j<=M;++j
                         -AssignNode (void)			// j=t[i]
                             -IdentifierNode (int)			// j
@@ -221,7 +221,7 @@
                             -IdentifierNode (int)			// M
                         -PrefixAddNode (int)			// ++j
                             -IdentifierNode (int)			// j
-                    -IfNode (void)			// if(DP[j]<=DP[j-t[i]]+w[i]){}
+                    -IfNode (void)			// if(DP[j]<=DP[j-t[i]]+w[i])DP[j]=DP[j-t[i]]+w[i];
                         -LessOrEqualThanNode (bool)			// DP[j]<=DP[j-t[i]]+w[i]
                             -SubscriptOpNode (int)			// DP[j]
                                 -IdentifierNode (int[])			// DP
@@ -237,7 +237,22 @@
                                 -SubscriptOpNode (int)			// w[i]
                                     -IdentifierNode (int[])			// w
                                     -IdentifierNode (int)			// i
-                        -BlockNode (void)			// {}
+                        -StatementNode (void)			// DP[j]=DP[j-t[i]]+w[i];
+                            -AssignNode (void)			// DP[j]=DP[j-t[i]]+w[i]
+                                -SubscriptOpNode (int)			// DP[j]
+                                    -IdentifierNode (int[])			// DP
+                                    -IdentifierNode (int)			// j
+                                -AddNode (int)			// DP[j-t[i]]+w[i]
+                                    -SubscriptOpNode (int)			// DP[j-t[i]]
+                                        -IdentifierNode (int[])			// DP
+                                        -SubNode (int)			// j-t[i]
+                                            -IdentifierNode (int)			// j
+                                            -SubscriptOpNode (int)			// t[i]
+                                                -IdentifierNode (int[])			// t
+                                                -IdentifierNode (int)			// i
+                                    -SubscriptOpNode (int)			// w[i]
+                                        -IdentifierNode (int[])			// w
+                                        -IdentifierNode (int)			// i
             -StatementNode (void)			// print(toString(DP[M]));
                 -ParenthesisOpNode (void)			// print(toString(DP[M]))
                     -IdentifierNode (BaseType)			// print

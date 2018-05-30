@@ -25,6 +25,12 @@ public class NasmContext {
 
     private String scopeHead = "";
 
+    private HashSet<Integer> unCacheable = new HashSet<>();
+
+    public void uncache(int x) {
+        unCacheable.add(x);
+    }
+
     private int inLoop = 0;
     private int inIf = 0;
     private HashMap<ASTBaseNode, Integer> nodeToVid = new HashMap<>();

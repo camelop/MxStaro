@@ -18,10 +18,8 @@ int main(){
     }
     for (i = 0 ; i < N; ++i)
         for (j = t[i]; j <= M; ++j)
-        	if (DP[j] <= DP[j - t[i]] + w[i]) {
-
-        	}
-        		//DP[j] =  DP[j - t[i]] + w[i];
+        	if (DP[j] <= DP[j - t[i]] + w[i])
+        	    DP[j] =  DP[j - t[i]] + w[i];
     print(toString(DP[M]));
     return 0;
 }

@@ -34,16 +34,19 @@ public class NewNode extends BinaryOpNode {
         bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(Constants.sizeOfReg)));
         // call malloc
         saveCallerRegs(bb, f);
+        f.nctx().uncache(vid);
         bb.add(new MovLine(
                 new RegOperand("rdi"),
                 new VirtualRegOperand(vid)
         ));
         bb.add(new CallLine("malloc"));
         int vdes = f.nctx().getVid();
+        f.nctx().uncache(vdes);
         bb.add(new MovLine(
                 new VirtualRegOperand(vdes),
                 new RegOperand("rax")
         ));
+        f.nctx().uncache(f.nctx().getVid(op1()));
         bb.add(new MovLine(
                 new MemRegOperand(new RegOperand("rax")),
                 new VirtualRegOperand(f.nctx().getVid(op1()))

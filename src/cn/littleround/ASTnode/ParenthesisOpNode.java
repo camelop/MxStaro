@@ -77,8 +77,6 @@ public class ParenthesisOpNode extends BinaryOpNode {
                 ret = op1().renderNasm(f);
             }
             BasicBlock bb = new BasicBlock(f.getLabel() + "_" + f.nctx().getCallCnt());
-            // save regs
-            saveCallerRegs(bb, f);
             // fill in 'this' and other args
             int cnt = 0;
             int nArgs = op2().getSons().size() + 1;
@@ -114,6 +112,8 @@ public class ParenthesisOpNode extends BinaryOpNode {
                     ++cnt;
                 }
             }
+            // save regs
+            saveCallerRegs(bb, f);
             // check align
             if (align) {
                 bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
@@ -126,6 +126,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
             }
             // get returns, set nctx
             int vid = f.nctx().getVid();
+            f.nctx().uncache(vid);
             bb.add(new MovLine(
                     new VirtualRegOperand(vid),
                     new RegOperand("rax")

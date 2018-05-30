@@ -45,15 +45,15 @@ public class AddNode extends BinaryOpNode {
             ArrayDeque<BasicBlock> ret = super.renderNasm(f);
             BasicBlock bb = new BasicBlock();
             saveCallerRegs(bb,f);
-            int vop1 = f.nctx().getVid(op1());
-            int vop2 = f.nctx().getVid(op2());
+            int vop1 = f.nctx().getVid(op1()); f.nctx().uncache(vop1);
+            int vop2 = f.nctx().getVid(op2()); f.nctx().uncache(vop2);
             // calc length
             bb.add(new MovLine(
                     new RegOperand("rdi"),
                     new VirtualRegOperand(vop1)
             ));
             bb.add(new CallLine("strlen"));
-            int vlen1 = f.nctx().getVid();
+            int vlen1 = f.nctx().getVid(); f.nctx().uncache(vlen1);
             bb.add(new MovLine(
                     new VirtualRegOperand(vlen1),
                     new RegOperand("rax")
@@ -63,7 +63,7 @@ public class AddNode extends BinaryOpNode {
                     new VirtualRegOperand(vop2)
             ));
             bb.add(new CallLine("strlen"));
-            int vlen2 = f.nctx().getVid();
+            int vlen2 = f.nctx().getVid(); f.nctx().uncache(vlen2);
             bb.add(new MovLine(
                     new VirtualRegOperand(vlen2),
                     new RegOperand("rax")
@@ -82,7 +82,7 @@ public class AddNode extends BinaryOpNode {
                     new VirtualRegOperand(vlen2)
             ));
             bb.add(new CallLine("malloc"));
-            int vdes = f.nctx().getVid();
+            int vdes = f.nctx().getVid(); f.nctx().uncache(vdes);
             bb.add(new MovLine(
                     new VirtualRegOperand(vdes),
                     new RegOperand("rax")

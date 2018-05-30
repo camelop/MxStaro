@@ -50,6 +50,9 @@ public class Constants {
     public final static String[] funcDesRegs = new String[]{"rax", "rbp", "rbx", "r12", "r13", "r14", "r15"};
     public final static int defaultStringLimit = 512;
     public final static int callConvReservRegsLen = 6;
+    public final static String[] assignableRegs = new String[]{
+        "rcx", "rbx", "rsi", "rdi", "r8", "r9", "r12", "r13", "r14", "r15"
+    };
     public final static String head = "";// "MxStaro";
     public final static int typeToSize(String typename) {
         switch (typename) {

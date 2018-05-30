@@ -49,6 +49,9 @@ public class InequalNode extends BinaryOpNode {
             ));
             //bb.add(new XorLine(new VirtualRegOperand(vid))); // xor change flags!!!
             saveCallerRegs(bb,f);
+            f.nctx().uncache(f.nctx().getVid(op1()));
+            f.nctx().uncache(f.nctx().getVid(op2()));
+            f.nctx().uncache(vdes);
             bb.add(new MovLine(
                     new RegOperand("rdi"),
                     new VirtualRegOperand(f.nctx().getVid(op1()))
