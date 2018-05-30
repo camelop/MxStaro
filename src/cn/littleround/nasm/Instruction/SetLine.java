@@ -22,7 +22,7 @@ public abstract class SetLine extends BaseLine {
     @Override
     public ArrayList<Integer> getDes() {
         return new ArrayList<Integer>(){{
-            add(toId(op1));
+            addAll(toId(op1));
         }};
     }
 }

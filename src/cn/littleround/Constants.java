@@ -44,14 +44,16 @@ public class Constants {
             "r8b", "r9b", "r10b", "r11b", "r12b","r13b","r14b","r15b"
     };
     public final static String[] callConvRegs = new String[]{"rdi", "rsi", "rdx", "rcx", "r8", "r9"};
-    public final static String[] callerRegs = new String[]{"rax", "rbx", "rbp", "r10", "r11", "r12", "r13", "r14", "r15"};
+    public final static String[] callerRegs = new String[]{"rax", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "r10", "r11"};
     public final static int callConvRegsLen = 6;
     public final static String[] callConvReservRegs = new String[]{"rbp", "rbx", "r12", "r13", "r14", "r15"};
     public final static String[] funcDesRegs = new String[]{"rax", "rbp", "rbx", "r12", "r13", "r14", "r15"};
     public final static int defaultStringLimit = 512;
     public final static int callConvReservRegsLen = 6;
     public final static String[] assignableRegs = new String[]{
-        "rcx", "rbx", "rsi", "rdi", "r8", "r9", "r12", "r13", "r14", "r15"
+            //"rcx", "rbx", "rsi", "rdi", "r8", "r9", "r12", "r13", "r14", "r15"
+            "rbx", "r12", "r13", "r14", "r15"
+            //"r12", "r13", "r14", "r15"
     };
     public final static String head = "";// "MxStaro";
     public final static int typeToSize(String typename) {

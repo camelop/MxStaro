@@ -18,7 +18,7 @@ public class PushLine extends BaseLine {
     @Override
     public ArrayList<Integer> getSrc() {
         return new ArrayList<Integer>(){{
-            add(toId(op1));
+            addAll(toId(op1));
         }};
     }
 

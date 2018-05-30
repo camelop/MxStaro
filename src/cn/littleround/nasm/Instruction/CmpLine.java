@@ -23,8 +23,8 @@ public class CmpLine extends BinaryOpLine {
     @Override
     public ArrayList<Integer> getSrc() {
         return new ArrayList<Integer>(){{
-            add(toId(op1));
-            add(toId(op2));
+            addAll(toId(op1));
+            addAll(toId(op2));
         }};
     }
 

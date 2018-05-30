@@ -16,15 +16,15 @@ public abstract class BinaryOpLine extends BaseLine {
     @Override
     public ArrayList<Integer> getSrc() {
         return new ArrayList<Integer>(){{
-            add(toId(op1));
-            add(toId(op2));
+            addAll(toId(op1));
+            addAll(toId(op2));
         }};
     }
 
     @Override
     public ArrayList<Integer> getDes() {
         return new ArrayList<Integer>(){{
-            add(toId(op1));
+            addAll(toId(op1));
         }};
     }
 }

@@ -9,6 +9,10 @@ import org.abego.treelayout.internal.util.java.lang.string.StringUtil;
 import java.util.ArrayList;
 
 public abstract class BaseLine implements Cloneable{
+    public String getLabel() {
+        return label;
+    }
+
     protected String label;
     abstract String getIns();
 
@@ -73,13 +77,20 @@ public abstract class BaseLine implements Cloneable{
         return sb.toString();
     }
 
-    public int toId(BaseOperand op) {
-        if (op instanceof ImmOperand) return Constants.noId;
-        if (op instanceof MemOperand) return Constants.memOperandId;
-        if (op instanceof VirtualRegOperand) return ((VirtualRegOperand) op).getVid()+Constants.virtualRegOperandIdOffset;
-        if (op instanceof RegOperand) return ((RegOperand) op).getId();
-        System.err.println("Oops?");
-        return -1;
+    static public ArrayList<Integer> toId(BaseOperand op) {
+        if (op instanceof ImmOperand) return new ArrayList<Integer>();
+        if (op instanceof MemOperand) {
+            ArrayList<Integer> ret = new ArrayList<Integer>(){{add(Constants.memOperandId);}};
+            if (op instanceof MemRegOperand) {
+                if (((MemRegOperand) op).op1 != null) ret.addAll(toId(((MemRegOperand) op).op1));
+                if (((MemRegOperand) op).op2 != null) ret.addAll(toId(((MemRegOperand) op).op2));
+            }
+            return ret;
+        }
+        if (op instanceof VirtualRegOperand) return new ArrayList<Integer>(){{add(((VirtualRegOperand) op).getVid()+Constants.virtualRegOperandIdOffset);}};
+        if (op instanceof RegOperand) return new ArrayList<Integer>(){{add(((RegOperand) op).getId());}};
+        System.err.println("Oops? -> "+op.getClass().getSimpleName());
+        return null;
     }
     public ArrayList<Integer> getSrc() {
         return new ArrayList<>();

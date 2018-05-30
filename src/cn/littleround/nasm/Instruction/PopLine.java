@@ -25,7 +25,7 @@ public class PopLine extends BaseLine {
     @Override
     public ArrayList<Integer> getDes() {
         return new ArrayList<Integer>(){{
-            add(toId(op1));
+            addAll(toId(op1));
         }};
     }
 }

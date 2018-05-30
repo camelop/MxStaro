@@ -63,7 +63,7 @@ public class ConstantNode extends ExpressionNode {
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
         BasicBlock bb = new BasicBlock();
-        int vid = f.nctx().getVid(String.valueOf(constant));
+        int vid = f.nctx().getVid();
         bb.add(new MovLine(
                 new VirtualRegOperand(vid),
                 new ConstantOperand(constant)

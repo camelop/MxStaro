@@ -31,6 +31,10 @@ public class NasmContext {
         unCacheable.add(x);
     }
 
+    public boolean ableToCache(int x) {
+        return (!unCacheable.contains(x));
+    }
+
     private int inLoop = 0;
     private int inIf = 0;
     private HashMap<ASTBaseNode, Integer> nodeToVid = new HashMap<>();

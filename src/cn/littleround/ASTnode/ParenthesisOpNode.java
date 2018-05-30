@@ -142,8 +142,6 @@ public class ParenthesisOpNode extends BinaryOpNode {
             }
         } else {
             BasicBlock bb = new BasicBlock(f.getLabel() + "_" + f.nctx().getCallCnt());
-            // save regs
-            saveCallerRegs(bb, f);
             // fill in args
             int cnt = 0;
             int nArgs = op2().getSons().size();
@@ -166,6 +164,8 @@ public class ParenthesisOpNode extends BinaryOpNode {
                     ++cnt;
                 }
             }
+            // save regs
+            saveCallerRegs(bb, f);
             // check align
             if (align) {
                 bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
