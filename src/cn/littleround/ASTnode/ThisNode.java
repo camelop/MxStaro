@@ -1,7 +1,11 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.ir.Function;
+import cn.littleround.nasm.BasicBlock;
 import cn.littleround.type.KlassType;
 import cn.littleround.type.UserDefinedType;
+
+import java.util.ArrayDeque;
 
 public class ThisNode extends ExpressionNode {
     private UserDefinedType findFatherType() {
@@ -15,5 +19,13 @@ public class ThisNode extends ExpressionNode {
     public void updateType() {
         super.updateType();
         type = findFatherType();
+    }
+
+    @Override
+    public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
+        ArrayDeque<BasicBlock> ret = new ArrayDeque<BasicBlock>();
+        int vid = f.nctx().getVid("this");
+        f.nctx().setNodeVid(this, vid);
+        return ret;
     }
 }

@@ -42,19 +42,35 @@ public class ParenthesisOpNode extends BinaryOpNode {
     }
 
     private boolean isClassFuncCall() {
-        return (op1() instanceof DotOpNode);
+        return (op1() instanceof DotOpNode) || (op1() instanceof IdentifierNode && ((IdentifierNode) op1()).isClassIdentifier());
     }
+
+    private String findFatherClassName(){
+        ASTBaseNode f = getParent();
+        while ((f != null) && !(f instanceof ClassDefinitionNode)) f = f.getParent();
+        if (f == null) System.err.println("WTF??");
+        return ((ClassDefinitionNode) f).getIdentifier();
+    }
+
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         String funcLabel;
         if (isClassFuncCall()) {
-            DotOpNode don = (DotOpNode) op1();
-            funcLabel = Constants.head+"_text_"+don.op1().type.toString()+"_"+don.getIdentifier();
-            if (don.op1().type instanceof PointerType && don.getIdentifier().equals("size")) {
-                funcLabel = Constants.head+"_text_built_in_array_size";
-            }
-            if (don.op1().type instanceof StringType) {
-                funcLabel = Constants.head+"_text_built_in_string_"+don.getIdentifier();
+            if (op1() instanceof DotOpNode) {
+                DotOpNode don = (DotOpNode) op1();
+                funcLabel = Constants.head + "_text_" + don.op1().type.toString() + "_" + don.getIdentifier();
+                if (don.op1().type instanceof PointerType && don.getIdentifier().equals("size")) {
+                    funcLabel = Constants.head + "_text_built_in_array_size";
+                }
+                if (don.op1().type instanceof StringType) {
+                    funcLabel = Constants.head + "_text_built_in_string_" + don.getIdentifier();
+                }
+            } else {
+                // this is add after, only an Identifier
+                String nwIdentifier = null;
+                if (op1() instanceof DotOpNode) nwIdentifier = ((DotOpNode) op1()).getIdentifier();
+                if (op1() instanceof IdentifierNode) nwIdentifier = ((IdentifierNode) op1()).getIdentifier();
+                funcLabel = Constants.head + "_text_" + findFatherClassName() + "_" + nwIdentifier;
             }
         } else {
             IdentifierNode idn = (IdentifierNode) op1();
@@ -75,10 +91,18 @@ public class ParenthesisOpNode extends BinaryOpNode {
             int nArgs = op2().getSons().size() + 1;
             boolean align = nArgs > 6 && nArgs % 2 == 1;
             int downArea = align ? (nArgs - 5) * Constants.sizeOfReg : (nArgs - 6) * Constants.sizeOfReg;
-            bb.add(new MovLine(
-                    new RegOperand(Constants.callConvRegs[0]),
-                    new VirtualRegOperand(f.nctx().getVid(op1().getSons().get(0)))
-            ));
+            if (op1() instanceof DotOpNode) {
+                bb.add(new MovLine(
+                        new RegOperand(Constants.callConvRegs[0]),
+                        new VirtualRegOperand(f.nctx().getVid(op1().getSons().get(0)))
+                ));
+            } else {
+                // IdentifierNode, with this
+                bb.add(new MovLine(
+                        new RegOperand(Constants.callConvRegs[0]),
+                        new VirtualRegOperand(f.nctx().getVid("this"))
+                ));
+            }
             ++cnt;
             for (ASTBaseNode node : op2().getSons()) {
                 if (cnt < Constants.callConvRegsLen) {

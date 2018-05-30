@@ -56,6 +56,18 @@ public class IdentifierNode extends ExpressionNode {
         type = symbolToType(def);
     }
 
+    public boolean isClassIdentifier() {
+        ASTBaseNode f = getParent();
+        while ((f != null) && !(f instanceof FuncDefinitionNode)) f = f.getParent();
+        if (f == null) return false;
+        FuncDefinitionNode fdn = (FuncDefinitionNode) f;
+        if (!fdn.inClass()) return false;
+        ClassDefinitionNode cdn = (ClassDefinitionNode) fdn.getParent();
+        ClassSymbol cs = (ClassSymbol) getSymbolTable().getClassSymbol(cdn.getIdentifier());
+        Symbol nw = cs.getSymbolTable().getSymbol(getIdentifier());
+        return !(nw == null);
+    }
+
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
@@ -64,14 +76,24 @@ public class IdentifierNode extends ExpressionNode {
             // local variable
             f.nctx().setNodeVid(this, f.nctx().getVid(Identifier));
         } else {
-            // global variable
-            int newVid = f.nctx().getVid();
-            f.nctx().damage(newVid);
-            bb.add(new MovLine(
-                    new VirtualRegOperand(newVid),
-                    new MemSymOperand(Constants.head+"_data_bss_"+Identifier)
-            ));
-            f.nctx().setNodeVid(this, newVid);
+            if (isClassIdentifier()){
+                // add this node
+                DotOpNode don = new DotOpNode();
+                don.setIdentifier(getIdentifier());
+                ThisNode tn = new ThisNode();
+                don.addSon(tn);
+                BasicBlock.dequeCombine(ret, tn.renderNasm(f));
+                f.nctx().setNodeVid(this, f.nctx().getVid(tn));
+            } else {
+                // global variable
+                int newVid = f.nctx().getVid();
+                f.nctx().damage(newVid);
+                bb.add(new MovLine(
+                        new VirtualRegOperand(newVid),
+                        new MemSymOperand(Constants.head + "_data_bss_" + Identifier)
+                ));
+                f.nctx().setNodeVid(this, newVid);
+            }
         }
         ret.add(bb);
         return ret;
