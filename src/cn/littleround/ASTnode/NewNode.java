@@ -45,12 +45,20 @@ public class NewNode extends BinaryOpNode {
                 new MemRegOperand(new RegOperand("rax")),
                 new VirtualRegOperand(f.nctx().getVid(op1()))
         ));
+        // check if need to construct
+        TypeAttributeNode tan = ((TypeNode) op1()).attribute();
+        if (tan.getPointerLevel() == 0) {
+            bb.add(new MovLine(
+                    new RegOperand("rdi"),
+                    new VirtualRegOperand(vdes)
+            ));
+            bb.add(new CallLine(Constants.head+"_text_"+tan.getIdentifier()+"_"+tan.getIdentifier()));
+        }
         loadCallerRegs(bb, f);
         // set return new value
         f.nctx().setNodeVid(this, vdes);
         BasicBlock.dequeCombine(ret, bb);
         // suger
-        TypeAttributeNode tan = ((TypeNode) op1()).attribute();
         if (tan.getPointerExpressionList().size() > 1 && !(tan.getPointerExpressionList().get(1) instanceof EmptyExpressionNode)) {
             //TODO: construct safe loops
             /*

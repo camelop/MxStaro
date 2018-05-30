@@ -14,6 +14,11 @@ public class DbLine extends BaseLine {
     }
 
     public DbLine(String sym) {
+        if (sym.contains("`")) {
+            //System.err.println(sym);
+            op1 = new SymbleOperand("'"+sym+"'");
+            return;
+        }
         op1 = new SymbleOperand("`"+sym+"`");
     }
 
