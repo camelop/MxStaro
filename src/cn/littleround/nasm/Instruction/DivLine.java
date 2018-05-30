@@ -18,7 +18,17 @@ public class DivLine extends UnaryOpLine {
 
     @Override
     public ArrayList<Integer> getSrc() {
-        return super.getSrc();
+        return new ArrayList<Integer>(){{
+            add(toId(new RegOperand("rax")));
+            add(toId(op1));
+        }};
     }
 
+    @Override
+    public ArrayList<Integer> getDes() {
+        return new ArrayList<Integer>(){{
+            add(toId(new RegOperand("rax")));
+            add(toId(new RegOperand("rdx")));
+        }};
+    }
 }

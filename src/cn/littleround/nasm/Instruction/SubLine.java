@@ -13,19 +13,4 @@ public class SubLine extends BinaryOpLine {
     String getIns() {
         return "sub";
     }
-
-    @Override
-    public ArrayList<Integer> getSrc() {
-        return new ArrayList<Integer>(){{
-            add(toId(op1));
-            add(toId(op2));
-        }};
-    }
-
-    @Override
-    public ArrayList<Integer> getDes() {
-        return new ArrayList<Integer>(){{
-            add(toId(op1));
-        }};
-    }
 }

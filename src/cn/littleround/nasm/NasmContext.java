@@ -41,16 +41,16 @@ public class NasmContext {
 
     private HashMap<String, Integer> identifierToVid = new HashMap<>();
     private HashSet<Integer> damaged = new HashSet<>();
-    private HashMap<Integer, MemRegOperand> assignVR = new HashMap<>();
+    private HashMap<Integer, BaseOperand> assignVR = new HashMap<>();
 
     private HashMap<ASTBaseNode, BaseOperand> findMem = new HashMap<>();
     public Stack<Integer> lastThis = new Stack<>();
 
-    public void assign(int vid, MemRegOperand mro) {
+    public void assign(int vid, BaseOperand mro) {
         assignVR.put(vid, mro);
     }
 
-    public MemRegOperand convertVid(int vid) {
+    public BaseOperand convertVid(int vid) {
         return assignVR.get(vid);
     }
 

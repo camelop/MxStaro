@@ -108,14 +108,13 @@ public abstract class Function {
                 }
                 if (line.isVirtual()) {
                     // eliminate useless lines
-                    /* for now... TODO recover this
                     if (line.op1 instanceof VirtualRegOperand) {
                         if (!visited.contains(((VirtualRegOperand) line.op1).getVid()+Constants.virtualRegOperandIdOffset)) continue;
                     }
                     if (line.op2 instanceof VirtualRegOperand) {
                         if (!visited.contains(((VirtualRegOperand) line.op2).getVid()+Constants.virtualRegOperandIdOffset)) continue;
                     }
-                    */
+
                     for (BaseLine nline: line.render(this)) {
                         ret.add(nline);
                     }
@@ -123,32 +122,34 @@ public abstract class Function {
             }
             ret.add(new CommentLine("----------------------------------]"));
         }
-        boolean combine = true;
-        if (combine) {
-            ArrayList<BaseLine> ret2 = new ArrayList<BaseLine>();
-            BaseLine nw = null;
-            for (BaseLine line: ret) {
-                if (nw == null) {
-                    if (line.hasLabel()) ret2.add(line); else {
-                        nw = line;
-                    }
-                } else {
-                    if (nw instanceof MovLine && line instanceof MovLine) {
-                        if (nw.op1 instanceof RegOperand && nw.op1.equals(line.op2) && !(nw.op2 instanceof MemOperand && line.op1 instanceof MemOperand)) {
-                            //System.err.print(" "+nw.toString()+"+"+line.toString()+"=");
-                            nw.op1 = line.op1;
-                            //System.err.println(nw.toString());
-                            continue;
-                        }
-                    }
-                    ret2.add(nw);
+        ret = optimCombineR1011(ret);
+        return ret;
+    }
+
+    private ArrayList<BaseLine> optimCombineR1011(ArrayList<BaseLine> ret) {
+        ArrayList<BaseLine> ret2 = new ArrayList<BaseLine>();
+        BaseLine nw = null;
+        for (BaseLine line: ret) {
+            if (nw == null) {
+                if (line.hasLabel()) ret2.add(line); else {
                     nw = line;
                 }
+            } else {
+                if (nw instanceof MovLine && line instanceof MovLine) {
+                    if ((nw.op1.toString().equals("r10") || nw.op1.toString().equals("r11"))
+                            && nw.op1.equals(line.op2) && !(nw.op2 instanceof MemOperand && line.op1 instanceof MemOperand)) {
+                        //System.err.print(" "+nw.toString()+"+"+line.toString()+"=");
+                        nw.op1 = line.op1;
+                        //System.err.println(nw.toString());
+                        continue;
+                    }
+                }
+                ret2.add(nw);
+                nw = line;
             }
-            if (nw != null) ret2.add(nw);
-            return ret2;
         }
-        return ret;
+        if (nw != null) ret2.add(nw);
+        return ret2;
     }
 
     private _GraphNode[] dependGraph = null;
@@ -159,14 +160,18 @@ public abstract class Function {
         dependGraph = new _GraphNode[vSize];
         for (int i=0; i<vSize; ++i) dependGraph[i] = new _GraphNode();
 
+        int lineCnt = 0;
         for (BasicBlock bb: cfg) {
             for (BaseLine line:bb.getLines()) {
+                ++lineCnt;
                 for (Integer src:line.getSrc()) {
                     if (src.equals(Constants.noId)) continue;
                     for (Integer des:line.getDes()) {
                         if (des.equals(Constants.noId)) continue;
                         dependGraph[src]._out.add(des);
                         dependGraph[des]._in.add(src);
+                        dependGraph[src].update(lineCnt);
+                        dependGraph[des].update(lineCnt);
                     }
                 }
             }
@@ -225,7 +230,13 @@ public abstract class Function {
 class _GraphNode{
     public ArrayList<Integer> _in = new ArrayList<>();
     public ArrayList<Integer> _out = new ArrayList<>();
-
+    public int start = 0x7fffffff;
+    public int end = -1;
+    public void update(int nw) {
+        start = (start > nw) ? (nw) : (start);
+        end = (end < nw) ? (nw) : (end);
+    }
+    public int color;
     @Override
     public String toString() {
         return "\tin: "+_in.toString()+System.lineSeparator()+"\tout: "+_out.toString();
