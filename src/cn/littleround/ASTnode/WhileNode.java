@@ -22,6 +22,7 @@ public class WhileNode extends LoopNode {
         fcn.addSon(new ExpressionNode());
         temp.addSon(fcn);
         temp.addSon(getSons().get(1)); // while's son 2
+        temp.setSymbolTable(getSymbolTable());
         return temp.renderNasm(f);
     }
 }

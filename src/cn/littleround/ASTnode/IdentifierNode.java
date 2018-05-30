@@ -10,6 +10,7 @@ import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.*;
 import cn.littleround.type.FuncType;
 import cn.littleround.type.KlassType;
+import cn.littleround.type.UserDefinedType;
 
 import java.util.ArrayDeque;
 
@@ -76,14 +77,17 @@ public class IdentifierNode extends ExpressionNode {
             // local variable
             f.nctx().setNodeVid(this, f.nctx().getVid(Identifier));
         } else {
+            //System.err.println(Identifier+" : "+String.valueOf(isClassIdentifier()));
             if (isClassIdentifier()){
-                // add this node
+                // add thisNode
                 DotOpNode don = new DotOpNode();
                 don.setIdentifier(getIdentifier());
                 ThisNode tn = new ThisNode();
                 don.addSon(tn);
-                BasicBlock.dequeCombine(ret, tn.renderNasm(f));
-                f.nctx().setNodeVid(this, f.nctx().getVid(tn));
+                tn.type = new UserDefinedType(findFatherClassName());
+                don.setSymbolTable(getSymbolTable());
+                ret = don.renderNasm(f);
+                f.nctx().setNodeVid(this, f.nctx().getVid(don));
             } else {
                 // global variable
                 int newVid = f.nctx().getVid();

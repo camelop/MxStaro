@@ -4,9 +4,9 @@ import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.MovLine;
-import cn.littleround.nasm.Operand.MemRegOperand;
 import cn.littleround.nasm.Operand.MemSymOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
+import cn.littleround.type.UserDefinedType;
 
 import java.util.ArrayDeque;
 
@@ -28,7 +28,6 @@ public class AssignNode extends BinaryOpNode {
             reportError("Semantic", "Assign to a r-value is illegal.");
         }
     }
-
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         // wrong, shouldn't call, "return super.renderNasm(f);"
@@ -54,11 +53,27 @@ public class AssignNode extends BinaryOpNode {
                     ));
                 }
             } else {
-                // global
-                bb.add(new MovLine(
-                        new MemSymOperand(Constants.head+"_data_bss_"+((IdentifierNode) op1()).getIdentifier()),
-                        vsrc
-                ));
+                if (((IdentifierNode) op1()).isClassIdentifier()) {
+                    // add thisNode
+                    //TODO TODO TODO
+                    DotOpNode don = new DotOpNode();
+                    don.setSymbolTable(getSymbolTable());
+                    don.setIdentifier(((IdentifierNode) op1()).getIdentifier());
+                    ThisNode tn = new ThisNode();
+                    tn.type = new UserDefinedType(findFatherClassName());
+                    don.addSon(tn);
+                    BasicBlock.dequeCombine(ret, don.renderNasm(f));
+                    bb.add(new MovLine(
+                            f.nctx().findMemRef(don),
+                            vsrc
+                    ));
+                } else {
+                    // global
+                    bb.add(new MovLine(
+                            new MemSymOperand(Constants.head+"_data_bss_"+((IdentifierNode) op1()).getIdentifier()),
+                            vsrc
+                    ));
+                }
             }
         } else if (op1() instanceof SubscriptOpNode || op1() instanceof DotOpNode) {
             BasicBlock.dequeCombine(ret, op1().renderNasm(f));

@@ -39,6 +39,11 @@ public class ClassSymbol extends Symbol {
     }
 
     public int getOffset(String id) {
+        //System.err.println(id+":"+offsets.toString());
+        if (!offsets.containsKey(id)) {
+            // maybe a function?
+            return -1;
+        }
         return offsets.get(id);
     }
 }

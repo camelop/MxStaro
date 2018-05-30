@@ -22,6 +22,21 @@ public abstract class ASTBaseNode {
     private ASTBaseNode parent = null;
     private ArrayList<ASTBaseNode> sons = new ArrayList<>();
     private ParserRuleContext ctx;
+
+    public void setSymbolTable(SymbolTable st) {
+        this.st = st;
+        for (ASTBaseNode i: sons) {
+            i.setSymbolTable(st);
+        }
+    }
+
+    public String findFatherClassName(){
+        ASTBaseNode f = getParent();
+        while (f!=null && !(f instanceof ClassDefinitionNode)) f=f.getParent();
+        if (f == null) return null;
+        return ((ClassDefinitionNode)f).getIdentifier();
+    }
+
     private SymbolTable st = new SymbolTable();
     protected BaseType type;
 

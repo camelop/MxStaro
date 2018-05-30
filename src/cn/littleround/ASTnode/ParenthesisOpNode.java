@@ -45,13 +45,6 @@ public class ParenthesisOpNode extends BinaryOpNode {
         return (op1() instanceof DotOpNode) || (op1() instanceof IdentifierNode && ((IdentifierNode) op1()).isClassIdentifier());
     }
 
-    private String findFatherClassName(){
-        ASTBaseNode f = getParent();
-        while ((f != null) && !(f instanceof ClassDefinitionNode)) f = f.getParent();
-        if (f == null) System.err.println("WTF??");
-        return ((ClassDefinitionNode) f).getIdentifier();
-    }
-
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         String funcLabel;
