@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class ClassDefinitionNode extends DeclarationNode {
     private String identifier;
+    private boolean hasConstructor = false;
 
     public String getIdentifier() {
         return identifier;
@@ -56,7 +57,11 @@ public class ClassDefinitionNode extends DeclarationNode {
             for (Symbol s:dn.getSymbols()) {
                 if (!cs.addSymbol(s)) reportError("Semantic",s.getName() + " is not a valid symbol.");
             }
+            if (dn instanceof FuncDefinitionNode && ((FuncDefinitionNode) dn).getIdentifier().equals(getIdentifier())){
+                hasConstructor = true;
+            }
         }
+        cs.setHasConstructor(hasConstructor);
         return cs;
     }
 

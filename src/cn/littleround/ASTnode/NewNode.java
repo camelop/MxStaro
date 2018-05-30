@@ -5,6 +5,9 @@ import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.*;
+import cn.littleround.symbol.ClassSymbol;
+import cn.littleround.symbol.Symbol;
+import cn.littleround.type.UserDefinedType;
 import cn.littleround.type.VoidType;
 
 import java.util.ArrayDeque;
@@ -47,7 +50,8 @@ public class NewNode extends BinaryOpNode {
         ));
         // check if need to construct
         TypeAttributeNode tan = ((TypeNode) op1()).attribute();
-        if (tan.getPointerLevel() == 0) {
+        Symbol nwS = getSymbolTable().getClassSymbol(tan.getIdentifier());
+        if (tan.getPointerLevel() == 0 && nwS instanceof ClassSymbol && ((ClassSymbol) nwS).isHasConstructor()) {
             bb.add(new MovLine(
                     new RegOperand("rdi"),
                     new VirtualRegOperand(vdes)

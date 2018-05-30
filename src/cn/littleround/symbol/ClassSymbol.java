@@ -5,6 +5,16 @@ import java.util.HashMap;
 public class ClassSymbol extends Symbol {
     private SymbolTable st = new SymbolTable();
 
+    public boolean isHasConstructor() {
+        return hasConstructor;
+    }
+
+    private boolean hasConstructor = false;
+
+    public void setHasConstructor(boolean hasConstructor) {
+        this.hasConstructor = hasConstructor;
+    }
+
     public void setSize(int size) {
         this.size = size;
     }
