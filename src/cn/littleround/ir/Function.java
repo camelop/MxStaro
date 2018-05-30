@@ -5,10 +5,7 @@ import cn.littleround.Constants;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.NasmContext;
-import cn.littleround.nasm.Operand.DecimalOperand;
-import cn.littleround.nasm.Operand.MemRegOperand;
-import cn.littleround.nasm.Operand.RegOperand;
-import cn.littleround.nasm.Operand.VirtualRegOperand;
+import cn.littleround.nasm.Operand.*;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -125,6 +122,31 @@ public abstract class Function {
                 } else ret.add(line);
             }
             ret.add(new CommentLine("----------------------------------]"));
+        }
+        boolean combine = true;
+        if (combine) {
+            ArrayList<BaseLine> ret2 = new ArrayList<BaseLine>();
+            BaseLine nw = null;
+            for (BaseLine line: ret) {
+                if (nw == null) {
+                    if (line.hasLabel()) ret2.add(line); else {
+                        nw = line;
+                    }
+                } else {
+                    if (nw instanceof MovLine && line instanceof MovLine) {
+                        if (nw.op1 instanceof RegOperand && nw.op1.equals(line.op2) && !(nw.op2 instanceof MemOperand && line.op1 instanceof MemOperand)) {
+                            //System.err.print(" "+nw.toString()+"+"+line.toString()+"=");
+                            nw.op1 = line.op1;
+                            //System.err.println(nw.toString());
+                            continue;
+                        }
+                    }
+                    ret2.add(nw);
+                    nw = line;
+                }
+            }
+            if (nw != null) ret2.add(nw);
+            return ret2;
         }
         return ret;
     }

@@ -12,6 +12,12 @@ public abstract class BaseLine implements Cloneable{
     protected String label;
     abstract String getIns();
 
+    public boolean hasLabel() {
+        if (label == null) return false;
+        if (label.equals("")) return  false;
+        return true;
+    }
+
     public void setComment(String comment) {
         this.comment = comment;
     }
@@ -149,4 +155,5 @@ public abstract class BaseLine implements Cloneable{
         }
         return ret;
     }
+
 }
