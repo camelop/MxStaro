@@ -4,10 +4,7 @@ import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
-import cn.littleround.nasm.Operand.DecimalOperand;
-import cn.littleround.nasm.Operand.MemRegOperand;
-import cn.littleround.nasm.Operand.RegOperand;
-import cn.littleround.nasm.Operand.VirtualRegOperand;
+import cn.littleround.nasm.Operand.*;
 import cn.littleround.type.VoidType;
 
 import java.util.ArrayDeque;
@@ -55,9 +52,66 @@ public class NewNode extends BinaryOpNode {
         // suger
         TypeAttributeNode tan = ((TypeNode) op1()).attribute();
         if (tan.getPointerExpressionList().size() > 1 && !(tan.getPointerExpressionList().get(1) instanceof EmptyExpressionNode)) {
-            for (int i = 1; i < tan.getPointerExpressionList().size(); ++i) {
-                //TODO: use nasm to construct safe loops
+            //TODO: construct safe loops
+            /*
+             *vdes is the base loc
+             *int[][][][] a = new int[5][5][5][];
+             *                    ----1--2--3-4--
+             *only loop %1 and %2
+             *new (int[]).width * %3
+            **/
+            // calc (int[]).width
+            BasicBlock lbb = new BasicBlock();
+            int vcnt = f.nctx().getVid();
+            int vloc = f.nctx().getVid();
+            // init cnt, loc
+            lbb.add(new MovLine(
+                    new VirtualRegOperand(vcnt),
+                    new VirtualRegOperand(f.nctx().getVid(op1()))
+            ));
+            lbb.add(new MovLine(
+                    new VirtualRegOperand(vloc),
+                    new VirtualRegOperand(vdes)
+            ));
+            lbb.add(new AddLine(
+                    new VirtualRegOperand(vloc),
+                    new DecimalOperand(Constants.sizeOfReg)
+            ));
+            // begin loop
+            String label = f.getLabel()+"_"+f.nctx().getNewCnt();
+            lbb.add(new LabelLine(label+"_expand_start"));
+            BasicBlock.dequeCombine(ret, lbb);
+            // render content inside
+            NewNode nn = new NewNode();
+            TypeAttributeNode newTan = new TypeAttributeNode(tan.getIdentifier());
+            for (int i=1; i<tan.getSons().size(); ++i) { // notice: from 1!
+                newTan.addPointerExpression((ExpressionNode)(tan.getSons().get(i)));
+                newTan.addPointerLevel(); // not elegant code before...
             }
+            TypeNode newTn = new TypeNode(); newTn.addSon(newTan);
+            nn.addSon(newTn); nn.addSon(getSons().get(1));
+            BasicBlock.dequeCombine(ret, nn.renderNasm(f));
+            // mov new malloc, add loc, dec cnt, check > 0
+            BasicBlock rbb = new BasicBlock();
+            rbb.add(new MovLine(
+                    new MemRegOperand(new VirtualRegOperand(vloc)),
+                    new VirtualRegOperand(f.nctx().getVid(nn))
+            ));
+            rbb.add(new AddLine(
+                    new VirtualRegOperand(vloc),
+                    new DecimalOperand(newTan.getWidth())
+            ));
+            rbb.add(new SubLine(
+                    new VirtualRegOperand(vcnt),
+                    new DecimalOperand(1)
+            ));
+            rbb.add(new CmpLine(
+                    new VirtualRegOperand(vcnt),
+                    new DecimalOperand(0)
+            ));
+            rbb.add(new JneLine(new SymbleOperand(label+"_expand_start")));
+            rbb.add(new LabelLine(label+"_expand_end"));
+            BasicBlock.dequeCombine(ret, rbb);
         }
         return ret;
     }

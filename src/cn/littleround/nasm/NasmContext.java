@@ -21,6 +21,7 @@ public class NasmContext {
     private int orId = 0;
     private int breakId = 0;
     private int continueId = 0;
+    private int newId = 0;
 
     private String scopeHead = "";
 
@@ -169,6 +170,10 @@ public class NasmContext {
     public String getContinueCnt() {
         continueId++;
         return "continue"+String.valueOf(continueId-1);
+    }
+    public String getNewCnt() {
+        newId++;
+        return "new"+String.valueOf(newId-1);
     }
 
 

@@ -92,11 +92,11 @@ public class Program {
     }
 
     public void optimize() {
-        //TODO
+        regAlloc();
     }
 
     public String generateNasmCode() {
-        regAlloc();
+
         Directives d = new Directives();
         Section funcSection = new Section(funcs);
         Section dataSection = gr.getDataSection();

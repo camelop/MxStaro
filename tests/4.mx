@@ -2,6 +2,7 @@ int[][] a=new int[30][30];
 string[] str=new string[30];
 int main()
 {
+    return 0;
 	int i;
 	int j;
 	for(i=0;i<=29;i++)
