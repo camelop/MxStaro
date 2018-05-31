@@ -2,6 +2,7 @@ package cn.littleround.nasm;
 
 import cn.littleround.nasm.Instruction.BaseLine;
 import cn.littleround.nasm.Instruction.ControlFlowLine;
+import cn.littleround.nasm.Instruction.EmptyLine;
 import cn.littleround.nasm.Instruction.LabelLine;
 
 import java.util.ArrayDeque;
@@ -55,7 +56,7 @@ public class BasicBlock {
     public BasicBlock() {
         this.label = null;
         lines = new ArrayDeque<>();
-        lines.add(new LabelLine(label));
+        lines.add(new EmptyLine());
     }
 
     public ArrayDeque<BaseLine> getLines() {

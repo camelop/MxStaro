@@ -123,6 +123,8 @@ public abstract class Function {
             ret.add(new CommentLine("----------------------------------]"));
         }
         ret = optimCombineR1011(ret);
+        ret = optimCombineR1011(ret);
+        ret = optimCombineR1011(ret);
         return ret;
     }
 
@@ -130,6 +132,8 @@ public abstract class Function {
         ArrayList<BaseLine> ret2 = new ArrayList<BaseLine>();
         BaseLine nw = null;
         for (BaseLine line: ret) {
+            if (line instanceof EmptyLine || (line instanceof LabelLine && line.getLabel() == null))
+                continue;
             if (nw == null) {
                 if (line.hasLabel()) ret2.add(line); else {
                     nw = line;
@@ -141,6 +145,14 @@ public abstract class Function {
                         //System.err.print(" "+nw.toString()+"+"+line.toString()+"=");
                         nw.op1 = line.op1;
                         //System.err.println(nw.toString());
+                        continue;
+                    }
+                    if ((nw.op1.equals(line.op2)) && nw.op2.equals(line.op1)) {
+                        // no need
+                        continue;
+                    }
+                    if ((nw.op1.equals(line.op1))) {
+                        nw.op2 = line.op2;
                         continue;
                     }
                 }
@@ -181,12 +193,14 @@ public abstract class Function {
                     if (loopRecorder.size() > 0) {
                         loopRecorder.peek().vids.add(src);
                     }
+                    dependGraph[src].updatePri(loopRecorder.size());
                 }
                 if (line.op2 != null) for (Integer des: BaseLine.toId(line.op2)){
                     dependGraph[des].update(lineCnt);
                     if (loopRecorder.size() > 0) {
                         loopRecorder.peek().vids.add(des);
                     }
+                    dependGraph[des].updatePri(loopRecorder.size());
                 }
                 for (Integer src:line.getSrc()) {
                     if (src.equals(Constants.noId)) continue;
@@ -238,7 +252,7 @@ public abstract class Function {
         for (int i = Constants.virtualRegOperandIdOffset; i < dependGraph.length; ++i) {
             if (!nasmCtx.ableToCache(i-Constants.virtualRegOperandIdOffset)) continue;
             if (dependGraph[i].start == 0x7fffffff) continue;
-            bumpList.add(new _Seg(i, dependGraph[i].start, dependGraph[i].end));
+            bumpList.add(new _Seg(i, dependGraph[i].start, dependGraph[i].end, dependGraph[i].pri));
         }
         System.err.println(getLabel());
         Collections.sort(bumpList);
@@ -248,6 +262,7 @@ public abstract class Function {
         PriorityQueue<_Seg> active = new PriorityQueue<>(new Comparator<_Seg>() {
             @Override
             public int compare(_Seg o1, _Seg o2) {
+                if (o1.pri != o2.pri) return o1.pri - o2.pri;
                 return o1.end - o2.end;
             }
         });
@@ -262,7 +277,7 @@ public abstract class Function {
             //check if spill
             if (active.size() == Constants.assignableRegs.length) {
                 // must spill
-                if (active.peek().end > nw.end) {
+                if (active.peek().end > nw.end || active.peek().pri < nw.pri) {
                     nw.color = active.peek().color;
                     active.peek().color = -1;
                     active.poll();
@@ -314,6 +329,7 @@ class _GraphNode{
     public ArrayList<Integer> _out = new ArrayList<>();
     public int start = 0x7fffffff;
     public int end = -1;
+    public int pri = 0;
     public void update(int nw) {
         start = (start > nw) ? (nw) : (start);
         end = (end < nw) ? (nw) : (end);
@@ -323,18 +339,24 @@ class _GraphNode{
     public String toString() {
         return "\tin: "+_in.toString()+System.lineSeparator()+"\tout: "+_out.toString();
     }
+
+    public void updatePri(int p) {
+        pri = (pri > p) ? pri : p;
+    }
 }
 
 class _Seg implements Comparable{
     public int vid;
+    public int pri = 0;
     public int start;
     public int end;
     public int color = -1;
 
-    public _Seg(int vid, int start, int end) {
+    public _Seg(int vid, int start, int end, int pri) {
         this.vid = vid;
         this.start = start;
         this.end = end;
+        this.pri = pri;
     }
 
     @Override
@@ -346,7 +368,7 @@ class _Seg implements Comparable{
 
     @Override
     public String toString() {
-        return String.valueOf(vid)+" :  "+String.valueOf(start)+"->"+String.valueOf(end)+"    C = "+String.valueOf(color);
+        return String.valueOf(vid)+" :  "+String.valueOf(start)+"->"+String.valueOf(end)+"pri="+String.valueOf(pri)+"    C = "+String.valueOf(color);
     }
 }
 
