@@ -8,6 +8,12 @@ public class SarLine extends BinaryOpLine {
         super(op1, op2);
     }
 
+    public SarLine(BaseOperand op1) {
+        super(op1);
+        op2 = new RegOperand("rcx");
+        ((RegOperand)op2).isBYTE = true;
+    }
+
     @Override
     String getIns() {
         return "sar";
