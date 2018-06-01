@@ -38,13 +38,14 @@ public class AssignNode extends BinaryOpNode {
         if (op1() instanceof IdentifierNode) {
             if (f.nctx().contains(((IdentifierNode) op1()).getIdentifier())) {
                 // local variable
-                if (f.nctx().inside()) {
+                if (true || f.nctx().inside()) {
                     bb.add(new MovLine(
                             new VirtualRegOperand(f.nctx().getVid(((IdentifierNode) op1()).getIdentifier())),
                             vsrc,
                             "assign->"+((IdentifierNode) op1()).getIdentifier()
                     ));
                 } else {
+                    // not working!!!!! so disabled...
                     int newVid = f.nctx().getNewVid(((IdentifierNode) op1()).getIdentifier());
                     bb.add(new MovLine(
                             new VirtualRegOperand(newVid),

@@ -109,9 +109,16 @@ public class Main {
             System.err.println(creator.getErrors());
             System.exit(-1);
         }
+        // some optimize at first
+        ASTBaseNode root = creator.getRoot();
+        try {
+            root.replaceConstant();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ASTBaseNode.setFailed(true);
+        }
 
         // run semantic check on AST
-        ASTBaseNode root = creator.getRoot();
         try {
             root.createSymbolTable();
             root.updateType();

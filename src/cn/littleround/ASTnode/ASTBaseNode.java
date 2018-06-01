@@ -209,4 +209,21 @@ public abstract class ASTBaseNode {
             ));
         }
     }
+
+    public void replaceConstant() {
+        ArrayList<ASTBaseNode> newSons = new ArrayList<ASTBaseNode>();
+        for (ASTBaseNode son : sons) {
+            ConstantNode c = son.toConstant();
+            if (c != null) {
+                newSons.add(c);
+            } else {
+                newSons.add(son);
+            }
+        }
+        sons = newSons;
+    }
+
+    private ConstantNode toConstant() {
+        return null;
+    }
 }
