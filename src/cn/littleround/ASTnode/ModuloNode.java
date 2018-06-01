@@ -18,8 +18,8 @@ public class ModuloNode extends IntBinaryOpNode {
         VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(op2()));
         VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
         BasicBlock bb = new BasicBlock();
-        int vdx = f.nctx().getVid("_"+"rdx");
-        int vax = f.nctx().getVid("_"+"rax");
+        int vdx = f.nctx().getVid();
+        int vax = f.nctx().getVid();
         // save regs
         bb.add(new MovLine(
                 new VirtualRegOperand(vdx),
@@ -35,9 +35,15 @@ public class ModuloNode extends IntBinaryOpNode {
                 new RegOperand("rax"),
                 vl
         ));
-        bb.add(new XorLine(
-                new RegOperand("rdx")
+        bb.add(new AndLine(
+                new RegOperand("rax"),
+                new DecimalOperand(Constants.dwordMask)
         ));
+        bb.add(new AndLine(
+                vdivisor,
+                new DecimalOperand(Constants.dwordMask)
+        ));
+        bb.add(new CqoLine());
         bb.add(new DivLine(vdivisor));
         bb.add(new MovLine(
                 vt,

@@ -29,9 +29,11 @@ public class InequalNode extends BinaryOpNode {
             ArrayDeque<BasicBlock> ret = super.renderNasm(f);
             int vid = f.nctx().getVid();
             BasicBlock bb = new BasicBlock();
+            VirtualRegOperand vll = new VirtualRegOperand(f.nctx().getVid(op1())); vll.isDWORD = true;
+            VirtualRegOperand vrr = new VirtualRegOperand(f.nctx().getVid(op2())); vrr.isDWORD = true;
             bb.add(new CmpLine(
-                    new VirtualRegOperand(f.nctx().getVid(op1())),
-                    new VirtualRegOperand(f.nctx().getVid(op2()))
+                    vll,
+                    vrr
             ));
             //bb.add(new XorLine(new VirtualRegOperand(vid))); // xor change flags!!!
             bb.add(new SetNELine(new VirtualRegOperand(vid)));

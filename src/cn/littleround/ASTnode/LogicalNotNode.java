@@ -1,9 +1,13 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.AndLine;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Instruction.NotLine;
+import cn.littleround.nasm.Operand.ConstantOperand;
+import cn.littleround.nasm.Operand.DecimalOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
 import java.util.ArrayDeque;
@@ -19,6 +23,7 @@ public class LogicalNotNode extends BoolUnaryOpNode {
                 new VirtualRegOperand(f.nctx().getVid(op1()))
         ));
         bb.add(new NotLine(new VirtualRegOperand(vid)));
+        bb.add(new AndLine(new VirtualRegOperand(vid), new DecimalOperand(Constants.dwordMask)));
         f.nctx().setNodeVid(this, vid);
         BasicBlock.dequeCombine(ret, bb);
         return ret;

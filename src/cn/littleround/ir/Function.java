@@ -151,7 +151,7 @@ public abstract class Function {
                         // no need
                         continue;
                     }
-                    if ((nw.op1.equals(line.op1))) {
+                    if (!(line.op2 instanceof MemOperand)&&(nw.op1.equals(line.op1))) {
                         nw.op2 = line.op2;
                         continue;
                     }
@@ -368,7 +368,7 @@ class _Seg implements Comparable{
 
     @Override
     public String toString() {
-        return String.valueOf(vid)+" :  "+String.valueOf(start)+"->"+String.valueOf(end)+"pri="+String.valueOf(pri)+"    C = "+String.valueOf(color);
+        return String.valueOf(vid)+" :  "+String.valueOf(start)+"->"+String.valueOf(end)+" pri="+String.valueOf(pri)+"    C = "+String.valueOf(color);
     }
 }
 

@@ -31,10 +31,11 @@ public class CompareBinaryOpNode extends BinaryOpNode {
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = super.renderNasm(f);
         BasicBlock bb = new BasicBlock();
-        bb.add(new CmpLine(
-                new VirtualRegOperand(f.nctx().getVid(op1())),
-                new VirtualRegOperand(f.nctx().getVid(op2()))
-        ));
+        VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(op1()));
+        vl.isDWORD = true;
+        VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(op2()));
+        vr.isDWORD = true;
+        bb.add(new CmpLine(vl, vr));
         BasicBlock.dequeCombine(ret, bb);
         return ret;
     }

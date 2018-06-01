@@ -36,7 +36,7 @@ public class StringLiteralNode extends ExpressionNode {
         ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
         BasicBlock bb = new BasicBlock();
         int sid = f.getGlobalRecord().addString(string);
-        int vid = f.nctx().getVid("@s"+String.valueOf(sid));
+        int vid = f.nctx().getVid();
         bb.add(new MovLine(
                 new VirtualRegOperand(vid),
                 new SymbleOperand(Constants.head+"_data_s"+String.valueOf(sid))

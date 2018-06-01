@@ -12,9 +12,9 @@ import java.util.HashMap;
 
 public class Constants {
     public final static int True = 0xff;
-    public final static int byteMask = 0x0000000f;
-    public final static int wordMask = 0x000000ff;
-    public final static int dwordMask = 0x0000ffff;
+    public final static int byteMask = 0x000000ff;
+    public final static int wordMask = 0x0000ffff;
+    public final static int dwordMask = 0xffffffff;
     public final static int sizeOfReg = 8;
     /*
     public final static int sizeOfInt = 4;

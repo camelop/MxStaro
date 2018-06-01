@@ -1,10 +1,13 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.AndLine;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Instruction.SalLine;
 import cn.littleround.nasm.Instruction.SarLine;
+import cn.littleround.nasm.Operand.DecimalOperand;
 import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
@@ -20,14 +23,17 @@ public class ShiftRightNode extends IntBinaryOpNode {
         VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
         BasicBlock bb = new BasicBlock();
         // save rcx
-        VirtualRegOperand vrcx = new VirtualRegOperand(f.nctx().getVid("_rcx"));
+        VirtualRegOperand vrcx = new VirtualRegOperand(f.nctx().getVid());
         bb.add(new MovLine(vrcx, new RegOperand("rcx")));
         bb.add(new MovLine(vt, vl));
         bb.add(new MovLine(
                 new RegOperand("rcx"),
                 vr
         ));
-        bb.add(new SarLine(vt));
+        bb.add(new AndLine(vt, new DecimalOperand(Constants.dwordMask)));
+        VirtualRegOperand vtemp32 = new VirtualRegOperand(vt.getVid());
+        vtemp32.isDWORD = true;
+        bb.add(new SarLine(vtemp32));
         // load rcx
         bb.add(new MovLine(new RegOperand("rcx"), vrcx));
         f.nctx().setNodeVid(this, vt.getVid());
