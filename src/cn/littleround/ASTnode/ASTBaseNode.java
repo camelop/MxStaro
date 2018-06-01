@@ -3,6 +3,7 @@ package cn.littleround.ASTnode;
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.LabelLine;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Operand.RegOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
@@ -183,10 +184,11 @@ public abstract class ASTBaseNode {
         return ret;
     }
 
-    static public void saveCallerRegs(BasicBlock bb, Function f) {
+    static public void saveCallerRegs(BasicBlock bb, Function f, String tail) {
         // save regs
+        bb.add(new LabelLine(f.getLabel()+"_"+tail+"_save"));
         for (String r: Constants.callerRegs) {
-            int vnow = f.nctx().getVid("_"+r+"_"+String.valueOf(f.nctx().saveRegCnt));
+            int vnow = f.nctx().getVid("_"+r+"_"+tail);
             f.nctx().uncache(vnow);
             bb.add(new MovLine(
                     new VirtualRegOperand(vnow),
@@ -195,11 +197,11 @@ public abstract class ASTBaseNode {
         }
     }
 
-    static public void loadCallerRegs(BasicBlock bb, Function f) {
+    static public void loadCallerRegs(BasicBlock bb, Function f, String tail) {
         // load regs
+        bb.add(new LabelLine(f.getLabel()+"_"+tail+"_load"));
         for (String r: Constants.callerRegs) {
-            int vnow = f.nctx().getVid("_"+r+"_"+String.valueOf(f.nctx().saveRegCnt));
-            f.nctx().saveRegCnt++;
+            int vnow = f.nctx().getVid("_"+r+"_"+tail);
             f.nctx().uncache(vnow);
             bb.add(new MovLine(
                     new RegOperand(r),

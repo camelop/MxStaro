@@ -44,7 +44,8 @@ public class AddNode extends BinaryOpNode {
         } else /*string type*/ {
             ArrayDeque<BasicBlock> ret = super.renderNasm(f);
             BasicBlock bb = new BasicBlock();
-            saveCallerRegs(bb,f);
+            String tail = f.nctx().getSaveRegCnt();
+            saveCallerRegs(bb, f, tail);
             int vop1 = f.nctx().getVid(op1()); f.nctx().uncache(vop1);
             int vop2 = f.nctx().getVid(op2()); f.nctx().uncache(vop2);
             // calc length
@@ -110,7 +111,7 @@ public class AddNode extends BinaryOpNode {
                     new VirtualRegOperand(vop2)
             ));
             bb.add(new CallLine("strcpy"));
-            loadCallerRegs(bb,f);
+            loadCallerRegs(bb, f, tail);
             f.nctx().setNodeVid(this, vdes);
             BasicBlock.dequeCombine(ret, bb);
             return ret;

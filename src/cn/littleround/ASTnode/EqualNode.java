@@ -52,7 +52,8 @@ public class EqualNode extends BinaryOpNode {
                     new VirtualRegOperand(f.nctx().getVid(op2()))
             ));
             //bb.add(new XorLine(new VirtualRegOperand(vid))); // xor change flags!!!
-            saveCallerRegs(bb,f);
+            String tail = f.nctx().getSaveRegCnt();
+            saveCallerRegs(bb,f, tail);
             f.nctx().uncache(f.nctx().getVid(op1()));
             f.nctx().uncache(f.nctx().getVid(op2()));
             f.nctx().uncache(vdes);
@@ -71,7 +72,7 @@ public class EqualNode extends BinaryOpNode {
             ));
             bb.add(new SetELine(new VirtualRegOperand(vdes)));
             bb.add(new AndLine(new VirtualRegOperand(vdes), new DecimalOperand(Constants.byteMask)));
-            loadCallerRegs(bb,f);
+            loadCallerRegs(bb,f,tail);
             f.nctx().setNodeVid(this ,vdes);
             BasicBlock.dequeCombine(ret, bb);
             return ret;

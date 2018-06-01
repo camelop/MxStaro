@@ -33,7 +33,8 @@ public class NewNode extends BinaryOpNode {
         bb.add(new MulLine(new VirtualRegOperand(vid), new DecimalOperand(width)));
         bb.add(new AddLine(new VirtualRegOperand(vid), new DecimalOperand(Constants.sizeOfReg)));
         // call malloc
-        saveCallerRegs(bb, f);
+        String tail = f.nctx().getSaveRegCnt();
+        saveCallerRegs(bb, f, tail);
         f.nctx().uncache(vid);
         bb.add(new MovLine(
                 new RegOperand("rdi"),
@@ -61,7 +62,7 @@ public class NewNode extends BinaryOpNode {
             ));
             bb.add(new CallLine(Constants.head+"_text_"+tan.getIdentifier()+"_"+tan.getIdentifier()));
         }
-        loadCallerRegs(bb, f);
+        loadCallerRegs(bb, f, tail);
         // set return new value
         f.nctx().setNodeVid(this, vdes);
         BasicBlock.dequeCombine(ret, bb);

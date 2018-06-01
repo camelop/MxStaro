@@ -135,13 +135,14 @@ public class Constants {
             ));
             add(new AndLine(
                     new RegOperand("rax"),
-                    new DecimalOperand(Constants.wordMask)
+                    new DecimalOperand(Constants.byteMask)
             ));
             add(new RetLine());
         }});
         put(head+"_text_built_in_array_size", new ArrayList<BaseLine>(){{
             add(new LabelLine(head+"_text_built_in_array_size"));
             add(new MovLine(new RegOperand("rax"), new MemRegOperand(new RegOperand("rdi"))));
+            add(new AndLine(new RegOperand("rax"), new DecimalOperand(Constants.dwordMask)));
             add(new RetLine());
         }});
         put(head+"_text__printf", new ArrayList<BaseLine>(){{
@@ -181,6 +182,7 @@ public class Constants {
             add(new MovLine(new RegOperand("rdi"), new DecimalOperand(Constants.sizeOfReg)));
             add(new CallLine("malloc"));
             // rbx=rax, rdi=@format, rsi=rax, rdx=0, call scanf
+            add(new AndLine(new RegOperand("rax"), new DecimalOperand(Constants.dwordMask)));
             add(new MovLine(new RegOperand("rbx"), new RegOperand("rax")));
             add(new MovLine(new RegOperand("rdi"), new SymbleOperand(head+"_text__getInt_format")));
             add(new MovLine(new RegOperand("rsi"), new RegOperand("rax")));

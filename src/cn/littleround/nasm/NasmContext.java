@@ -22,7 +22,7 @@ public class NasmContext {
     private int breakId = 0;
     private int continueId = 0;
     private int newId = 0;
-    public int saveRegCnt = 0;
+    private int saveRegId = 0;
 
     private String scopeHead = "";
 
@@ -185,6 +185,10 @@ public class NasmContext {
     public String getNewCnt() {
         newId++;
         return "new"+String.valueOf(newId-1);
+    }
+    public String getSaveRegCnt() {
+        saveRegId++;
+        return "saveReg"+String.valueOf(saveRegId-1);
     }
 
 

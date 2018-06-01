@@ -113,7 +113,8 @@ public class ParenthesisOpNode extends BinaryOpNode {
                 }
             }
             // save regs
-            saveCallerRegs(bb, f);
+            String tail = f.nctx().getSaveRegCnt();
+            saveCallerRegs(bb, f, tail);
             // check align
             if (align) {
                 bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
@@ -133,7 +134,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
             ));
             f.nctx().setNodeVid(this, vid);
             // load regs
-            loadCallerRegs(bb, f);
+            loadCallerRegs(bb, f, tail);
             // add bb
             if (ret.size() == 0) {
                 ret.add(bb);
@@ -164,8 +165,9 @@ public class ParenthesisOpNode extends BinaryOpNode {
                     ++cnt;
                 }
             }
+            String tail = f.nctx().getSaveRegCnt();
             // save regs
-            saveCallerRegs(bb, f);
+            saveCallerRegs(bb, f, tail);
             // check align
             if (align) {
                 bb.add(new SubLine(new RegOperand("rsp"), new DecimalOperand(downArea)));
@@ -184,7 +186,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
             ));
             f.nctx().setNodeVid(this, vid);
             // load regs
-            loadCallerRegs(bb, f);
+            loadCallerRegs(bb, f, tail);
             // add bb
             if (ret.size() == 0) {
                 ret.add(bb);

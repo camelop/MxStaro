@@ -1,10 +1,13 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
+import cn.littleround.nasm.Instruction.AndLine;
 import cn.littleround.nasm.Instruction.MovLine;
 import cn.littleround.nasm.Instruction.MulLine;
 import cn.littleround.nasm.Instruction.SubLine;
+import cn.littleround.nasm.Operand.DecimalOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
 import java.util.ArrayDeque;
@@ -19,6 +22,7 @@ public class MultiplyNode extends IntBinaryOpNode {
         BasicBlock bb = new BasicBlock();
         bb.add(new MovLine(vt, vl));
         bb.add(new MulLine(vt, vr));
+        bb.add(new AndLine(vt, new DecimalOperand(Constants.dwordMask)));
         f.nctx().setNodeVid(this, vt.getVid());
         BasicBlock.dequeCombine(ret, bb);
         return ret;
