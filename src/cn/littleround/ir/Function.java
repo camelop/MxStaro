@@ -234,7 +234,7 @@ public abstract class Function {
 
         //reportUnusedVRs();
         //reportDependency();
-        // color(Constants.assignableRegs.length);
+        color(Constants.assignableRegs.length);
 
         for (int i=0; i<nasmCtx.countVid(); ++i) {
             int nwColor = dependGraph[i+Constants.virtualRegOperandIdOffset].color;
