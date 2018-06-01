@@ -69,8 +69,9 @@ public class ParenthesisOpNode extends BinaryOpNode {
             IdentifierNode idn = (IdentifierNode) op1();
             funcLabel = Constants.head+"_text__"+idn.getIdentifier();
         }
-        ArrayDeque<BasicBlock> ret = op2().renderNasm(f);
+        ArrayDeque<BasicBlock> ret;
         if (isClassFuncCall()) {
+            ret = op2().renderNasm(f);
             if (ret.size() > 0) {
                 BasicBlock.dequeCombine(ret, op1().renderNasm(f));
             } else {
@@ -142,6 +143,45 @@ public class ParenthesisOpNode extends BinaryOpNode {
                 BasicBlock.dequeCombine(ret, bb);
             }
         } else {
+            // a global func call
+
+            // special optim for built-in function (I hate to write this... It's not elegant...
+            if (op1() instanceof IdentifierNode) {
+                if (((IdentifierNode) op1()).getIdentifier().equals("print")) {
+                    if (op2().getSons().get(0) instanceof AddNode) {
+                        ParenthesisOpNode lhs = new ParenthesisOpNode();
+                        ArgumentListNode lhsl = new ArgumentListNode();
+                        lhsl.addSon(op2().getSons().get(0).getSons().get(0));
+                        lhs.addSon(op1()); lhs.addSon(lhsl);
+                        ret = lhs.renderNasm(f);
+
+                        ParenthesisOpNode rhs = new ParenthesisOpNode();
+                        ArgumentListNode rhsl = new ArgumentListNode();
+                        rhsl.addSon(op2().getSons().get(0).getSons().get(0));
+                        rhs.addSon(op1()); rhs.addSon(rhsl);
+                        BasicBlock.dequeCombine(ret, rhs.renderNasm(f));
+                    }
+                }
+                if (((IdentifierNode) op1()).getIdentifier().equals("println")) {
+                    if (op2().getSons().get(0) instanceof AddNode) {
+                        IdentifierNode printNode = new IdentifierNode("print");
+                        ParenthesisOpNode lhs = new ParenthesisOpNode();
+                        ArgumentListNode lhsl = new ArgumentListNode();
+                        lhsl.addSon(op2().getSons().get(0).getSons().get(0));
+                        lhs.addSon(printNode); lhs.addSon(lhsl);
+                        ret = lhs.renderNasm(f);
+
+                        ParenthesisOpNode rhs = new ParenthesisOpNode();
+                        ArgumentListNode rhsl = new ArgumentListNode();
+                        rhsl.addSon(op2().getSons().get(0).getSons().get(0));
+                        rhs.addSon(op1()); rhs.addSon(rhsl);
+                        BasicBlock.dequeCombine(ret, rhs.renderNasm(f));
+                    }
+                }
+            }
+
+            // continue normal conditions..
+            ret = op2().renderNasm(f);
             BasicBlock bb = new BasicBlock(f.getLabel() + "_" + f.nctx().getCallCnt());
             // fill in args
             int cnt = 0;

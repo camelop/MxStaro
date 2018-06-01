@@ -1,4 +1,4 @@
 int main() {
-	println("too young too simple.");
+	println("too young too simple."+"naive");
 	return 123;
 }
