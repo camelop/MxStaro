@@ -98,17 +98,17 @@ public class Program {
             f.collectBB();
         }
     }
-    private void eraseUnusedVirtualRegs() {
+    private void rearrangeVR() {
         for (Function f:funcs) {
             if (Constants.libFunc.containsKey(f.getLabel())) continue;
-            f.eraseUnusedVirtualRegs();
+            f.rearrangeVR();
         }
     }
 
     public void convert() throws Exception {
         convertIR();
         collectBB();
-        //eraseUnusedVirtualRegs();
+        //rearrangeVR();
     }
 
     public void optimize() {

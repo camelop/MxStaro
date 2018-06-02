@@ -6,7 +6,6 @@ import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.NasmContext;
 import cn.littleround.nasm.Operand.*;
-import javafx.util.Pair;
 
 import java.util.*;
 
@@ -93,7 +92,6 @@ public abstract class Function {
         for (BasicBlock bb: cfg) {
             if (lastbb == null) {
                 valid.add(bb);
-                lastbb = bb;
             } else {
                 if (lastbb.endsWithJmp()) {
                     if (lastbb.lastJump() instanceof RetLine) {
@@ -118,6 +116,7 @@ public abstract class Function {
                     valid.add(bb);
                 }
             }
+            lastbb = bb;
         }
         lastbb.next = new ArrayList<BasicBlock>();
         // delete unused bb
@@ -128,18 +127,18 @@ public abstract class Function {
         cfg = newCfg;
     }
 
-    public void eraseUnusedVirtualRegs() {
+    public void rearrangeVR() {
         ArrayDeque<BasicBlock> newCfg = new ArrayDeque<BasicBlock>();
         for (BasicBlock bb: cfg) {
-            newCfg.add(eraseUnusedVirtualRegsInBlock(bb));
+            newCfg.add(rearrange(bb));
         }
         cfg = newCfg;
     }
 
-    private BasicBlock eraseUnusedVirtualRegsInBlock(BasicBlock oldBB) {
+    private BasicBlock rearrange(BasicBlock oldBB) {
         BasicBlock ret = new BasicBlock();
-        HashSet<Integer> _in = new HashSet<Integer>();
-        HashSet<Integer> _out = new HashSet<Integer>();
+        HashSet<BaseLine> _in = new HashSet<BaseLine>();
+        HashSet<BaseLine> _out = new HashSet<BaseLine>();
         for (BaseLine line:oldBB.getLines()) {
 
         }

@@ -52,7 +52,7 @@ public class Constants {
     public final static int callConvReservRegsLen = 6;
     public final static String[] assignableRegs = new String[]{
             //"rcx", "rbx", "rsi", "rdi", "r8", "r9", "r12", "r13", "r14", "r15"
-            "rbx", "r12", "r13", "r14", "r15"
+            "rbp", "rbx", "r12", "r13", "r14", "r15"
             //"r12", "r13", "r14", "r15"
     };
     public final static String head = "";// "MxStaro";
