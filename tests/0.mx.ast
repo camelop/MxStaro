@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){println("too young too simple."+"naive");println("with "+("all "+"respect ")+"too young too simple."+"naive");return123;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){print("via "+"gzo"+"tpa");println("ha "+"gzo"+"tpa2");return123;}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -79,32 +79,30 @@
                     -ArgumentListNode (void)			// "%s\n",str
                         -StringLiteralNode (string)			// "%s\n"
                         -IdentifierNode (string)			// str
-    -FuncDefinitionNode (void)			// intmain(){println("too young too simple."+"naive");println("with "+("all "+"respect ")+"too young too simple."+"naive");return123;}
+    -FuncDefinitionNode (void)			// intmain(){print("via "+"gzo"+"tpa");println("ha "+"gzo"+"tpa2");return123;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {println("too young too simple."+"naive");println("with "+("all "+"respect ")+"too young too simple."+"naive");return123;}
-            -StatementNode (void)			// println("too young too simple."+"naive");
-                -ParenthesisOpNode (void)			// println("too young too simple."+"naive")
+        -BlockNode (void)			// {print("via "+"gzo"+"tpa");println("ha "+"gzo"+"tpa2");return123;}
+            -StatementNode (void)			// print("via "+"gzo"+"tpa");
+                -ParenthesisOpNode (void)			// print("via "+"gzo"+"tpa")
+                    -IdentifierNode (BaseType)			// print
+                    -ArgumentListNode (void)			// "via "+"gzo"+"tpa"
+                        -AddNode (string)			// "via "+"gzo"+"tpa"
+                            -AddNode (string)			// "via "+"gzo"
+                                -StringLiteralNode (string)			// "via "
+                                -StringLiteralNode (string)			// "gzo"
+                            -StringLiteralNode (string)			// "tpa"
+            -StatementNode (void)			// println("ha "+"gzo"+"tpa2");
+                -ParenthesisOpNode (void)			// println("ha "+"gzo"+"tpa2")
                     -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// "too young too simple."+"naive"
-                        -AddNode (string)			// "too young too simple."+"naive"
-                            -StringLiteralNode (string)			// "too young too simple."
-                            -StringLiteralNode (string)			// "naive"
-            -StatementNode (void)			// println("with "+("all "+"respect ")+"too young too simple."+"naive");
-                -ParenthesisOpNode (void)			// println("with "+("all "+"respect ")+"too young too simple."+"naive")
-                    -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// "with "+("all "+"respect ")+"too young too simple."+"naive"
-                        -AddNode (string)			// "with "+("all "+"respect ")+"too young too simple."+"naive"
-                            -AddNode (string)			// "with "+("all "+"respect ")+"too young too simple."
-                                -AddNode (string)			// "with "+("all "+"respect ")
-                                    -StringLiteralNode (string)			// "with "
-                                    -AddNode (string)			// ("all "+"respect ")
-                                        -StringLiteralNode (string)			// "all "
-                                        -StringLiteralNode (string)			// "respect "
-                                -StringLiteralNode (string)			// "too young too simple."
-                            -StringLiteralNode (string)			// "naive"
+                    -ArgumentListNode (void)			// "ha "+"gzo"+"tpa2"
+                        -AddNode (string)			// "ha "+"gzo"+"tpa2"
+                            -AddNode (string)			// "ha "+"gzo"
+                                -StringLiteralNode (string)			// "ha "
+                                -StringLiteralNode (string)			// "gzo"
+                            -StringLiteralNode (string)			// "tpa2"
             -ReturnNode (void)			// return123;
                 -ConstantNode (int)			// 123

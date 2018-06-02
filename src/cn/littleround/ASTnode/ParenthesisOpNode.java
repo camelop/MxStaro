@@ -157,7 +157,7 @@ public class ParenthesisOpNode extends BinaryOpNode {
 
                         ParenthesisOpNode rhs = new ParenthesisOpNode();
                         ArgumentListNode rhsl = new ArgumentListNode();
-                        rhsl.addSon(op2().getSons().get(0).getSons().get(0));
+                        rhsl.addSon(op2().getSons().get(0).getSons().get(1));
                         rhs.addSon(op1()); rhs.addSon(rhsl);
                         BasicBlock.dequeCombine(ret, rhs.renderNasm(f));
                     }
@@ -173,9 +173,10 @@ public class ParenthesisOpNode extends BinaryOpNode {
 
                         ParenthesisOpNode rhs = new ParenthesisOpNode();
                         ArgumentListNode rhsl = new ArgumentListNode();
-                        rhsl.addSon(op2().getSons().get(0).getSons().get(0));
+                        rhsl.addSon(op2().getSons().get(0).getSons().get(1));
                         rhs.addSon(op1()); rhs.addSon(rhsl);
                         BasicBlock.dequeCombine(ret, rhs.renderNasm(f));
+                        return ret;
                     }
                 }
             }

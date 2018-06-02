@@ -1,5 +1,5 @@
 int main() {
-	println("too young too simple."+"naive");
-	println("with "+("all "+"respect ")+"too young too simple."+"naive");
-	return 123;
+    print("via "+"gzo"+"tpa");
+    println("ha "+"gzo"+"tpa2");
+    return 123;
 }
