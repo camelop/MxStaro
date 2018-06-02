@@ -38,7 +38,7 @@ public class IfNode extends StatementNode {
         f.nctx().enterScope();
         ret.add(new BasicBlock(ifLabel+"_init"));
         // first check
-        if (condition() instanceof CompareBinaryOpNode && !(((CompareBinaryOpNode) condition()).type instanceof StringType)) {
+        if (condition() instanceof CompareBinaryOpNode && !(((CompareBinaryOpNode) condition()).op1().type instanceof StringType)) {
             CompareBinaryOpNode cbon = (CompareBinaryOpNode) condition();
             BasicBlock.dequeCombine(ret, cbon.op1().renderNasm(f));
             VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(cbon.op1())); vl.isDWORD=true;

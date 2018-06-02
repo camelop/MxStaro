@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intmain(){intk;k=getInt();print("p cnf ");println(toString(k*2+1)+" "+toString(k));inti;intlast;last=1;stringt;for(i=0;i<k;++i){t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2));if(i%100000==0){println(t);}last=last+2;}return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}stringA;stringB;stringC;intN;stringcalc(stringA){intlen=A.length();if(1==len)returnA;intmid=len/2;stringL=calc(A.substring(0,mid-1));stringR=calc(A.substring(mid,len-1));if(L<R)returnL+R;elseif(L==R){intl=L.ord(0);intr=R.ord(0);if(l<r)returnL+R;returnR+L;}elseif(L>R)returnR+L;println("Never Ever!");}intmain(){A=getString();B=getString();N=B.parseInt();if(A.length()<N){println("length error!");return0;}C=calc(A.substring(0,N-1));println(C);return0;}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -79,125 +79,219 @@
                     -ArgumentListNode (void)			// "%s\n",str
                         -StringLiteralNode (string)			// "%s\n"
                         -IdentifierNode (string)			// str
-    -FuncDefinitionNode (void)			// intmain(){intk;k=getInt();print("p cnf ");println(toString(k*2+1)+" "+toString(k));inti;intlast;last=1;stringt;for(i=0;i<k;++i){t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2));if(i%100000==0){println(t);}last=last+2;}return0;}
+    -DeclarationNode (void)			// stringA;
+        -TypeNode (void)			// string
+            -TypeAttributeNode (void)			// string
+        -DeclaratorListNode (void)			// A
+            -InitDeclaratorNode (void)			// A
+                -DeclaratorNode (void)			// A
+    -DeclarationNode (void)			// stringB;
+        -TypeNode (void)			// string
+            -TypeAttributeNode (void)			// string
+        -DeclaratorListNode (void)			// B
+            -InitDeclaratorNode (void)			// B
+                -DeclaratorNode (void)			// B
+    -DeclarationNode (void)			// stringC;
+        -TypeNode (void)			// string
+            -TypeAttributeNode (void)			// string
+        -DeclaratorListNode (void)			// C
+            -InitDeclaratorNode (void)			// C
+                -DeclaratorNode (void)			// C
+    -DeclarationNode (void)			// intN;
+        -TypeNode (void)			// int
+            -TypeAttributeNode (void)			// int
+        -DeclaratorListNode (void)			// N
+            -InitDeclaratorNode (void)			// N
+                -DeclaratorNode (void)			// N
+    -FuncDefinitionNode (void)			// stringcalc(stringA){intlen=A.length();if(1==len)returnA;intmid=len/2;stringL=calc(A.substring(0,mid-1));stringR=calc(A.substring(mid,len-1));if(L<R)returnL+R;elseif(L==R){intl=L.ord(0);intr=R.ord(0);if(l<r)returnL+R;returnR+L;}elseif(L>R)returnR+L;println("Never Ever!");}
+        -TypeNode (void)			// string
+            -TypeAttributeNode (void)			// string
+        -FuncDeclaratorNode (void)			// calc(stringA)
+            -DeclaratorNode (void)			// calc
+            -ArgumentTypeListNode (void)			// stringA
+                -ArgumentDeclarationNode (void)			// stringA
+                    -TypeNode (void)			// string
+                        -TypeAttributeNode (void)			// string
+                    -DeclaratorNode (void)			// A
+        -BlockNode (void)			// {intlen=A.length();if(1==len)returnA;intmid=len/2;stringL=calc(A.substring(0,mid-1));stringR=calc(A.substring(mid,len-1));if(L<R)returnL+R;elseif(L==R){intl=L.ord(0);intr=R.ord(0);if(l<r)returnL+R;returnR+L;}elseif(L>R)returnR+L;println("Never Ever!");}
+            -DeclarationNode (void)			// intlen=A.length();
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// len=A.length()
+                    -InitDeclaratorNode (void)			// len=A.length()
+                        -DeclaratorNode (void)			// len
+                        -ParenthesisOpNode (int)			// A.length()
+                            -DotOpNode (BaseType)			// A.length
+                                -IdentifierNode (string)			// A
+                            -ArgumentListNode (void)
+            -IfNode (void)			// if(1==len)returnA;
+                -EqualNode (bool)			// 1==len
+                    -ConstantNode (int)			// 1
+                    -IdentifierNode (int)			// len
+                -ReturnNode (void)			// returnA;
+                    -IdentifierNode (string)			// A
+            -DeclarationNode (void)			// intmid=len/2;
+                -TypeNode (void)			// int
+                    -TypeAttributeNode (void)			// int
+                -DeclaratorListNode (void)			// mid=len/2
+                    -InitDeclaratorNode (void)			// mid=len/2
+                        -DeclaratorNode (void)			// mid
+                        -DivideNode (int)			// len/2
+                            -IdentifierNode (int)			// len
+                            -ConstantNode (int)			// 2
+            -DeclarationNode (void)			// stringL=calc(A.substring(0,mid-1));
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// L=calc(A.substring(0,mid-1))
+                    -InitDeclaratorNode (void)			// L=calc(A.substring(0,mid-1))
+                        -DeclaratorNode (void)			// L
+                        -ParenthesisOpNode (string)			// calc(A.substring(0,mid-1))
+                            -IdentifierNode (BaseType)			// calc
+                            -ArgumentListNode (void)			// A.substring(0,mid-1)
+                                -ParenthesisOpNode (string)			// A.substring(0,mid-1)
+                                    -DotOpNode (BaseType)			// A.substring
+                                        -IdentifierNode (string)			// A
+                                    -ArgumentListNode (void)			// 0,mid-1
+                                        -ConstantNode (int)			// 0
+                                        -SubNode (int)			// mid-1
+                                            -IdentifierNode (int)			// mid
+                                            -ConstantNode (int)			// 1
+            -DeclarationNode (void)			// stringR=calc(A.substring(mid,len-1));
+                -TypeNode (void)			// string
+                    -TypeAttributeNode (void)			// string
+                -DeclaratorListNode (void)			// R=calc(A.substring(mid,len-1))
+                    -InitDeclaratorNode (void)			// R=calc(A.substring(mid,len-1))
+                        -DeclaratorNode (void)			// R
+                        -ParenthesisOpNode (string)			// calc(A.substring(mid,len-1))
+                            -IdentifierNode (BaseType)			// calc
+                            -ArgumentListNode (void)			// A.substring(mid,len-1)
+                                -ParenthesisOpNode (string)			// A.substring(mid,len-1)
+                                    -DotOpNode (BaseType)			// A.substring
+                                        -IdentifierNode (string)			// A
+                                    -ArgumentListNode (void)			// mid,len-1
+                                        -IdentifierNode (int)			// mid
+                                        -SubNode (int)			// len-1
+                                            -IdentifierNode (int)			// len
+                                            -ConstantNode (int)			// 1
+            -IfNode (void)			// if(L<R)returnL+R;elseif(L==R){intl=L.ord(0);intr=R.ord(0);if(l<r)returnL+R;returnR+L;}elseif(L>R)returnR+L;
+                -LessThanNode (bool)			// L<R
+                    -IdentifierNode (string)			// L
+                    -IdentifierNode (string)			// R
+                -ReturnNode (void)			// returnL+R;
+                    -AddNode (string)			// L+R
+                        -IdentifierNode (string)			// L
+                        -IdentifierNode (string)			// R
+                -IfNode (void)			// if(L==R){intl=L.ord(0);intr=R.ord(0);if(l<r)returnL+R;returnR+L;}elseif(L>R)returnR+L;
+                    -EqualNode (bool)			// L==R
+                        -IdentifierNode (string)			// L
+                        -IdentifierNode (string)			// R
+                    -BlockNode (void)			// {intl=L.ord(0);intr=R.ord(0);if(l<r)returnL+R;returnR+L;}
+                        -DeclarationNode (void)			// intl=L.ord(0);
+                            -TypeNode (void)			// int
+                                -TypeAttributeNode (void)			// int
+                            -DeclaratorListNode (void)			// l=L.ord(0)
+                                -InitDeclaratorNode (void)			// l=L.ord(0)
+                                    -DeclaratorNode (void)			// l
+                                    -ParenthesisOpNode (int)			// L.ord(0)
+                                        -DotOpNode (BaseType)			// L.ord
+                                            -IdentifierNode (string)			// L
+                                        -ArgumentListNode (void)			// 0
+                                            -ConstantNode (int)			// 0
+                        -DeclarationNode (void)			// intr=R.ord(0);
+                            -TypeNode (void)			// int
+                                -TypeAttributeNode (void)			// int
+                            -DeclaratorListNode (void)			// r=R.ord(0)
+                                -InitDeclaratorNode (void)			// r=R.ord(0)
+                                    -DeclaratorNode (void)			// r
+                                    -ParenthesisOpNode (int)			// R.ord(0)
+                                        -DotOpNode (BaseType)			// R.ord
+                                            -IdentifierNode (string)			// R
+                                        -ArgumentListNode (void)			// 0
+                                            -ConstantNode (int)			// 0
+                        -IfNode (void)			// if(l<r)returnL+R;
+                            -LessThanNode (bool)			// l<r
+                                -IdentifierNode (int)			// l
+                                -IdentifierNode (int)			// r
+                            -ReturnNode (void)			// returnL+R;
+                                -AddNode (string)			// L+R
+                                    -IdentifierNode (string)			// L
+                                    -IdentifierNode (string)			// R
+                        -ReturnNode (void)			// returnR+L;
+                            -AddNode (string)			// R+L
+                                -IdentifierNode (string)			// R
+                                -IdentifierNode (string)			// L
+                    -IfNode (void)			// if(L>R)returnR+L;
+                        -GreaterThanNode (bool)			// L>R
+                            -IdentifierNode (string)			// L
+                            -IdentifierNode (string)			// R
+                        -ReturnNode (void)			// returnR+L;
+                            -AddNode (string)			// R+L
+                                -IdentifierNode (string)			// R
+                                -IdentifierNode (string)			// L
+            -StatementNode (void)			// println("Never Ever!");
+                -ParenthesisOpNode (void)			// println("Never Ever!")
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// "Never Ever!"
+                        -StringLiteralNode (string)			// "Never Ever!"
+    -FuncDefinitionNode (void)			// intmain(){A=getString();B=getString();N=B.parseInt();if(A.length()<N){println("length error!");return0;}C=calc(A.substring(0,N-1));println(C);return0;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {intk;k=getInt();print("p cnf ");println(toString(k*2+1)+" "+toString(k));inti;intlast;last=1;stringt;for(i=0;i<k;++i){t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2));if(i%100000==0){println(t);}last=last+2;}return0;}
-            -DeclarationNode (void)			// intk;
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// k
-                    -InitDeclaratorNode (void)			// k
-                        -DeclaratorNode (void)			// k
-            -StatementNode (void)			// k=getInt();
-                -AssignNode (void)			// k=getInt()
-                    -IdentifierNode (int)			// k
-                    -ParenthesisOpNode (int)			// getInt()
-                        -IdentifierNode (BaseType)			// getInt
+        -BlockNode (void)			// {A=getString();B=getString();N=B.parseInt();if(A.length()<N){println("length error!");return0;}C=calc(A.substring(0,N-1));println(C);return0;}
+            -StatementNode (void)			// A=getString();
+                -AssignNode (void)			// A=getString()
+                    -IdentifierNode (string)			// A
+                    -ParenthesisOpNode (string)			// getString()
+                        -IdentifierNode (BaseType)			// getString
                         -ArgumentListNode (void)
-            -StatementNode (void)			// print("p cnf ");
-                -ParenthesisOpNode (void)			// print("p cnf ")
-                    -IdentifierNode (BaseType)			// print
-                    -ArgumentListNode (void)			// "p cnf "
-                        -StringLiteralNode (string)			// "p cnf "
-            -StatementNode (void)			// println(toString(k*2+1)+" "+toString(k));
-                -ParenthesisOpNode (void)			// println(toString(k*2+1)+" "+toString(k))
-                    -IdentifierNode (BaseType)			// println
-                    -ArgumentListNode (void)			// toString(k*2+1)+" "+toString(k)
-                        -AddNode (string)			// toString(k*2+1)+" "+toString(k)
-                            -AddNode (string)			// toString(k*2+1)+" "
-                                -ParenthesisOpNode (string)			// toString(k*2+1)
-                                    -IdentifierNode (BaseType)			// toString
-                                    -ArgumentListNode (void)			// k*2+1
-                                        -AddNode (int)			// k*2+1
-                                            -MultiplyNode (int)			// k*2
-                                                -IdentifierNode (int)			// k
-                                                -ConstantNode (int)			// 2
-                                            -ConstantNode (int)			// 1
-                                -StringLiteralNode (string)			// " "
-                            -ParenthesisOpNode (string)			// toString(k)
-                                -IdentifierNode (BaseType)			// toString
-                                -ArgumentListNode (void)			// k
-                                    -IdentifierNode (int)			// k
-            -DeclarationNode (void)			// inti;
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// i
-                    -InitDeclaratorNode (void)			// i
-                        -DeclaratorNode (void)			// i
-            -DeclarationNode (void)			// intlast;
-                -TypeNode (void)			// int
-                    -TypeAttributeNode (void)			// int
-                -DeclaratorListNode (void)			// last
-                    -InitDeclaratorNode (void)			// last
-                        -DeclaratorNode (void)			// last
-            -StatementNode (void)			// last=1;
-                -AssignNode (void)			// last=1
-                    -IdentifierNode (int)			// last
-                    -ConstantNode (int)			// 1
-            -DeclarationNode (void)			// stringt;
-                -TypeNode (void)			// string
-                    -TypeAttributeNode (void)			// string
-                -DeclaratorListNode (void)			// t
-                    -InitDeclaratorNode (void)			// t
-                        -DeclaratorNode (void)			// t
-            -ForNode (void)			// for(i=0;i<k;++i){t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2));if(i%100000==0){println(t);}last=last+2;}
-                -ForConditionNode (void)			// i=0;i<k;++i
-                    -AssignNode (void)			// i=0
-                        -IdentifierNode (int)			// i
+            -StatementNode (void)			// B=getString();
+                -AssignNode (void)			// B=getString()
+                    -IdentifierNode (string)			// B
+                    -ParenthesisOpNode (string)			// getString()
+                        -IdentifierNode (BaseType)			// getString
+                        -ArgumentListNode (void)
+            -StatementNode (void)			// N=B.parseInt();
+                -AssignNode (void)			// N=B.parseInt()
+                    -IdentifierNode (int)			// N
+                    -ParenthesisOpNode (int)			// B.parseInt()
+                        -DotOpNode (BaseType)			// B.parseInt
+                            -IdentifierNode (string)			// B
+                        -ArgumentListNode (void)
+            -IfNode (void)			// if(A.length()<N){println("length error!");return0;}
+                -LessThanNode (bool)			// A.length()<N
+                    -ParenthesisOpNode (int)			// A.length()
+                        -DotOpNode (BaseType)			// A.length
+                            -IdentifierNode (string)			// A
+                        -ArgumentListNode (void)
+                    -IdentifierNode (int)			// N
+                -BlockNode (void)			// {println("length error!");return0;}
+                    -StatementNode (void)			// println("length error!");
+                        -ParenthesisOpNode (void)			// println("length error!")
+                            -IdentifierNode (BaseType)			// println
+                            -ArgumentListNode (void)			// "length error!"
+                                -StringLiteralNode (string)			// "length error!"
+                    -ReturnNode (void)			// return0;
                         -ConstantNode (int)			// 0
-                    -LessThanNode (bool)			// i<k
-                        -IdentifierNode (int)			// i
-                        -IdentifierNode (int)			// k
-                    -PrefixAddNode (int)			// ++i
-                        -IdentifierNode (int)			// i
-                -BlockNode (void)			// {t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2));if(i%100000==0){println(t);}last=last+2;}
-                    -StatementNode (void)			// t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2));
-                        -AssignNode (void)			// t=toString(last)+" "+toString(last+1)+" "+toString(-(last+2))
-                            -IdentifierNode (string)			// t
-                            -AddNode (string)			// toString(last)+" "+toString(last+1)+" "+toString(-(last+2))
-                                -AddNode (string)			// toString(last)+" "+toString(last+1)+" "
-                                    -AddNode (string)			// toString(last)+" "+toString(last+1)
-                                        -AddNode (string)			// toString(last)+" "
-                                            -ParenthesisOpNode (string)			// toString(last)
-                                                -IdentifierNode (BaseType)			// toString
-                                                -ArgumentListNode (void)			// last
-                                                    -IdentifierNode (int)			// last
-                                            -StringLiteralNode (string)			// " "
-                                        -ParenthesisOpNode (string)			// toString(last+1)
-                                            -IdentifierNode (BaseType)			// toString
-                                            -ArgumentListNode (void)			// last+1
-                                                -AddNode (int)			// last+1
-                                                    -IdentifierNode (int)			// last
-                                                    -ConstantNode (int)			// 1
-                                    -StringLiteralNode (string)			// " "
-                                -ParenthesisOpNode (string)			// toString(-(last+2))
-                                    -IdentifierNode (BaseType)			// toString
-                                    -ArgumentListNode (void)			// -(last+2)
-                                        -UnaryNegativeNode (int)			// -(last+2)
-                                            -AddNode (int)			// (last+2)
-                                                -IdentifierNode (int)			// last
-                                                -ConstantNode (int)			// 2
-                    -IfNode (void)			// if(i%100000==0){println(t);}
-                        -EqualNode (bool)			// i%100000==0
-                            -ModuloNode (int)			// i%100000
-                                -IdentifierNode (int)			// i
-                                -ConstantNode (int)			// 100000
-                            -ConstantNode (int)			// 0
-                        -BlockNode (void)			// {println(t);}
-                            -StatementNode (void)			// println(t);
-                                -ParenthesisOpNode (void)			// println(t)
-                                    -IdentifierNode (BaseType)			// println
-                                    -ArgumentListNode (void)			// t
-                                        -IdentifierNode (string)			// t
-                    -StatementNode (void)			// last=last+2;
-                        -AssignNode (void)			// last=last+2
-                            -IdentifierNode (int)			// last
-                            -AddNode (int)			// last+2
-                                -IdentifierNode (int)			// last
-                                -ConstantNode (int)			// 2
+            -StatementNode (void)			// C=calc(A.substring(0,N-1));
+                -AssignNode (void)			// C=calc(A.substring(0,N-1))
+                    -IdentifierNode (string)			// C
+                    -ParenthesisOpNode (string)			// calc(A.substring(0,N-1))
+                        -IdentifierNode (BaseType)			// calc
+                        -ArgumentListNode (void)			// A.substring(0,N-1)
+                            -ParenthesisOpNode (string)			// A.substring(0,N-1)
+                                -DotOpNode (BaseType)			// A.substring
+                                    -IdentifierNode (string)			// A
+                                -ArgumentListNode (void)			// 0,N-1
+                                    -ConstantNode (int)			// 0
+                                    -SubNode (int)			// N-1
+                                        -IdentifierNode (int)			// N
+                                        -ConstantNode (int)			// 1
+            -StatementNode (void)			// println(C);
+                -ParenthesisOpNode (void)			// println(C)
+                    -IdentifierNode (BaseType)			// println
+                    -ArgumentListNode (void)			// C
+                        -IdentifierNode (string)			// C
             -ReturnNode (void)			// return0;
                 -ConstantNode (int)			// 0
