@@ -96,7 +96,9 @@ public abstract class Function {
                 lastbb = bb;
             } else {
                 if (lastbb.endsWithJmp()) {
-                    if (lastbb.lastJump() instanceof JmpLine) {
+                    if (lastbb.lastJump() instanceof RetLine) {
+                        lastbb.next = new ArrayList<BasicBlock>();
+                    } else if (lastbb.lastJump() instanceof JmpLine) {
                         // unconditional
                         lastbb.next = new ArrayList<BasicBlock>();
                         BasicBlock jmpToBB = getBasicBlockById.get(((JmpLine) lastbb.lastJump()).op1.toString());
@@ -127,10 +129,23 @@ public abstract class Function {
     }
 
     public void eraseUnusedVirtualRegs() {
+        ArrayDeque<BasicBlock> newCfg = new ArrayDeque<BasicBlock>();
         for (BasicBlock bb: cfg) {
+            newCfg.add(eraseUnusedVirtualRegsInBlock(bb));
+        }
+        cfg = newCfg;
+    }
+
+    private BasicBlock eraseUnusedVirtualRegsInBlock(BasicBlock oldBB) {
+        BasicBlock ret = new BasicBlock();
+        HashSet<Integer> _in = new HashSet<Integer>();
+        HashSet<Integer> _out = new HashSet<Integer>();
+        for (BaseLine line:oldBB.getLines()) {
 
         }
+        return ret;
     }
+
 
     public ArrayList<BaseLine> toLines() {
         if (Constants.libFunc.containsKey(label)) {

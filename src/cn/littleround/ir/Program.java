@@ -108,7 +108,7 @@ public class Program {
     public void convert() throws Exception {
         convertIR();
         collectBB();
-        eraseUnusedVirtualRegs();
+        //eraseUnusedVirtualRegs();
     }
 
     public void optimize() {
