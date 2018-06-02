@@ -6,6 +6,7 @@ import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.SymbleOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.type.BoolType;
+import cn.littleround.type.StringType;
 
 import java.util.ArrayDeque;
 
@@ -37,7 +38,7 @@ public class IfNode extends StatementNode {
         f.nctx().enterScope();
         ret.add(new BasicBlock(ifLabel+"_init"));
         // first check
-        if (condition() instanceof LessThanNode) {
+        if (condition() instanceof CompareBinaryOpNode && !(((CompareBinaryOpNode) condition()).type instanceof StringType)) {
             CompareBinaryOpNode cbon = (CompareBinaryOpNode) condition();
             BasicBlock.dequeCombine(ret, cbon.op1().renderNasm(f));
             VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(cbon.op1())); vl.isDWORD=true;
@@ -45,9 +46,15 @@ public class IfNode extends StatementNode {
             VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(cbon.op2())); vr.isDWORD=true;
             BasicBlock bb1 = new BasicBlock(ifLabel + "_check");
             bb1.add(new CmpLine(vl, vr));
-            bb1.add(new JgeLine(
-                    new SymbleOperand(ifLabel + "_else")
-            ));
+            if (cbon instanceof LessThanNode) {
+                bb1.add(new JgeLine(new SymbleOperand(ifLabel + "_else")));
+            } else if (cbon instanceof LessOrEqualThanNode) {
+                bb1.add(new JgLine(new SymbleOperand(ifLabel + "_else")));
+            } else if (cbon instanceof GreaterThanNode) {
+                bb1.add(new JleLine(new SymbleOperand(ifLabel + "_else")));
+            } else if (cbon instanceof GreaterOrEqualThanNode) {
+                bb1.add(new JlLine(new SymbleOperand(ifLabel + "_else")));
+            }
             BasicBlock.dequeCombine(ret, bb1);
         //} else if () {
         } else {

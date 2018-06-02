@@ -5,6 +5,7 @@ import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.SymbleOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
+import cn.littleround.type.StringType;
 
 import java.util.ArrayDeque;
 
@@ -43,7 +44,7 @@ public class ForNode extends LoopNode {
         BasicBlock.dequeCombine(ret, condition().e3().renderNasm(f));
         // check and jump
         BasicBlock bb2 = new BasicBlock();
-        if (condition().e2() instanceof CompareBinaryOpNode) {
+        if (condition().e2() instanceof CompareBinaryOpNode && !(((CompareBinaryOpNode) condition().e2()).op1().type instanceof StringType)) {
             CompareBinaryOpNode cbon = (CompareBinaryOpNode) condition().e2();
             BasicBlock.dequeCombine(ret, cbon.op1().renderNasm(f));
             BasicBlock.dequeCombine(ret, cbon.op2().renderNasm(f));
