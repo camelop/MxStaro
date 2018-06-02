@@ -364,7 +364,7 @@ public abstract class Function {
         PriorityQueue<_Seg> active = new PriorityQueue<>(new Comparator<_Seg>() {
             @Override
             public int compare(_Seg o1, _Seg o2) {
-                if (o1.pri != o2.pri) return o1.pri - o2.pri;
+                //if (o1.pri != o2.pri) return o1.pri - o2.pri;
                 return o1.end - o2.end;
             }
         });
