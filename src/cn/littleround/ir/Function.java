@@ -47,7 +47,6 @@ public abstract class Function {
     }
 
     public void convertNasm() throws Exception {
-        if (Constants.libFunc.containsKey(label)) return;
         cfg = new ArrayDeque<>();
         // only for [head]_text__main:
         if (label.equals(pg.getHead()+"_text__main")) {
@@ -105,7 +104,7 @@ public abstract class Function {
                     } else {
                         lastbb.next = new ArrayList<BasicBlock>();
                         lastbb.next.add(bb);
-                        BasicBlock jmpToBB = getBasicBlockById.get(((JmpLine) lastbb.lastJump()).op1.toString());
+                        BasicBlock jmpToBB = getBasicBlockById.get((lastbb.lastJump()).op1.toString());
                         lastbb.next.add(jmpToBB);
                         valid.add(jmpToBB);
                         valid.add(bb);
@@ -124,6 +123,10 @@ public abstract class Function {
             if (valid.contains(bb)) newCfg.add(bb);
         }
         cfg = newCfg;
+    }
+
+    public void eraseUnusedVirtualRegs() {
+
     }
 
     public ArrayList<BaseLine> toLines() {

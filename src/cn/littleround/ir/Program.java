@@ -79,20 +79,36 @@ public class Program {
                 }
             }
         }
-        for (Function f:funcs) f.convertNasm();
+        for (Function f:funcs) {
+            if (Constants.libFunc.containsKey(f.getLabel())) continue;
+            f.convertNasm();
+        }
     }
 
     private void regAlloc(){
-        for (Function f:funcs) f.regAlloc();
+        for (Function f:funcs) {
+            if (Constants.libFunc.containsKey(f.getLabel())) continue;
+            f.regAlloc();
+        }
     }
 
     private void collectBB() {
-        for (Function f:funcs) f.collectBB();
+        for (Function f:funcs) {
+            if (Constants.libFunc.containsKey(f.getLabel())) continue;
+            f.collectBB();
+        }
+    }
+    private void eraseUnusedVirtualRegs() {
+        for (Function f:funcs) {
+            if (Constants.libFunc.containsKey(f.getLabel())) continue;
+            f.eraseUnusedVirtualRegs();
+        }
     }
 
     public void convert() throws Exception {
         convertIR();
         collectBB();
+        eraseUnusedVirtualRegs();
     }
 
     public void optimize() {
