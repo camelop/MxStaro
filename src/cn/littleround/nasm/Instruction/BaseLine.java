@@ -25,6 +25,12 @@ public abstract class BaseLine implements Cloneable{
     public void setComment(String comment) {
         this.comment = comment;
     }
+    public String getComment() {
+        return this.comment;
+    }
+    public void appendComment(String comment) {
+        this.comment = this.comment + "; "+comment;
+    }
 
     protected String comment;
     public BaseOperand op1 = null;

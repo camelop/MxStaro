@@ -145,15 +145,18 @@ public abstract class Function {
                             && nw.op1.equals(line.op2) && !(nw.op2 instanceof MemOperand && line.op1 instanceof MemOperand)) {
                         //System.err.print(" "+nw.toString()+"+"+line.toString()+"=");
                         nw.op1 = line.op1;
+                        nw.appendComment(line.getComment());
                         //System.err.println(nw.toString());
                         continue;
                     }
                     if ((nw.op1.equals(line.op2)) && nw.op2.equals(line.op1)) {
+                        nw.appendComment(line.getComment());
                         // no need
                         continue;
                     }
                     if (!(line.op2 instanceof MemOperand)&&(nw.op1.equals(line.op1))) {
                         nw.op2 = line.op2;
+                        nw.appendComment(line.getComment());
                         continue;
                     }
                 }

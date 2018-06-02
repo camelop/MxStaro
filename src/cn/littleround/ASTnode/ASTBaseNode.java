@@ -186,6 +186,7 @@ public abstract class ASTBaseNode {
 
     static public void saveCallerRegs(BasicBlock bb, Function f, String tail) {
         // save regs
+        /*
         bb.add(new LabelLine(f.getLabel()+"_"+tail+"_save"));
         for (String r: Constants.callerRegs) {
             int vnow = f.nctx().getVid("_"+r+"_"+tail);
@@ -195,10 +196,12 @@ public abstract class ASTBaseNode {
                     new RegOperand(r)
             ));
         }
+        */
     }
 
     static public void loadCallerRegs(BasicBlock bb, Function f, String tail) {
         // load regs
+        /*
         bb.add(new LabelLine(f.getLabel()+"_"+tail+"_load"));
         for (String r: Constants.callerRegs) {
             int vnow = f.nctx().getVid("_"+r+"_"+tail);
@@ -208,6 +211,7 @@ public abstract class ASTBaseNode {
                     new VirtualRegOperand(vnow)
             ));
         }
+        */
     }
 
     public void replaceConstant() {
