@@ -14,7 +14,6 @@ import cn.littleround.type.StringType;
 import java.util.ArrayDeque;
 
 public class AddNode extends BinaryOpNode {
-    //TODO addVariable string
 
     @Override
     public void updateType() {

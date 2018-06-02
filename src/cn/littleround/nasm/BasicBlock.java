@@ -13,7 +13,7 @@ public class BasicBlock {
     private String label;
     private ArrayDeque<BaseLine> lines;
     static final ArrayList<BasicBlock> defaultNext = new ArrayList<>();
-    private ArrayList<BasicBlock> next = defaultNext;
+    public ArrayList<BasicBlock> next = defaultNext;
     public static void dequeCombine(ArrayDeque<BasicBlock> lhs, ArrayDeque<BasicBlock> rhs) {
         if (rhs.size() > 0) {
             if (lhs.getLast().endsWithJmp()) {
@@ -47,6 +47,11 @@ public class BasicBlock {
         return lines.getLast() instanceof ControlFlowLine;
     }
 
+    public ControlFlowLine lastJump() {
+        if (endsWithJmp()) return (ControlFlowLine) lines.getLast();
+        return null;
+    }
+
     public BasicBlock(String label) {
         this.label = label;
         lines = new ArrayDeque<>();
@@ -77,7 +82,7 @@ public class BasicBlock {
 
     public void add(BasicBlock bb) {
         next = bb.next;
-        label = label+"_WITH_"+bb.label;
+        label = label+"|"+bb.label;
         lines.addAll(bb.lines);
     }
 

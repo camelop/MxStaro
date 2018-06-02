@@ -100,7 +100,7 @@ public class GlobalRecord extends Record {
         return ret;
     }
 
-    /* TODO:
+    /*  Done:
         generate code ATTENTION! remember to handle init values (in InitDeclaratorNode)
         when encounter string init value, first scan all InitDeclaratorNode and store all String Constants.
     */

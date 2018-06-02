@@ -60,14 +60,76 @@ public abstract class Function {
         // construct cfg
         cfg.addAll(astSource.renderNasm(this));
         // reportVirtualReg();
-        // TODO make BasicBlock.next correct
+    }
+
+    public void collectBB() {
+        // make bb in cfg behave correctly
+        ArrayDeque<BasicBlock> newCfg = new ArrayDeque<>();
+        for (BasicBlock bb: cfg) {
+            if (newCfg.isEmpty()) {
+                newCfg.add(bb);
+            } else {
+                // Try merge
+                BasicBlock last = newCfg.getLast();
+                if (last.endsWithJmp()) {
+                    newCfg.add(bb);
+                } else {
+                    // merge two
+                    last.add(bb);
+                }
+            }
+        }
+        cfg = newCfg;
+        // scan bb label
+        HashMap<String, BasicBlock> getBasicBlockById = new HashMap<String, BasicBlock>();
+        for (BasicBlock bb: cfg) {
+            for (BaseLine line: bb.getLines()) {
+                if (line.hasLabel()) {
+                    getBasicBlockById.put(line.getLabel(), bb);
+                }
+            }
+        }
+        BasicBlock lastbb = null;
+        HashSet<BasicBlock> valid = new HashSet<BasicBlock>();
+        for (BasicBlock bb: cfg) {
+            if (lastbb == null) {
+                lastbb = bb;
+            } else {
+                if (lastbb.endsWithJmp()) {
+                    if (lastbb.lastJump() instanceof JmpLine) {
+                        // unconditional
+                        lastbb.next = new ArrayList<BasicBlock>();
+                        BasicBlock jmpToBB = getBasicBlockById.get(((JmpLine) lastbb.lastJump()).op1.toString());
+                        lastbb.next.add(jmpToBB);
+                        valid.add(jmpToBB);
+                    } else {
+                        lastbb.next = new ArrayList<BasicBlock>();
+                        lastbb.next.add(bb);
+                        BasicBlock jmpToBB = getBasicBlockById.get(((JmpLine) lastbb.lastJump()).op1.toString());
+                        lastbb.next.add(jmpToBB);
+                        valid.add(jmpToBB);
+                        valid.add(bb);
+                    }
+                } else {
+                    lastbb.next = new ArrayList<BasicBlock>();
+                    lastbb.next.add(bb);
+                    valid.add(bb);
+                }
+            }
+        }
+        lastbb.next = new ArrayList<BasicBlock>();
+        // delete unused bb
+        newCfg = new ArrayDeque<BasicBlock>();
+        for (BasicBlock bb: cfg) {
+            if (valid.contains(bb)) newCfg.add(bb);
+        }
+        cfg = newCfg;
     }
 
     public ArrayList<BaseLine> toLines() {
         if (Constants.libFunc.containsKey(label)) {
             return Constants.libFunc.get(label);
         }
-        //TODO arrange cfg basic blocks, but for now, output it all
         // create a head label
         BasicBlock head;
         if (label.equals(pg.getHead()+"_text__main")) {
@@ -106,15 +168,6 @@ public abstract class Function {
                     ((MemRegOperand) line.op2).addOffset(nasmCtx.getRspOffset());
                 }
                 if (line.isVirtual()) {
-                    // eliminate useless lines, some how damaged...... useless...
-                    /*
-                    if (line.op1 instanceof VirtualRegOperand) {
-                        if (!visited.contains(((VirtualRegOperand) line.op1).getVid()+Constants.virtualRegOperandIdOffset)) continue;
-                    }
-                    if (line.op2 instanceof VirtualRegOperand) {
-                        if (!visited.contains(((VirtualRegOperand) line.op2).getVid()+Constants.virtualRegOperandIdOffset)) continue;
-                    }*/
-
                     for (BaseLine nline: line.render(this)) {
                         ret.add(nline);
                     }

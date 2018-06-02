@@ -56,7 +56,6 @@ public class AssignNode extends BinaryOpNode {
             } else {
                 if (((IdentifierNode) op1()).isClassIdentifier()) {
                     // add thisNode
-                    //TODO TODO TODO
                     DotOpNode don = new DotOpNode();
                     don.setSymbolTable(getSymbolTable());
                     don.setIdentifier(((IdentifierNode) op1()).getIdentifier());
@@ -86,6 +85,5 @@ public class AssignNode extends BinaryOpNode {
         }
         BasicBlock.dequeCombine(ret, bb);
         return ret;
-        // TODO othercase?
     }
 }

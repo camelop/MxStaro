@@ -68,7 +68,6 @@ public class NewNode extends BinaryOpNode {
         BasicBlock.dequeCombine(ret, bb);
         // suger
         if (tan.getPointerExpressionList().size() > 1 && !(tan.getPointerExpressionList().get(1) instanceof EmptyExpressionNode)) {
-            //TODO: construct safe loops
             /*
              *vdes is the base loc
              *int[][][][] a = new int[5][5][5][];

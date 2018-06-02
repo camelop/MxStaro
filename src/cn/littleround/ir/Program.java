@@ -86,9 +86,13 @@ public class Program {
         for (Function f:funcs) f.regAlloc();
     }
 
+    private void collectBB() {
+        for (Function f:funcs) f.collectBB();
+    }
+
     public void convert() throws Exception {
-        //TODO
         convertIR();
+        collectBB();
     }
 
     public void optimize() {
