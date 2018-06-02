@@ -11,9 +11,18 @@ import java.util.Collection;
 
 public class BasicBlock {
     private String label;
+
+
     private ArrayDeque<BaseLine> lines;
     static final ArrayList<BasicBlock> defaultNext = new ArrayList<>();
     public ArrayList<BasicBlock> next = defaultNext;
+
+    public BasicBlock(BasicBlock bb) {
+        label = bb.label;
+        lines = new ArrayDeque<BaseLine>();
+        next = bb.next;
+    }
+
     public static void dequeCombine(ArrayDeque<BasicBlock> lhs, ArrayDeque<BasicBlock> rhs) {
         if (rhs.size() > 0) {
             if (lhs.getLast().endsWithJmp()) {
@@ -92,4 +101,7 @@ public class BasicBlock {
         }
     }
 
+    public void setLines(ArrayDeque<BaseLine> lines) {
+        this.lines = lines;
+    }
 }

@@ -104,6 +104,12 @@ public class Program {
             f.rearrangeVR();
         }
     }
+    private void removeCallSave() {
+        for (Function f:funcs) {
+            if (Constants.libFunc.containsKey(f.getLabel())) continue;
+            f.removeCallSave();
+        }
+    }
 
     public void convert() throws Exception {
         convertIR();
@@ -113,6 +119,8 @@ public class Program {
 
     public void optimize() {
         regAlloc();
+        for (Function f:funcs) f.lines = f.toLines();
+        removeCallSave();
     }
 
     public String generateNasmCode() {

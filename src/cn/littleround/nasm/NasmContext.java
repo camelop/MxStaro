@@ -12,6 +12,11 @@ import java.util.Stack;
 
 public class NasmContext {
     private int vid = 0;
+
+    public int getRetId() {
+        return retId;
+    }
+
     private int retId = 0;
     private int addId = 0;
     private int callId = 0;
@@ -68,12 +73,15 @@ public class NasmContext {
     }
 
     public int getRspOffset() {
-        if (vid%2 == 1) {
-            return vid * Constants.sizeOfReg;
+        if (realVid%2 == 1) {
+            return realVid * Constants.sizeOfReg;
         } else {
-            return (vid+1) * Constants.sizeOfReg;
+            return (realVid+1) * Constants.sizeOfReg;
         }
     }
+
+    public int realVid = -1;
+
     private Stack<Integer> loopId = new Stack<>();
     public void enterLoop() {
         loopId.push(forId-1);

@@ -17,6 +17,7 @@ public abstract class Function {
     protected String label;
     protected FuncDefinitionNode astSource;
     protected ArrayList<String> callList;
+    public ArrayList<BaseLine> lines;
 
     public Program getProgram() {
         return pg;
@@ -139,6 +140,7 @@ public abstract class Function {
         BasicBlock ret = new BasicBlock();
         HashSet<BaseLine> _in = new HashSet<BaseLine>();
         HashSet<BaseLine> _out = new HashSet<BaseLine>();
+        ArrayList<BaseLine> fromTo;
         for (BaseLine line:oldBB.getLines()) {
 
         }
@@ -239,6 +241,29 @@ public abstract class Function {
         return ret2;
     }
 
+    public void removeCallSave() {
+        for (String r:Constants.callConvReservRegs) {
+            int leastAppears = 2+nasmCtx.getRetId();
+            HashSet<BaseLine> damagedLine = new HashSet<BaseLine>();
+            int nwId = BaseLine.toId(new RegOperand(r)).get(0);
+            for (BaseLine line:lines) {
+                if (line.getDes().contains(nwId) || line.getSrc().contains(nwId)) {
+                    damagedLine.add(line);
+                    --leastAppears;
+                }
+            }
+            assert leastAppears <= 0;
+            if (leastAppears == 0) {
+                // should be eliminated
+                ArrayList<BaseLine> newLines = new ArrayList<BaseLine>();
+                for (BaseLine line: lines) {
+                    if (!damagedLine.contains(line)) newLines.add(line);
+                }
+                lines = newLines;
+            }
+        }
+    }
+
     private _GraphNode[] dependGraph = null;
     HashSet<Integer> visited = new HashSet<>();
     public void regAlloc() {
@@ -310,14 +335,16 @@ public abstract class Function {
         //reportDependency();
         color(Constants.assignableRegs.length);
 
+        nasmCtx.realVid = 0;
         for (int i=0; i<nasmCtx.countVid(); ++i) {
             int nwColor = dependGraph[i+Constants.virtualRegOperandIdOffset].color;
             if (nwColor != -1) {
                 nasmCtx.assign(i, new RegOperand(Constants.assignableRegs[nwColor]));
             } else {
                 MemRegOperand mro = new MemRegOperand(new RegOperand("rsp"));
-                mro.setOffset(i*8);
+                mro.setOffset(nasmCtx.realVid * 8);
                 nasmCtx.assign(i, mro);
+                nasmCtx.realVid += 1;
             }
         }
     }

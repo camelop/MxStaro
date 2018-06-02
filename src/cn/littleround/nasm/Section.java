@@ -16,7 +16,7 @@ public class Section {
         title = ".text";
         lines = new ArrayList<>();
         for (Function f: funcs) {
-            lines.addAll(f.toLines());
+            lines.addAll(f.lines);
             lines.add(new EmptyLine());
         }
     }
