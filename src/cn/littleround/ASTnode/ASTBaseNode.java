@@ -213,6 +213,12 @@ public abstract class ASTBaseNode {
         }
         */
     }
+    public boolean containCall() {
+        for (ASTBaseNode i:sons) {
+            if (i.containCall()) return true;
+        }
+        return false;
+    }
 
     public void replaceConstant() {
         ArrayList<ASTBaseNode> newSons = new ArrayList<ASTBaseNode>();
@@ -225,6 +231,10 @@ public abstract class ASTBaseNode {
             }
         }
         sons = newSons;
+    }
+
+    public void inline() {
+        for (ASTBaseNode son : sons) son.inline();
     }
 
     private ConstantNode toConstant() {

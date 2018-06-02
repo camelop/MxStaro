@@ -2,10 +2,7 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
-import cn.littleround.nasm.Instruction.CmpLine;
-import cn.littleround.nasm.Instruction.JeLine;
-import cn.littleround.nasm.Instruction.JneLine;
-import cn.littleround.nasm.Instruction.MovLine;
+import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.SymbleOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 
@@ -46,15 +43,35 @@ public class ForNode extends LoopNode {
         BasicBlock.dequeCombine(ret, condition().e3().renderNasm(f));
         // check and jump
         BasicBlock bb2 = new BasicBlock();
-        BasicBlock.dequeCombine(ret, condition().e2().renderNasm(f));
-        vRegE2 = new VirtualRegOperand(f.nctx().getVid(condition().e2())); //again
-        vRegE2.isBYTE = true;
-        bb2.add(new CmpLine(
-                vRegE2
-        ));
-        bb2.add(new JneLine(
-                new SymbleOperand(forLabel+"_start")
-        ));
+        if (condition().e2() instanceof CompareBinaryOpNode) {
+            CompareBinaryOpNode cbon = (CompareBinaryOpNode) condition().e2();
+            BasicBlock.dequeCombine(ret, cbon.op1().renderNasm(f));
+            BasicBlock.dequeCombine(ret, cbon.op2().renderNasm(f));
+            VirtualRegOperand vll = new VirtualRegOperand(f.nctx().getVid(cbon.op1()));
+            vll.isDWORD = true;
+            VirtualRegOperand vrr = new VirtualRegOperand(f.nctx().getVid(cbon.op2()));
+            vrr.isDWORD = true;
+            bb2.add(new CmpLine(vll, vrr));
+            if (cbon instanceof LessThanNode) {
+                bb2.add(new JlLine(new SymbleOperand(forLabel + "_start")));
+            } else if (cbon instanceof LessOrEqualThanNode) {
+                bb2.add(new JleLine(new SymbleOperand(forLabel + "_start")));
+            } else if (cbon instanceof GreaterThanNode) {
+                bb2.add(new JgLine(new SymbleOperand(forLabel + "_start")));
+            } else if (cbon instanceof GreaterOrEqualThanNode) {
+                bb2.add(new JgeLine(new SymbleOperand(forLabel + "_start")));
+            }
+        } else {
+            BasicBlock.dequeCombine(ret, condition().e2().renderNasm(f));
+            vRegE2 = new VirtualRegOperand(f.nctx().getVid(condition().e2())); //again
+            vRegE2.isBYTE = true;
+            bb2.add(new CmpLine(
+                    vRegE2
+            ));
+            bb2.add(new JneLine(
+                    new SymbleOperand(forLabel+"_start")
+            ));
+        }
         BasicBlock.dequeCombine(ret, bb2);
         f.nctx().leaveLoop();
         // add end block

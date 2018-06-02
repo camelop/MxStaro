@@ -2,10 +2,7 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
-import cn.littleround.nasm.Instruction.CmpLine;
-import cn.littleround.nasm.Instruction.JeLine;
-import cn.littleround.nasm.Instruction.JmpLine;
-import cn.littleround.nasm.Instruction.JneLine;
+import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.SymbleOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.type.BoolType;
@@ -40,19 +37,34 @@ public class IfNode extends StatementNode {
         f.nctx().enterScope();
         ret.add(new BasicBlock(ifLabel+"_init"));
         // first check
-        BasicBlock.dequeCombine(ret, condition().renderNasm(f));
-        VirtualRegOperand vCond = new VirtualRegOperand(f.nctx().getVid(condition()));
-        vCond.isBYTE = true;
-        BasicBlock bb1 = new BasicBlock(ifLabel+"_check");
-        bb1.add(new CmpLine(
-                vCond
-        ));
-        bb1.add(new JeLine(
-                new SymbleOperand(ifLabel+"_else")
-        ));
-        BasicBlock.dequeCombine(ret, bb1);
-        f.nctx().enterIf();
+        if (condition() instanceof LessThanNode) {
+            CompareBinaryOpNode cbon = (CompareBinaryOpNode) condition();
+            BasicBlock.dequeCombine(ret, cbon.op1().renderNasm(f));
+            VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(cbon.op1())); vl.isDWORD=true;
+            BasicBlock.dequeCombine(ret, cbon.op2().renderNasm(f));
+            VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(cbon.op2())); vr.isDWORD=true;
+            BasicBlock bb1 = new BasicBlock(ifLabel + "_check");
+            bb1.add(new CmpLine(vl, vr));
+            bb1.add(new JgeLine(
+                    new SymbleOperand(ifLabel + "_else")
+            ));
+            BasicBlock.dequeCombine(ret, bb1);
+        //} else if () {
+        } else {
+            BasicBlock.dequeCombine(ret, condition().renderNasm(f));
+            VirtualRegOperand vCond = new VirtualRegOperand(f.nctx().getVid(condition()));
+            vCond.isBYTE = true;
+            BasicBlock bb1 = new BasicBlock(ifLabel + "_check");
+            bb1.add(new CmpLine(
+                    vCond
+            ));
+            bb1.add(new JeLine(
+                    new SymbleOperand(ifLabel + "_else")
+            ));
+            BasicBlock.dequeCombine(ret, bb1);
+        }
         // run block
+        f.nctx().enterIf();
         ret.add(new BasicBlock(ifLabel+"_start"));
         BasicBlock.dequeCombine(ret, getSons().get(1).renderNasm(f));
         // jump to end
