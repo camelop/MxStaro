@@ -92,6 +92,7 @@ public abstract class Function {
         HashSet<BasicBlock> valid = new HashSet<BasicBlock>();
         for (BasicBlock bb: cfg) {
             if (lastbb == null) {
+                valid.add(bb);
                 lastbb = bb;
             } else {
                 if (lastbb.endsWithJmp()) {
@@ -126,7 +127,9 @@ public abstract class Function {
     }
 
     public void eraseUnusedVirtualRegs() {
+        for (BasicBlock bb: cfg) {
 
+        }
     }
 
     public ArrayList<BaseLine> toLines() {
@@ -171,9 +174,7 @@ public abstract class Function {
                     ((MemRegOperand) line.op2).addOffset(nasmCtx.getRspOffset());
                 }
                 if (line.isVirtual()) {
-                    for (BaseLine nline: line.render(this)) {
-                        ret.add(nline);
-                    }
+                    ret.addAll(line.render(this));
                 } else ret.add(line);
             }
             ret.add(new CommentLine("----------------------------------]"));
