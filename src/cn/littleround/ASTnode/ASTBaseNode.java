@@ -17,8 +17,9 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
-public abstract class ASTBaseNode {
+public abstract class ASTBaseNode implements Cloneable{
 
     private ASTBaseNode parent = null;
     private ArrayList<ASTBaseNode> sons = new ArrayList<>();
@@ -233,11 +234,69 @@ public abstract class ASTBaseNode {
         sons = newSons;
     }
 
-    public void inline() {
-        for (ASTBaseNode son : sons) son.inline();
+
+    // no use, broken
+    public void inline(CompilationNode root) throws CloneNotSupportedException {
+        HashMap<ASTBaseNode, ASTBaseNode> replace = new HashMap<ASTBaseNode, ASTBaseNode>();
+        for (ASTBaseNode son : sons) {
+            if (son instanceof ParenthesisOpNode && ((ParenthesisOpNode) son).op1() instanceof IdentifierNode) {
+                //find associated function and check if inlinable(!containCall)
+                //clone it and replace all arguments
+                //TODO TODO
+                ParenthesisOpNode pon = ((ParenthesisOpNode) son);
+                FuncDefinitionNode f = root.findFunctionFDN(((IdentifierNode) pon.op1()).getIdentifier());
+                if (!f.containCall() && !Constants.builtInList.contains(f.getIdentifier())) {
+                    BlockNode bn = (BlockNode) f.block().clone();
+                    ArrayList<String> before = new ArrayList<String>();
+                    ArrayList<String> after = new ArrayList<String>();
+                    System.err.println(f.toTreeString(2,4));
+                    for (ASTBaseNode i: f.funcDeclarator().argTypeList().getSons()) {
+                        ArgumentDeclarationNode adn = (ArgumentDeclarationNode) i;
+                        before.add(adn.getIdentifer());
+                    }
+                    ArgumentListNode aln = (ArgumentListNode) pon.op2();
+                    for (ASTBaseNode i: aln.getSons()) {
+                        after.add(((IdentifierNode)i).getIdentifier());
+                    }
+                    assert before.size() == after.size();
+                    for (int i=0; i<before.size(); ++i) {
+                        bn.replaceIdentifier(before.get(i), after.get(i));
+                    }
+                    replace.put(son, bn);
+                }
+            }
+        }
+        if (!replace.isEmpty()) {
+            ArrayList<ASTBaseNode> newSons = new ArrayList<ASTBaseNode>();
+            for (ASTBaseNode son:sons) {
+                if (replace.containsKey(son)) {
+                    newSons.add(replace.get(son));
+                } else {
+                    newSons.add(son);
+                }
+            }
+            sons = newSons;
+        }
+        for (ASTBaseNode son:sons) {
+            son.inline(root);
+        }
     }
 
     private ConstantNode toConstant() {
         return null;
+    }
+
+    @Override
+    protected ASTBaseNode clone() throws CloneNotSupportedException {
+        ASTBaseNode ret = (ASTBaseNode) super.clone();
+        ret.sons = new ArrayList<ASTBaseNode>();
+        for (ASTBaseNode i:sons) {
+            ret.addSon(i.clone());
+        }
+        return ret;
+    }
+
+    public void replaceIdentifier(String before, String after) {
+        for (ASTBaseNode i:sons) i.replaceIdentifier(before, after);
     }
 }

@@ -4,12 +4,9 @@ import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.MovLine;
-import cn.littleround.nasm.Operand.GlobalVariableOperand;
 import cn.littleround.nasm.Operand.MemSymOperand;
 import cn.littleround.nasm.Operand.VirtualRegOperand;
 import cn.littleround.symbol.*;
-import cn.littleround.type.FuncType;
-import cn.littleround.type.KlassType;
 import cn.littleround.type.UserDefinedType;
 
 import java.util.ArrayDeque;
@@ -17,42 +14,42 @@ import java.util.ArrayDeque;
 public class IdentifierNode extends ExpressionNode {
     private Symbol def;
 
-    private String Identifier;
+    private String identifier;
 
     public String getIdentifier() {
-        return Identifier;
+        return identifier;
     }
 
     public void setIdentifier(String identifier) {
-        Identifier = identifier;
+        this.identifier = identifier;
     }
 
     public IdentifierNode(String identifier) {
-        Identifier = identifier;
+        this.identifier = identifier;
     }
 
     @Override
     public void updateType() {
         super.updateType();
-        def = getSymbolTable().getSymbol(Identifier);
+        def = getSymbolTable().getSymbol(identifier);
         //System.out.println(getSymbolTable().toInfoString());
-        if (Identifier.startsWith("_")) {
-            reportError("Syntax", "Identifier start with \'_\'.");
+        if (identifier.startsWith("_")) {
+            reportError("Syntax", "identifier start with \'_\'.");
         }
         if (def == null) {
-            reportError("Semantic", "Can't resolve symbol \'"+Identifier+"\'.");
+            reportError("Semantic", "Can't resolve symbol \'"+ identifier +"\'.");
         }
         if (def instanceof VariableSymbol && isSonOf(def.getSrc())) {
-            reportError("Semantic", "Self reference \'"+Identifier+"\'."); //BUG? self ref !!!
+            reportError("Semantic", "Self reference \'"+ identifier +"\'."); //BUG? self ref !!!
         }
         type = symbolToType(def);
     }
 
     public void updateTypeToFunc() {
-        def = getSymbolTable().getFuncSymbol(Identifier);
+        def = getSymbolTable().getFuncSymbol(identifier);
         //System.out.println(getSymbolTable().toInfoString());
         if (def == null) {
-            reportError("Semantic", "Can't resolve symbol \'"+Identifier+"\'.");
+            reportError("Semantic", "Can't resolve symbol \'"+ identifier +"\'.");
         }
         type = symbolToType(def);
     }
@@ -73,11 +70,11 @@ public class IdentifierNode extends ExpressionNode {
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         ArrayDeque<BasicBlock> ret = new ArrayDeque<>();
         BasicBlock bb = new BasicBlock();
-        if (f.nctx().contains(Identifier)) {
+        if (f.nctx().contains(identifier)) {
             // local variable
-            f.nctx().setNodeVid(this, f.nctx().getVid(Identifier));
+            f.nctx().setNodeVid(this, f.nctx().getVid(identifier));
         } else {
-            //System.err.println(Identifier+" : "+String.valueOf(isClassIdentifier()));
+            //System.err.println(identifier+" : "+String.valueOf(isClassIdentifier()));
             if (isClassIdentifier()){
                 // add thisNode
                 DotOpNode don = new DotOpNode();
@@ -94,12 +91,18 @@ public class IdentifierNode extends ExpressionNode {
                 f.nctx().damage(newVid);
                 bb.add(new MovLine(
                         new VirtualRegOperand(newVid),
-                        new MemSymOperand(Constants.head + "_data_bss_" + Identifier)
+                        new MemSymOperand(Constants.head + "_data_bss_" + identifier)
                 ));
                 f.nctx().setNodeVid(this, newVid);
             }
         }
         ret.add(bb);
         return ret;
+    }
+
+    @Override
+    public void replaceIdentifier(String before, String after) {
+        if (identifier.equals(before)) identifier = after;
+        super.replaceIdentifier(before, after);
     }
 }

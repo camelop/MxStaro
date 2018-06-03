@@ -123,7 +123,6 @@ public class Main {
             root.createSymbolTable();
             root.updateType();
             root.checkType();
-            root.inline();
         } catch (Exception e) {
             e.printStackTrace();
             ASTBaseNode.setFailed(true);

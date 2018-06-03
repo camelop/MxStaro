@@ -7,6 +7,7 @@ import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.NasmContext;
 import cn.littleround.nasm.Operand.*;
 
+import javax.swing.plaf.basic.BasicLabelUI;
 import java.util.*;
 
 public abstract class Function {
@@ -16,7 +17,7 @@ public abstract class Function {
 
     protected String label;
     protected FuncDefinitionNode astSource;
-    protected ArrayList<String> callList;
+    protected HashSet<String> callList;
     public ArrayList<BaseLine> lines;
 
     public Program getProgram() {
@@ -128,23 +129,128 @@ public abstract class Function {
         cfg = newCfg;
     }
 
-    public void rearrangeVR() {
-        ArrayDeque<BasicBlock> newCfg = new ArrayDeque<BasicBlock>();
+    public void collectCalls() {
+        callList = new HashSet<String>();
         for (BasicBlock bb: cfg) {
-            newCfg.add(rearrange(bb));
+            for (BaseLine line: bb.getLines()) {
+                if (line instanceof CallLine) {
+                    callList.add(line.getLabel());
+                }
+            }
         }
-        cfg = newCfg;
+        //reportCollectCalls();
+    }
+
+    private void reportCollectCalls() {
+        System.err.println(getLabel()+": "+callList.toString());
+    }
+
+    public void rearrangeVR() {
+        for (BasicBlock bb: cfg) {
+            ArrayDeque<BaseLine> newLines = new ArrayDeque<BaseLine>();
+            BasicBlock nwBB = null;
+            for (BaseLine line:bb.getLines()) {
+                if (nwBB == null) {
+                    nwBB = new BasicBlock();
+                    nwBB.add(line);
+                } else {
+                    if (line instanceof ControlFlowLine
+                            || line instanceof LabelLine
+                            || line instanceof CmpLine
+                            || line instanceof SetLine) {
+                        newLines.addAll(rearrange(nwBB).getLines());
+                        nwBB = new BasicBlock();
+                        nwBB.add(line);
+                    } else {
+                        nwBB.add(line);
+                    }
+                }
+            }
+            if (nwBB != null) {
+                newLines.addAll(rearrange(nwBB).getLines());
+            }
+            bb.setLines(newLines);
+        }
     }
 
     private BasicBlock rearrange(BasicBlock oldBB) {
+        System.err.println("Receive "+String.valueOf(oldBB.getLines().size()));
         BasicBlock ret = new BasicBlock();
-        HashSet<BaseLine> _in = new HashSet<BaseLine>();
-        HashSet<BaseLine> _out = new HashSet<BaseLine>();
-        ArrayList<BaseLine> fromTo;
+        HashMap<Integer, _LineNode> output = new HashMap<Integer, _LineNode>();
+        HashSet<_LineNode> useful = new HashSet<_LineNode>();
+        int usefulCnt = 0;
         for (BaseLine line:oldBB.getLines()) {
-
+            ArrayList<Integer> nwOut = line.getDes();
+            _LineNode nw = new _LineNode(line);
+            if (line instanceof ControlFlowLine) useful.add(nw);
+            for (int i:line.getSrc()) {
+                if (output.containsKey(i)) {
+                    nw._from.add(output.get(i));
+                    output.get(i)._to.add(nw);
+                }
+            }
+            for (int i:line.getDes()) {
+                output.put(i, nw);
+            }
         }
+        for (Map.Entry<Integer, _LineNode> e: output.entrySet()) {
+            useful.add(e.getValue());
+        }
+        ArrayList<_LineNode> wk = new ArrayList<_LineNode>(useful);
+        for (int i=0; i<wk.size(); ++i) {
+            _LineNode nw = wk.get(i);
+            for (_LineNode from:nw._from) {
+                if (!useful.contains(from)) {
+                    useful.add(from);
+                    wk.add(from);
+                }
+            }
+            nw.nReq = nw._from.size();
+        }
+        wk = new ArrayList<_LineNode>();
+        for (_LineNode nw:useful) {
+            if (nw.nReq == 0) {
+                ret.add(nw.line);
+                wk.add(nw);
+                nw.nReq--;
+            }
+        }
+        for (int i=0; i<wk.size(); ++i) {
+            _LineNode nw = wk.get(i);
+            for (_LineNode to:nw._to) {
+                --to.nReq;
+                if (to.nReq == 0) {
+                    ret.add(to.line);
+                    wk.add(to);
+                }
+            }
+        }
+        System.err.println("Return "+String.valueOf(ret.getLines().size()));
         return ret;
+    }
+
+    static int inlineCnt = 0;
+    public void expandCalls(HashMap<String ,ArrayList<BaseLine>> dic) {
+        ArrayList<BaseLine> newLines = new ArrayList<BaseLine>();
+        for (BaseLine line: lines) {
+            if (line instanceof CallLine && dic.containsKey(line.getLabel())) {
+                String label = Constants.head+"_expand_"+line.getLabel()+String.valueOf(inlineCnt);
+                ++inlineCnt;
+                newLines.add(new LabelLine(label+"_start"));
+                for (BaseLine rline: dic.get(line.getLabel())) {
+                    //TODO ERROR LABELS!!!!
+                    if (rline instanceof RetLine) {
+                        newLines.add(new JmpLine(new SymbleOperand(label+"_end")));
+                    } else {
+                        newLines.add(rline);
+                    }
+                }
+                newLines.add(new LabelLine(label+"_end"));
+            } else {
+                newLines.add(line);
+            }
+        }
+        lines = newLines;
     }
 
 
@@ -204,40 +310,40 @@ public abstract class Function {
 
     private ArrayList<BaseLine> optimCombineR1011(ArrayList<BaseLine> ret) {
         ArrayList<BaseLine> ret2 = new ArrayList<BaseLine>();
-        BaseLine nw = null;
+        BaseLine last = null;
         for (BaseLine line: ret) {
             if (line instanceof EmptyLine || (line instanceof LabelLine && line.getLabel() == null))
                 continue;
-            if (nw == null) {
+            if (last == null) {
                 if (line.hasLabel()) ret2.add(line); else {
-                    nw = line;
+                    last = line;
                 }
             } else {
-                if (nw instanceof MovLine && line instanceof MovLine) {
-                    if ((nw.op1.toString().equals("r10") || nw.op1.toString().equals("r11"))
-                            && nw.op1.equals(line.op2) && !(nw.op2 instanceof MemOperand && line.op1 instanceof MemOperand)) {
-                        //System.err.print(" "+nw.toString()+"+"+line.toString()+"=");
-                        nw.op1 = line.op1;
-                        nw.appendComment(line.getComment());
-                        //System.err.println(nw.toString());
+                if (last instanceof MovLine && line instanceof MovLine) {
+                    if ((last.op1.toString().equals("r10") || last.op1.toString().equals("r11"))
+                            && last.op1.equals(line.op2) && !(last.op2 instanceof MemOperand && line.op1 instanceof MemOperand)) {
+                        //System.err.print(" "+last.toString()+"+"+line.toString()+"=");
+                        last.op1 = line.op1;
+                        last.appendComment(line.getComment());
+                        //System.err.println(last.toString());
                         continue;
                     }
-                    if ((nw.op1.equals(line.op2)) && nw.op2.equals(line.op1)) {
-                        nw.appendComment(line.getComment());
+                    if ((last.op1.equals(line.op2)) && last.op2.equals(line.op1)) {
+                        last.appendComment(line.getComment());
                         // no need
                         continue;
                     }
-                    if (!(line.op2 instanceof MemOperand)&&(nw.op1.equals(line.op1))) {
-                        nw.op2 = line.op2;
-                        nw.appendComment(line.getComment());
+                    if (!(line.op2 instanceof MemOperand)&&(last.op1.equals(line.op1))) {
+                        last.op2 = line.op2;
+                        last.appendComment(line.getComment());
                         continue;
                     }
                 }
-                ret2.add(nw);
-                nw = line;
+                ret2.add(last);
+                last = line;
             }
         }
-        if (nw != null) ret2.add(nw);
+        if (last != null) ret2.add(last);
         return ret2;
     }
 
@@ -364,7 +470,7 @@ public abstract class Function {
         PriorityQueue<_Seg> active = new PriorityQueue<>(new Comparator<_Seg>() {
             @Override
             public int compare(_Seg o1, _Seg o2) {
-                //if (o1.pri != o2.pri) return o1.pri - o2.pri;
+                if (o1.pri != o2.pri) return o1.pri - o2.pri;
                 return o1.end - o2.end;
             }
         });
@@ -480,5 +586,16 @@ class _LoopHandler{
 
     public _LoopHandler(int start) {
         this.start = start;
+    }
+}
+
+class _LineNode{
+    public BaseLine line;
+    public ArrayList<_LineNode> _to = new ArrayList<>();
+    public ArrayList<_LineNode> _from = new ArrayList<>();
+    int nReq;
+
+    public _LineNode(BaseLine line) {
+        this.line = line;
     }
 }

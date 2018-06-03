@@ -30,6 +30,7 @@ public class NasmContext {
     private int saveRegId = 0;
 
     private String scopeHead = "";
+    private HashSet<Integer> temp = new HashSet<Integer>();
 
     private HashSet<Integer> unCacheable = new HashSet<>();
 
@@ -212,6 +213,7 @@ public class NasmContext {
     }
 
     public int getVid() {
+        temp.add(vid);
         vid++;
         return vid-1;
     }

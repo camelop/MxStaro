@@ -36,4 +36,16 @@ public class CompilationNode extends ASTBaseNode {
             i.updateSymbolTable();
         }
     }
+
+    public FuncDefinitionNode findFunctionFDN(String s) {
+
+        for (ASTBaseNode i: getSons()) {
+            if (i instanceof FuncDefinitionNode) {
+                if (((FuncDefinitionNode) i).getIdentifier().equals(s)) {
+                    return (FuncDefinitionNode) i;
+                }
+            }
+        }
+        return null;
+    }
 }

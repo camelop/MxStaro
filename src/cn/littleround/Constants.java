@@ -9,6 +9,7 @@ import cn.littleround.type.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Constants {
     public final static int True = 0xff;
@@ -48,7 +49,8 @@ public class Constants {
     public final static int callConvRegsLen = 6;
     public final static String[] callConvReservRegs = new String[]{"rbp", "rbx", "r12", "r13", "r14", "r15"};
     public final static String[] funcDesRegs = new String[]{"rax", "rbp", "rbx", "r12", "r13", "r14", "r15"};
-    public final static int defaultStringLimit = 512;
+    public final static int defaultStringLimit = 257;
+    public final static int defaultIntToStringLimit = 12;
     public final static int callConvReservRegsLen = 6;
     public final static String[] assignableRegs = new String[]{
             //"rcx", "rbx", "rsi", "rdi", "r8", "r9", "r12", "r13", "r14", "r15"
@@ -69,6 +71,9 @@ public class Constants {
                 return 0;
         }
     }
+    public final static HashSet<String> builtInList = new HashSet<String>() {{
+        add("printf"); add("getString"); add("getInt"); add("toString");
+    }};
     public final static HashMap<String, ArrayList<BaseLine>> libFunc = new HashMap<String, ArrayList<BaseLine>>(){{
         put(head+"_text_built_in_string_length", new ArrayList<BaseLine>(){{
             add(new LabelLine(head+"_text_built_in_string_length"));
@@ -203,7 +208,7 @@ public class Constants {
             add(new PushLine(new RegOperand("rbx")));
             // rbx=rdi, rdi=@limit, malloc
             add(new MovLine(new RegOperand("rbx"), new RegOperand("rdi")));
-            add(new MovLine(new RegOperand("rdi"), new DecimalOperand(Constants.defaultStringLimit)));
+            add(new MovLine(new RegOperand("rdi"), new DecimalOperand(Constants.defaultIntToStringLimit)));
             add(new CallLine("malloc"));
             // r12=rax, rdi=rax, rsi=@format, rdx=rbx, rcx=0, call sprintf
             add(new MovLine(new RegOperand("r12"), new RegOperand("rax")));

@@ -78,12 +78,14 @@ public abstract class BaseLine implements Cloneable{
         sb.append(sep);
         if (comment != null) sb.append("; ");
         if (comment != null) sb.append(comment);
+        //sb.append(";--_From"+getSrc().toString()+"  ;--_TO"+getDes().toString());
         sb.append(System.lineSeparator());
 
         return sb.toString();
     }
 
     static public ArrayList<Integer> toId(BaseOperand op) {
+        if (op == null) return new ArrayList<Integer>();
         if (op instanceof ImmOperand) return new ArrayList<Integer>();
         if (op instanceof MemOperand) {
             ArrayList<Integer> ret = new ArrayList<Integer>(){{add(Constants.memOperandId);}};

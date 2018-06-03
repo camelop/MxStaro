@@ -23,31 +23,8 @@ public class CallLine extends ControlFlowLine {
         return "call";
     }
 
-    @Override
-    public ArrayList<Integer> getSrc() {
-        return new ArrayList<Integer>(){{
-            addAll(toId(new RegOperand("rdi")));
-            addAll(toId(new RegOperand("rsi")));
-            addAll(toId(new RegOperand("rdx")));
-            addAll(toId(new RegOperand("rcx")));
-            addAll(toId(new RegOperand("r8")));
-            addAll(toId(new RegOperand("r9")));
-            addAll(toId(op1));
-        }};
+    public String getLabel() {
+        return op1.toString();
     }
 
-    @Override
-    public ArrayList<Integer> getDes() {
-        return new ArrayList<Integer>(){{
-            addAll(toId(new RegOperand("rax")));
-            addAll(toId(new RegOperand("rdi")));
-            addAll(toId(new RegOperand("rsi")));
-            addAll(toId(new RegOperand("rdx")));
-            addAll(toId(new RegOperand("rcx")));
-            addAll(toId(new RegOperand("r8")));
-            addAll(toId(new RegOperand("r9")));
-            addAll(toId(new RegOperand("r10")));
-            addAll(toId(new RegOperand("r11")));
-        }};
-    }
 }

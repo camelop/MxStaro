@@ -3,9 +3,11 @@ package cn.littleround.ir;
 import cn.littleround.ASTnode.*;
 import cn.littleround.Constants;
 import cn.littleround.nasm.Directives;
+import cn.littleround.nasm.Instruction.BaseLine;
 import cn.littleround.nasm.Section;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Program {
 
@@ -111,9 +113,27 @@ public class Program {
         }
     }
 
+    private void collectCalls() {
+        for (Function f:funcs) {
+            if (Constants.libFunc.containsKey(f.getLabel())) continue;
+            f.collectCalls();
+        }
+    }
+
+    private void expandCalls() {
+        HashMap<String, ArrayList<BaseLine>> nw = new HashMap<String, ArrayList<BaseLine>>();
+        for (Function f:funcs) {
+            nw.put(f.getLabel(), f.lines);
+        }
+        for (Function f:funcs) {
+            f.expandCalls(nw);
+        }
+    }
+
     public void convert() throws Exception {
         convertIR();
         collectBB();
+        collectCalls();
         //rearrangeVR();
     }
 
@@ -121,6 +141,7 @@ public class Program {
         regAlloc();
         for (Function f:funcs) f.lines = f.toLines();
         removeCallSave();
+        //expandCalls();
     }
 
     public String generateNasmCode() {
