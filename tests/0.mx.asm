@@ -212,8 +212,7 @@ _text__exchange:
               mov     r12            , [_data_bss_a]  ; null; save->v8
               mov     r13            , rbp            ; load->v6; null; save->v9
               mov     r10            , r13            ; load->v9
-              imul    r10            , 8              
-              mov     r13            , r10            ; save->v9; load->v9
+              sal     r10            , 3              ; from imul              mov     r13            , r10            ; save->v9; load->v9
               add     r10            , 8              
               mov     r13            , r10            ; save->v9; load->v9
               mov     r11            , r12            ; load->v8
@@ -225,8 +224,7 @@ _text__exchange:
               mov     r12            , [_data_bss_a]  ; null; save->v12
               mov     r14            , rbx            ; load->v7; null; save->v13
               mov     r10            , r14            ; load->v13
-              imul    r10            , 8              
-              mov     r14            , r10            ; save->v13; load->v13
+              sal     r10            , 3              ; from imul              mov     r14            , r10            ; save->v13; load->v13
               add     r10            , 8              
               mov     r14            , r10            ; save->v13; load->v13
               mov     r11            , r12            ; load->v12
@@ -237,8 +235,7 @@ _text__exchange:
               mov     r14            , [_data_bss_a]  ; null; save->v15
               mov     r15            , rbp            ; load->v6; null; save->v16
               mov     r10            , r15            ; load->v16
-              imul    r10            , 8              
-              mov     r15            , r10            ; save->v16; load->v16
+              sal     r10            , 3              ; from imul              mov     r15            , r10            ; save->v16; load->v16
               add     r10            , 8              
               mov     r15            , r10            ; save->v16; load->v16
               mov     r11            , r14            ; load->v15
@@ -251,8 +248,7 @@ _text__exchange:
               mov     rbp            , [_data_bss_a]  ; null; save->v18
               mov     r12            , rbx            ; load->v7; null; save->v19
               mov     r10            , r12            ; load->v19
-              imul    r10            , 8              
-              mov     r12            , r10            ; save->v19; load->v19
+              sal     r10            , 3              ; from imul              mov     r12            , r10            ; save->v19; load->v19
               add     r10            , 8              
               mov     r12            , r10            ; save->v19; load->v19
               mov     r11            , rbp            ; load->v18
@@ -390,8 +386,7 @@ _text__makeHeap_and0_rvalue:
               add     r10            , r11            
               mov     qword [rsp+136], r10            ; save->v33; load->v33; null
               mov     qword [rsp+144], r10            ; save->v34; load->v34
-              imul    r10            , 8              
-              mov     qword [rsp+144], r10            ; save->v34; load->v34
+              sal     r10            , 3              ; from imul              mov     qword [rsp+144], r10            ; save->v34; load->v34
               add     r10            , 8              
               mov     qword [rsp+144], r10            ; save->v34; load->v34
               mov     r11            , qword [rsp+104]; load->v29
@@ -411,8 +406,7 @@ _text__makeHeap_and0_rvalue:
               and     r10            , -1             
               mov     qword [rsp+176], r10            ; save->v38; load->v38; null
               mov     qword [rsp+184], r10            ; save->v39; load->v39
-              imul    r10            , 8              
-              mov     qword [rsp+184], r10            ; save->v39; load->v39
+              sal     r10            , 3              ; from imul              mov     qword [rsp+184], r10            ; save->v39; load->v39
               add     r10            , 8              
               mov     qword [rsp+184], r10            ; save->v39; load->v39
               mov     r11            , qword [rsp+160]; load->v36
@@ -468,8 +462,7 @@ _text__makeHeap_if1_init:
               mov     qword [rsp+240], r10            ; save->v46
               mov     qword [rsp+248], rbx            ; load->v6; null; save->v47
               mov     r10            , qword [rsp+248]; load->v47
-              imul    r10            , 8              
-              mov     qword [rsp+248], r10            ; save->v47; load->v47
+              sal     r10            , 3              ; from imul              mov     qword [rsp+248], r10            ; save->v47; load->v47
               add     r10            , 8              
               mov     qword [rsp+248], r10            ; save->v47; load->v47
               mov     r11            , qword [rsp+240]; load->v46
@@ -482,8 +475,7 @@ _text__makeHeap_if1_init:
               mov     qword [rsp+264], r10            ; save->v49
               mov     qword [rsp+272], r12            ; load->v8; null; save->v50
               mov     r10            , qword [rsp+272]; load->v50
-              imul    r10            , 8              
-              mov     qword [rsp+272], r10            ; save->v50; load->v50
+              sal     r10            , 3              ; from imul              mov     qword [rsp+272], r10            ; save->v50; load->v50
               add     r10            , 8              
               mov     qword [rsp+272], r10            ; save->v50; load->v50
               mov     r11            , qword [rsp+264]; load->v49
@@ -642,8 +634,7 @@ _text__adjustHeap_and0_rvalue:
               add     r10            , r11            
               mov     qword [rsp+144], r10            ; save->v28; load->v28; null
               mov     qword [rsp+152], r10            ; save->v29; load->v29
-              imul    r10            , 8              
-              mov     qword [rsp+152], r10            ; save->v29; load->v29
+              sal     r10            , 3              ; from imul              mov     qword [rsp+152], r10            ; save->v29; load->v29
               add     r10            , 8              
               mov     qword [rsp+152], r10            ; save->v29; load->v29
               mov     r11            , qword [rsp+112]; load->v24
@@ -663,8 +654,7 @@ _text__adjustHeap_and0_rvalue:
               and     r10            , -1             
               mov     qword [rsp+184], r10            ; save->v33; load->v33; null
               mov     qword [rsp+192], r10            ; save->v34; load->v34
-              imul    r10            , 8              
-              mov     qword [rsp+192], r10            ; save->v34; load->v34
+              sal     r10            , 3              ; from imul              mov     qword [rsp+192], r10            ; save->v34; load->v34
               add     r10            , 8              
               mov     qword [rsp+192], r10            ; save->v34; load->v34
               mov     r11            , qword [rsp+168]; load->v31
@@ -720,8 +710,7 @@ _text__adjustHeap_if1_init:
               mov     qword [rsp+248], r10            ; save->v41
               mov     qword [rsp+256], r12            ; load->v7; null; save->v42
               mov     r10            , qword [rsp+256]; load->v42
-              imul    r10            , 8              
-              mov     qword [rsp+256], r10            ; save->v42; load->v42
+              sal     r10            , 3              ; from imul              mov     qword [rsp+256], r10            ; save->v42; load->v42
               add     r10            , 8              
               mov     qword [rsp+256], r10            ; save->v42; load->v42
               mov     r11            , qword [rsp+248]; load->v41
@@ -734,8 +723,7 @@ _text__adjustHeap_if1_init:
               mov     qword [rsp+272], r10            ; save->v44
               mov     qword [rsp+280], r13            ; load->v8; null; save->v45
               mov     r10            , qword [rsp+280]; load->v45
-              imul    r10            , 8              
-              mov     qword [rsp+280], r10            ; save->v45; load->v45
+              sal     r10            , 3              ; from imul              mov     qword [rsp+280], r10            ; save->v45; load->v45
               add     r10            , 8              
               mov     qword [rsp+280], r10            ; save->v45; load->v45
               mov     r11            , qword [rsp+272]; load->v44
@@ -757,8 +745,7 @@ _text__adjustHeap_if1_start:
               mov     qword [rsp+296], r10            ; save->v47
               mov     qword [rsp+304], r12            ; load->v7; null; save->v48
               mov     r10            , qword [rsp+304]; load->v48
-              imul    r10            , 8              
-              mov     qword [rsp+304], r10            ; save->v48; load->v48
+              sal     r10            , 3              ; from imul              mov     qword [rsp+304], r10            ; save->v48; load->v48
               add     r10            , 8              
               mov     qword [rsp+304], r10            ; save->v48; load->v48
               mov     r11            , qword [rsp+296]; load->v47
@@ -772,8 +759,7 @@ _text__adjustHeap_if1_start:
               mov     qword [rsp+328], r10            ; save->v51
               mov     qword [rsp+336], r13            ; load->v8; null; save->v52
               mov     r10            , qword [rsp+336]; load->v52
-              imul    r10            , 8              
-              mov     qword [rsp+336], r10            ; save->v52; load->v52
+              sal     r10            , 3              ; from imul              mov     qword [rsp+336], r10            ; save->v52; load->v52
               add     r10            , 8              
               mov     qword [rsp+336], r10            ; save->v52; load->v52
               mov     r11            , qword [rsp+328]; load->v51
@@ -786,8 +772,7 @@ _text__adjustHeap_if1_start:
               mov     qword [rsp+352], r10            ; save->v54
               mov     qword [rsp+360], r12            ; load->v7; null; save->v55
               mov     r10            , qword [rsp+360]; load->v55
-              imul    r10            , 8              
-              mov     qword [rsp+360], r10            ; save->v55; load->v55
+              sal     r10            , 3              ; from imul              mov     qword [rsp+360], r10            ; save->v55; load->v55
               add     r10            , 8              
               mov     qword [rsp+360], r10            ; save->v55; load->v55
               mov     r11            , qword [rsp+352]; load->v54
@@ -803,8 +788,7 @@ _text__adjustHeap_if1_start:
               mov     qword [rsp+376], r10            ; save->v57
               mov     qword [rsp+384], r13            ; load->v8; null; save->v58
               mov     r10            , qword [rsp+384]; load->v58
-              imul    r10            , 8              
-              mov     qword [rsp+384], r10            ; save->v58; load->v58
+              sal     r10            , 3              ; from imul              mov     qword [rsp+384], r10            ; save->v58; load->v58
               add     r10            , 8              
               mov     qword [rsp+384], r10            ; save->v58; load->v58
               mov     r11            , qword [rsp+376]; load->v57
@@ -894,8 +878,7 @@ _text__heapSort_for0_start:
               mov     qword [rsp+48] , 0              ; null; save->v13
               mov     r10            , qword [rsp+48] ; load->v13; null
               mov     qword [rsp+56] , r10            ; save->v14; load->v14
-              imul    r10            , 8              
-              mov     qword [rsp+56] , r10            ; save->v14; load->v14
+              sal     r10            , 3              ; from imul              mov     qword [rsp+56] , r10            ; save->v14; load->v14
               add     r10            , 8              
               mov     qword [rsp+56] , r10            ; save->v14; load->v14
               mov     r11            , r15            ; load->v12
@@ -920,8 +903,7 @@ _text__heapSort_for0_start:
               sub     r10            , r11            
               mov     qword [rsp+104], r10            ; save->v20; load->v20; null
               mov     qword [rsp+112], r10            ; save->v21; load->v21
-              imul    r10            , 8              
-              mov     qword [rsp+112], r10            ; save->v21; load->v21
+              sal     r10            , 3              ; from imul              mov     qword [rsp+112], r10            ; save->v21; load->v21
               add     r10            , 8              
               mov     qword [rsp+112], r10            ; save->v21; load->v21
               mov     r11            , qword [rsp+72] ; load->v16
@@ -935,8 +917,7 @@ _text__heapSort_for0_start:
               mov     qword [rsp+136], 0              ; null; save->v24
               mov     r10            , qword [rsp+136]; load->v24; null
               mov     qword [rsp+144], r10            ; save->v25; load->v25
-              imul    r10            , 8              
-              mov     qword [rsp+144], r10            ; save->v25; load->v25
+              sal     r10            , 3              ; from imul              mov     qword [rsp+144], r10            ; save->v25; load->v25
               add     r10            , 8              
               mov     qword [rsp+144], r10            ; save->v25; load->v25
               mov     r11            , qword [rsp+128]; load->v23
@@ -963,8 +944,7 @@ _text__heapSort_for0_start:
               sub     r10            , r11            
               mov     qword [rsp+192], r10            ; save->v31; load->v31; null
               mov     qword [rsp+200], r10            ; save->v32; load->v32
-              imul    r10            , 8              
-              mov     qword [rsp+200], r10            ; save->v32; load->v32
+              sal     r10            , 3              ; from imul              mov     qword [rsp+200], r10            ; save->v32; load->v32
               add     r10            , 8              
               mov     qword [rsp+200], r10            ; save->v32; load->v32
               mov     r11            , qword [rsp+160]; load->v27
@@ -1044,35 +1024,34 @@ _text__main_call0:
 _text__main_call1:
               mov     rdi            , rbp            ; load->v7; null
               call    _text_built_in_string_parseInt                 
-              mov     qword [rsp+48] , rax            ; null; save->v8
-              mov     r11            , qword [rsp+48] ; load->v8
+              mov     qword [rsp+56] , rax            ; null; save->v8
+              mov     r11            , qword [rsp+56] ; load->v8
               mov     [_data_bss_n]  , r11            
               mov     r10            , [_data_bss_n]  
-              mov     qword [rsp+56] , r10            ; save->v9; load->v9; null
-              mov     qword [rsp+64] , r10            ; save->v10; load->v10
-              imul    r10            , 8              
-              mov     qword [rsp+64] , r10            ; save->v10; load->v10
+              mov     qword [rsp+64] , r10            ; save->v9; load->v9; null
+              mov     qword [rsp+72] , r10            ; save->v10; load->v10
+              sal     r10            , 3              ; from imul              mov     qword [rsp+72] , r10            ; save->v10; load->v10
               add     r10            , 8              
-              mov     qword [rsp+64] , r10            ; save->v10
-              mov     rdi            , qword [rsp+64] ; load->v10; null
+              mov     qword [rsp+72] , r10            ; save->v10
+              mov     rdi            , qword [rsp+72] ; load->v10; null
               call    malloc                          
-              mov     qword [rsp+72] , rax            ; null; save->v11
-              mov     r11            , qword [rsp+56] ; load->v9
+              mov     qword [rsp+80] , rax            ; null; save->v11
+              mov     r11            , qword [rsp+64] ; load->v9
               mov     qword [rax]    , r11            
-              mov     r11            , qword [rsp+72] ; load->v11
+              mov     r11            , qword [rsp+80] ; load->v11
               mov     [_data_bss_a]  , r11            
 _text__main_for0_init:
               mov     rbx            , 0              ; null; save->v12
-              mov     rbp            , rbx            ; load->v12; assign->i; save->v6
+              mov     qword [rsp+48] , rbx            ; load->v12; assign->i; save->v6
               mov     r12            , [_data_bss_a]  ; null; save->v13
 _text__main_call2:
               mov     rdi            , r12            ; load->v13; null
               call    _text_built_in_array_size                 
-              mov     qword [rsp+80] , rax            ; null; save->v14
-              mov     r10            , rbp            ; load->v6
-              mov     r11            , qword [rsp+80] ; load->v14
+              mov     qword [rsp+88] , rax            ; null; save->v14
+              mov     r10            , qword [rsp+48] ; load->v6
+              mov     r11            , qword [rsp+88] ; load->v14
               cmp     r10d           , r11d           
-              mov     rbp            , r10            ; save->v6
+              mov     qword [rsp+48] , r10            ; save->v6
               mov     r10            , r13            ; load->v15
               setl    r10b                            
               mov     r13            , r10            ; save->v15; load->v15
@@ -1087,138 +1066,135 @@ _text__main_for0_init_check:
 ;[----------------------------------
 _text__main_for0_start:
               mov     r14            , [_data_bss_a]  ; null; save->v16
-              mov     r15            , rbp            ; load->v6; null; save->v17
+              mov     r15            , qword [rsp+48] ; load->v6; null; save->v17
               mov     r10            , r15            ; load->v17
-              imul    r10            , 8              
-              mov     r15            , r10            ; save->v17; load->v17
+              sal     r10            , 3              ; from imul              mov     r15            , r10            ; save->v17; load->v17
               add     r10            , 8              
               mov     r15            , r10            ; save->v17; load->v17
               mov     r11            , r14            ; load->v16
               add     r10            , r11            
               mov     r15            , r10            ; save->v17
               mov     r11            , r15            ; translate->qword [v17]
-              mov     r10            , qword [r11]    
-              mov     qword [rsp+88] , r10            ; save->v18
+              mov     rbp            , qword [r11]    ; null; save->v18
               mov     r10            , r15            ; translate->qword [v17]
-              mov     qword [r10]    , rbp            ; load->v6; assign->a[i]
+              mov     r11            , qword [rsp+48] ; load->v6
+              mov     qword [r10]    , r11            ; assign->a[i]
 _text__main_for0_continue:
               mov     qword [rsp+96] , 1              ; null; save->v19
-              mov     qword [rsp+104], rbp            ; load->v6; null; save->v20
-              mov     r10            , qword [rsp+104]; load->v20
+              mov     r10            , qword [rsp+48] ; load->v6; null
+              mov     qword [rsp+104], r10            ; save->v20; load->v20
               mov     r11            , qword [rsp+96] ; load->v19
               add     r10            , r11            
-              mov     qword [rsp+104], r10            ; save->v20
-              mov     rbp            , qword [rsp+104]; load->v20; assign->i; save->v6
+              mov     qword [rsp+104], r10            ; save->v20; load->v20; assign->i
+              mov     qword [rsp+48] , r10            ; save->v6
               mov     r10            , [_data_bss_a]  
               mov     qword [rsp+112], r10            ; save->v21
 _text__main_call3:
               mov     rdi            , qword [rsp+112]; load->v21; null
               call    _text_built_in_array_size                 
               mov     qword [rsp+120], rax            ; null; save->v22
-              mov     r10            , rbp            ; load->v6
+              mov     r10            , qword [rsp+48] ; load->v6
               mov     r11            , qword [rsp+120]; load->v22
               cmp     r10d           , r11d           
-              mov     rbp            , r10            ; save->v6
+              mov     qword [rsp+48] , r10            ; save->v6
               jl      _text__main_for0_start                 
 ;----------------------------------]
 ;[----------------------------------
 _text__main_for0_end:
 _text__main_call4:
               call    _text__makeHeap                 
-              mov     rbx            , rax            ; null; save->v23
+              mov     rbp            , rax            ; null; save->v23
 _text__main_call5:
               call    _text__heapSort                 
-              mov     rbx            , rax            ; null; save->v24
+              mov     rbp            , rax            ; null; save->v24
 _text__main_for1_init:
-              mov     rbx            , 0              ; null; save->v25
-              mov     rbp            , rbx            ; load->v25; assign->i; save->v6
-              mov     r12            , [_data_bss_a]  ; null; save->v26
+              mov     rbp            , 0              ; null; save->v25
+              mov     qword [rsp+48] , rbp            ; load->v25; assign->i; save->v6
+              mov     rbx            , [_data_bss_a]  ; null; save->v26
 _text__main_call6:
-              mov     rdi            , r12            ; load->v26; null
+              mov     rdi            , rbx            ; load->v26; null
               call    _text_built_in_array_size                 
               mov     qword [rsp+128], rax            ; null; save->v27
-              mov     r10            , rbp            ; load->v6
+              mov     r10            , qword [rsp+48] ; load->v6
               mov     r11            , qword [rsp+128]; load->v27
               cmp     r10d           , r11d           
-              mov     rbp            , r10            ; save->v6
-              mov     r10            , r13            ; load->v28
+              mov     qword [rsp+48] , r10            ; save->v6
+              mov     r10            , r12            ; load->v28
               setl    r10b                            
-              mov     r13            , r10            ; save->v28; load->v28
+              mov     r12            , r10            ; save->v28; load->v28
               and     r10            , 255            
-              mov     r13            , r10            ; save->v28
+              mov     r12            , r10            ; save->v28
 _text__main_for1_init_check:
-              mov     r10            , r13            ; load->v28
+              mov     r10            , r12            ; load->v28
               cmp     r10b           , 0              
-              mov     r13            , r10            ; save->v28
+              mov     r12            , r10            ; save->v28
               je      _text__main_for1_end                 
 ;----------------------------------]
 ;[----------------------------------
 _text__main_for1_start:
-              mov     r14            , [_data_bss_a]  ; null; save->v36
-              mov     r15            , rbp            ; load->v6; null; save->v37
-              mov     r10            , r15            ; load->v37
-              imul    r10            , 8              
-              mov     r15            , r10            ; save->v37; load->v37
+              mov     r13            , [_data_bss_a]  ; null; save->v36
+              mov     r14            , qword [rsp+48] ; load->v6; null; save->v37
+              mov     r10            , r14            ; load->v37
+              sal     r10            , 3              ; from imul              mov     r14            , r10            ; save->v37; load->v37
               add     r10            , 8              
-              mov     r15            , r10            ; save->v37; load->v37
-              mov     r11            , r14            ; load->v36
+              mov     r14            , r10            ; save->v37; load->v37
+              mov     r11            , r13            ; load->v36
               add     r10            , r11            
-              mov     r15            , r10            ; save->v37
-              mov     r11            , r15            ; translate->qword [v37]
-              mov     r10            , qword [r11]    
-              mov     qword [rsp+192], r10            ; save->v38
+              mov     r14            , r10            ; save->v37
+              mov     r11            , r14            ; translate->qword [v37]
+              mov     r15            , qword [r11]    ; null; save->v38
 _text__main_call10:
-              mov     rdi            , qword [rsp+192]; load->v38; null
+              mov     rdi            , r15            ; load->v38; null
               call    _text__toString                 
-              mov     qword [rsp+200], rax            ; null; save->v39
-              mov     qword [rsp+208], _data_s2       ; null; save->v40
-              mov     rdi            , qword [rsp+200]; load->v39; null
+              mov     qword [rsp+192], rax            ; null; save->v39
+              mov     qword [rsp+200], _data_s2       ; null; save->v40
+              mov     rdi            , qword [rsp+192]; load->v39; null
               call    strlen                          
-              mov     qword [rsp+216], rax            ; null; save->v41
-              mov     rdi            , qword [rsp+208]; load->v40; null
+              mov     qword [rsp+208], rax            ; null; save->v41
+              mov     rdi            , qword [rsp+200]; load->v40; null
               call    strlen                          
-              mov     qword [rsp+224], rax            ; null; save->v42
-              mov     r10            , qword [rsp+224]; load->v42
-              mov     r11            , qword [rsp+216]; load->v41
+              mov     qword [rsp+216], rax            ; null; save->v42
+              mov     r10            , qword [rsp+216]; load->v42
+              mov     r11            , qword [rsp+208]; load->v41
               add     r10            , r11            
-              mov     qword [rsp+224], r10            ; save->v42; load->v42
+              mov     qword [rsp+216], r10            ; save->v42; load->v42
               add     r10            , 1              
-              mov     qword [rsp+224], r10            ; save->v42
-              mov     rdi            , qword [rsp+224]; load->v42; null
+              mov     qword [rsp+216], r10            ; save->v42
+              mov     rdi            , qword [rsp+216]; load->v42; null
               call    malloc                          
-              mov     qword [rsp+232], rax            ; null; save->v43
+              mov     qword [rsp+224], rax            ; null; save->v43
               mov     rdi            , rax            
-              mov     rsi            , qword [rsp+200]; load->v39; null
+              mov     rsi            , qword [rsp+192]; load->v39; null
               call    strcpy                          
-              mov     rdi            , qword [rsp+232]; load->v43; null
-              mov     r11            , qword [rsp+216]; load->v41
+              mov     rdi            , qword [rsp+224]; load->v43; null
+              mov     r11            , qword [rsp+208]; load->v41
               add     rdi            , r11            
-              mov     rsi            , qword [rsp+208]; load->v40; null
+              mov     rsi            , qword [rsp+200]; load->v40; null
               call    strcpy                          
 ;----------------------------------]
 ;[----------------------------------
 _text__main_call11:
-              mov     rdi            , qword [rsp+232]; load->v43; null
+              mov     rdi            , qword [rsp+224]; load->v43; null
               call    _text__print                    
-              mov     qword [rsp+240], rax            ; null; save->v44
+              mov     qword [rsp+232], rax            ; null; save->v44
 _text__main_for1_continue:
-              mov     qword [rsp+248], 39997          ; null; save->v45
-              mov     qword [rsp+256], rbp            ; load->v6; null; save->v46
-              mov     r10            , qword [rsp+256]; load->v46
-              mov     r11            , qword [rsp+248]; load->v45
+              mov     qword [rsp+240], 39997          ; null; save->v45
+              mov     r10            , qword [rsp+48] ; load->v6; null
+              mov     qword [rsp+248], r10            ; save->v46; load->v46
+              mov     r11            , qword [rsp+240]; load->v45
               add     r10            , r11            
-              mov     qword [rsp+256], r10            ; save->v46
-              mov     rbp            , qword [rsp+256]; load->v46; assign->i; save->v6
+              mov     qword [rsp+248], r10            ; save->v46; load->v46; assign->i
+              mov     qword [rsp+48] , r10            ; save->v6
               mov     r10            , [_data_bss_a]  
-              mov     qword [rsp+264], r10            ; save->v47
+              mov     qword [rsp+256], r10            ; save->v47
 _text__main_call12:
-              mov     rdi            , qword [rsp+264]; load->v47; null
+              mov     rdi            , qword [rsp+256]; load->v47; null
               call    _text_built_in_array_size                 
-              mov     qword [rsp+272], rax            ; null; save->v48
-              mov     r10            , rbp            ; load->v6
-              mov     r11            , qword [rsp+272]; load->v48
+              mov     qword [rsp+264], rax            ; null; save->v48
+              mov     r10            , qword [rsp+48] ; load->v6
+              mov     r11            , qword [rsp+264]; load->v48
               cmp     r10d           , r11d           
-              mov     rbp            , r10            ; save->v6
+              mov     qword [rsp+48] , r10            ; save->v6
               jl      _text__main_for1_start                 
 ;----------------------------------]
 ;[----------------------------------

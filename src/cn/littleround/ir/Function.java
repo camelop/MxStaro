@@ -464,7 +464,7 @@ public abstract class Function {
             if (dependGraph[i].start == 0x7fffffff) continue;
             bumpList.add(new _Seg(i, dependGraph[i].start, dependGraph[i].end, dependGraph[i].pri));
         }
-        //System.err.println(getLabel());
+        System.err.println(getLabel());
         Collections.sort(bumpList);
         // for (_Seg i:bumpList) System.err.println(i.toString());
 
@@ -472,7 +472,7 @@ public abstract class Function {
         PriorityQueue<_Seg> active = new PriorityQueue<>(new Comparator<_Seg>() {
             @Override
             public int compare(_Seg o1, _Seg o2) {
-                if (o1.pri != o2.pri) return o1.pri - o2.pri;
+                //if (o1.pri != o2.pri) return o1.pri - o2.pri;
                 return o1.end - o2.end;
             }
         });
@@ -487,10 +487,19 @@ public abstract class Function {
             //check if spill
             if (active.size() == Constants.assignableRegs.length) {
                 // must spill
-                if (active.peek().end > nw.end || active.peek().pri < nw.pri) {
-                    nw.color = active.peek().color;
-                    active.peek().color = -1;
-                    active.poll();
+                _Seg toDelete = nw;
+                for (_Seg i:active) {
+                    if (i.pri < toDelete.pri ||
+                            ((i.pri == toDelete.pri)&&(i.end > toDelete.end))) {
+                        toDelete = i;
+                    }
+                }
+                if (toDelete != nw) {
+                    //System.err.println("Replace "+toDelete.toString()+" with "+nw.toString());
+                    //System.err.println("  Current heap "+active.toString());
+                    nw.color = toDelete.color;
+                    toDelete.color = -1;
+                    active.remove(toDelete);
                     active.add(nw);
                 }
             } else {

@@ -42,7 +42,7 @@ public abstract class BaseLine implements Cloneable{
         return false;
     }
 
-    private String align(String src, int length) {
+    protected String align(String src, int length) {
         String ret = src;
         while (ret.length() < length) {
             ret = ret+" ";
