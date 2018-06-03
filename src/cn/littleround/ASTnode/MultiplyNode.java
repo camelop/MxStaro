@@ -27,4 +27,13 @@ public class MultiplyNode extends IntBinaryOpNode {
         BasicBlock.dequeCombine(ret, bb);
         return ret;
     }
+
+    @Override
+    public ConstantNode toConstant() {
+        ConstantNode ll = op1().toConstant();
+        if (ll == null) return null;
+        ConstantNode rr = op2().toConstant();
+        if (rr == null) return null;
+        return new ConstantNode(ll.getConstant()*rr.getConstant());
+    }
 }

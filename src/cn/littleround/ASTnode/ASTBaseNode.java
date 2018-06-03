@@ -222,6 +222,7 @@ public abstract class ASTBaseNode implements Cloneable{
     }
 
     public void replaceConstant() {
+        for (ASTBaseNode son: sons) son.replaceConstant();
         ArrayList<ASTBaseNode> newSons = new ArrayList<ASTBaseNode>();
         for (ASTBaseNode son : sons) {
             ConstantNode c = son.toConstant();
@@ -282,7 +283,7 @@ public abstract class ASTBaseNode implements Cloneable{
         }
     }
 
-    private ConstantNode toConstant() {
+    public ConstantNode toConstant() {
         return null;
     }
 

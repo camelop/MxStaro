@@ -464,7 +464,7 @@ public abstract class Function {
             if (dependGraph[i].start == 0x7fffffff) continue;
             bumpList.add(new _Seg(i, dependGraph[i].start, dependGraph[i].end, dependGraph[i].pri));
         }
-        System.err.println(getLabel());
+        //System.err.println(getLabel());
         Collections.sort(bumpList);
         // for (_Seg i:bumpList) System.err.println(i.toString());
 

@@ -72,4 +72,9 @@ public class ConstantNode extends ExpressionNode {
         ret.add(bb);
         return ret;
     }
+
+    @Override
+    public ConstantNode toConstant() {
+        return this;
+    }
 }
