@@ -30,16 +30,34 @@ public class AddNode extends BinaryOpNode {
     @Override
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         if (op1().type instanceof IntType) {
-            ArrayDeque<BasicBlock> ret = super.renderNasm(f);
-            VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(op1()));
-            VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(op2()));
-            VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
-            BasicBlock bb = new BasicBlock();
-            bb.add(new MovLine(vt, vl));
-            bb.add(new AddLine(vt, vr));
-            f.nctx().setNodeVid(this, vt.getVid());
-            BasicBlock.dequeCombine(ret, bb);
-            return ret;
+            if (op1() instanceof ConstantNode || op2() instanceof ConstantNode) {
+                ExpressionNode lhs = (ExpressionNode) ((op1() instanceof ConstantNode) ? op1() : op2());
+                ExpressionNode rhs = (ExpressionNode) ((op1() instanceof ConstantNode) ? op2() : op1());
+                // lhs is const
+                ArrayDeque<BasicBlock> ret = rhs.renderNasm(f);
+                VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
+                BasicBlock bb = new BasicBlock();
+                bb.add(new MovLine(
+                        vt, new VirtualRegOperand(f.nctx().getVid(rhs))
+                ));
+                bb.add(new AddLine(
+                        vt, new DecimalOperand(((ConstantNode) lhs).getConstant())
+                ));
+                f.nctx().setNodeVid(this, vt.getVid());
+                BasicBlock.dequeCombine(ret, bb);
+                return ret;
+            } else {
+                ArrayDeque<BasicBlock> ret = super.renderNasm(f);
+                VirtualRegOperand vl = new VirtualRegOperand(f.nctx().getVid(op1()));
+                VirtualRegOperand vr = new VirtualRegOperand(f.nctx().getVid(op2()));
+                VirtualRegOperand vt = new VirtualRegOperand(f.nctx().getVid());
+                BasicBlock bb = new BasicBlock();
+                bb.add(new MovLine(vt, vl));
+                bb.add(new AddLine(vt, vr));
+                f.nctx().setNodeVid(this, vt.getVid());
+                BasicBlock.dequeCombine(ret, bb);
+                return ret;
+            }
         } else /*string type*/ {
             ArrayDeque<BasicBlock> ret = super.renderNasm(f);
             BasicBlock bb = new BasicBlock();
