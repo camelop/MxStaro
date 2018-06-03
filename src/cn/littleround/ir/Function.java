@@ -302,9 +302,11 @@ public abstract class Function {
             ret.add(new CommentLine("----------------------------------]"));
         }
 
-        ret = optimCombineR1011(ret);
-        ret = optimCombineR1011(ret);
-        ret = optimCombineR1011(ret);
+        int oldsize = -1;
+        while (ret.size() != oldsize) {
+            oldsize = ret.size();
+            ret = optimCombineR1011(ret);
+        }
         return ret;
     }
 
