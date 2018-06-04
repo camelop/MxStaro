@@ -226,6 +226,7 @@ public class NasmContext {
     public int getNewVid(String identifier) {
         identifier = scopeHead+identifier;
         identifierToVid.put(identifier, vid);
+        uncache(vid);
         vid++;
         return vid-1;
     }

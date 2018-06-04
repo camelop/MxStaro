@@ -19,16 +19,16 @@ public class MulLine extends BinaryOpLine {
     public String toString() {
         if (op2 instanceof DecimalOperand && op2.toString().equals("8")) {
             return "              "+"sal     "+align(op1.toString(), 15)
-                    +", 3              "+"; from imul";
+                    +", 3              "+"; from imul" + System.lineSeparator();
         } if (op2 instanceof DecimalOperand && op2.toString().equals("4")) {
             return "              "+"sal     "+align(op1.toString(), 15)
-                    +", 2              "+"; from imul";
+                    +", 2              "+"; from imul" + System.lineSeparator();
         } if (op2 instanceof DecimalOperand && op2.toString().equals("2")) {
             return "              "+"sal     "+align(op1.toString(), 15)
-                    +", 1              "+"; from imul";
+                    +", 1              "+"; from imul" + System.lineSeparator();
         } if (op2 instanceof DecimalOperand && op2.toString().equals("16")) {
             return "              "+"sal     "+align(op1.toString(), 15)
-                    +", 4              "+"; from imul";
+                    +", 4              "+"; from imul" + System.lineSeparator();
         } else {
             String sep = "";
             StringBuilder sb = new StringBuilder();
