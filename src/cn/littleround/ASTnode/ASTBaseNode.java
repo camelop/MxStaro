@@ -333,4 +333,28 @@ public abstract class ASTBaseNode implements Cloneable{
             son.applyMacros(m);
         }
     }
+
+    public void replaceIdentifier(String id, ExpressionNode src) throws CloneNotSupportedException {
+        HashMap<ASTBaseNode, ASTBaseNode> replace = new HashMap<ASTBaseNode, ASTBaseNode>();
+        for (ASTBaseNode son: getSons()) {
+            if (son instanceof IdentifierNode
+                    && ((IdentifierNode) son).getIdentifier().equals(id)) {
+                replace.put(son, src.clone());
+            }
+        }
+        if (replace.size() > 0) {
+            ArrayList<ASTBaseNode> newSons = new ArrayList<ASTBaseNode>();
+            for (ASTBaseNode son: getSons()) {
+                if (replace.containsKey(son)) {
+                    newSons.add(replace.get(son));
+                } else {
+                    newSons.add(son);
+                }
+            }
+            setSons(newSons);
+        }
+        for (ASTBaseNode son: getSons()) {
+            son.replaceIdentifier(id, src);
+        }
+    }
 }
