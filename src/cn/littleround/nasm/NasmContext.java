@@ -122,6 +122,7 @@ public class NasmContext {
         String identifier = find(id);
         if (identifier!=null && identifierToVid.containsKey(identifier))
             return identifierToVid.get(identifier);
+        uncache(vid);
         identifierToVid.put(id, vid);
         vid++;
         //System.err.println("Try to find \'"+identifier+"\', get "+String.valueOf(vid-1));

@@ -391,8 +391,8 @@ public abstract class Function {
                 if (line.getLabel() != null && line.getLabel().contains("for") && line.getLabel().endsWith("_end")) {
                     loopRecorder.peek().end = lineCnt;
                     for (int vid: loopRecorder.peek().vids) {
-                        dependGraph[vid].update(loopRecorder.peek().start);
-                        dependGraph[vid].update(loopRecorder.peek().end);
+                        //dependGraph[vid].update(loopRecorder.peek().start);
+                        //dependGraph[vid].update(loopRecorder.peek().end);
                     }
                     loopRecorder.pop();
                 }
