@@ -173,7 +173,7 @@ functionSpecifier
 declarator
     :   Identifier
     |   '(' declarator ')'
-//    |   declarator '[' expression? ']'
+//    |   declarator '[' retExpression? ']'
     |   declarator '(' parameterList? ')'
 //    |   declarator '(' identifierList? ')'
     ;
@@ -237,8 +237,8 @@ iterationStatement
     |   For '(' forCondition ')' statement
     ;
 
-//    |   'for' '(' expression? ';' expression?  ';' forUpdate? ')' statement
-//    |   For '(' declaration  expression? ';' expression? ')' statement
+//    |   'for' '(' retExpression? ';' retExpression?  ';' forUpdate? ')' statement
+//    |   For '(' declaration  retExpression? ';' retExpression? ')' statement
 
 forCondition
 	:   forDeclaration ';' forExpression? ';' forExpression?
@@ -252,7 +252,7 @@ forDeclaration
 
 forExpression
     :   expression
-    //|   forExpression ',' expression
+    //|   forExpression ',' retExpression
     ;
 
 jumpStatement

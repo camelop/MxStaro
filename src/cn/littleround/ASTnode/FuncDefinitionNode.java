@@ -188,6 +188,22 @@ public class FuncDefinitionNode extends DeclarationNode {
         return super.toTreeString(blank, step);
     }
 
+    public ASTBaseNode retExpression = null;
+    public ArrayList<String> identifierList = null;
+    public boolean isMacro() {
+        if (Constants.builtInList.contains(getIdentifier())) return false;
+        if (block().getSons().size() != 1) return false;
+        if (!(block().getSons().get(0) instanceof ReturnNode)) return false;
+        ReturnNode rn = (ReturnNode) block().getSons().get(0);
+        retExpression = rn.retValue();
+        identifierList = new ArrayList<String>();
+        for (ASTBaseNode i:funcDeclarator().argTypeList().getSons()) {
+            ArgumentDeclarationNode adn = (ArgumentDeclarationNode) i;
+            identifierList.add(adn.getIdentifer());
+        }
+        return true;
+    }
+
     public void setFatherClass(String fatherClass) {
         this.fatherClass = fatherClass;
     }

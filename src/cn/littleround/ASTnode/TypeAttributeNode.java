@@ -81,7 +81,7 @@ public class TypeAttributeNode extends ASTBaseNode {
     public void addPointerExpression(ExpressionNode e) {
         if (pointerExpressionList.size() > 0) {
             if (e != null && pointerExpressionList.get(pointerExpressionList.size()-1) == null)
-                reportError("Semantic", "Invalid pointer expression.");
+                reportError("Semantic", "Invalid pointer retExpression.");
         }
         pointerExpressionList.add(e);
         addSon(e);

@@ -2,6 +2,7 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
+import cn.littleround.ir.Macro;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.LabelLine;
 import cn.littleround.nasm.Instruction.MovLine;
@@ -22,6 +23,11 @@ import java.util.HashMap;
 public abstract class ASTBaseNode implements Cloneable{
 
     private ASTBaseNode parent = null;
+
+    public void setSons(ArrayList<ASTBaseNode> sons) {
+        this.sons = sons;
+    }
+
     private ArrayList<ASTBaseNode> sons = new ArrayList<>();
     private ParserRuleContext ctx;
 
@@ -243,7 +249,6 @@ public abstract class ASTBaseNode implements Cloneable{
             if (son instanceof ParenthesisOpNode && ((ParenthesisOpNode) son).op1() instanceof IdentifierNode) {
                 //find associated function and check if inlinable(!containCall)
                 //clone it and replace all arguments
-                //TODO TODO
                 ParenthesisOpNode pon = ((ParenthesisOpNode) son);
                 FuncDefinitionNode f = root.findFunctionFDN(((IdentifierNode) pon.op1()).getIdentifier());
                 if (!f.containCall() && !Constants.builtInList.contains(f.getIdentifier())) {
@@ -288,7 +293,7 @@ public abstract class ASTBaseNode implements Cloneable{
     }
 
     @Override
-    protected ASTBaseNode clone() throws CloneNotSupportedException {
+    public ASTBaseNode clone() throws CloneNotSupportedException {
         ASTBaseNode ret = (ASTBaseNode) super.clone();
         ret.sons = new ArrayList<ASTBaseNode>();
         for (ASTBaseNode i:sons) {
@@ -299,5 +304,33 @@ public abstract class ASTBaseNode implements Cloneable{
 
     public void replaceIdentifier(String before, String after) {
         for (ASTBaseNode i:sons) i.replaceIdentifier(before, after);
+    }
+
+    public void applyMacros(Macro m) throws CloneNotSupportedException {
+        HashMap<ASTBaseNode, ASTBaseNode> replace = new HashMap<ASTBaseNode, ASTBaseNode>();
+        for (ASTBaseNode son: sons) {
+            if (son instanceof ParenthesisOpNode) {
+                ExpressionNode nw = ((ParenthesisOpNode) son).toMacroExpression(m);
+                if (nw != null) {
+                    replace.put(son, nw);
+                }
+            }
+        }
+        if (replace.size() > 0) {
+            ArrayList<ASTBaseNode> newSons = new ArrayList<ASTBaseNode>();
+            for (ASTBaseNode son: sons) {
+                if (replace.containsKey(son)) {
+                    System.err.print("replace: ");
+                    System.err.println(son.getCtx().getText());
+                    newSons.add(replace.get(son));
+                } else {
+                    newSons.add(son);
+                }
+            }
+            sons = newSons;
+        }
+        for (ASTBaseNode son: sons) {
+            son.applyMacros(m);
+        }
     }
 }

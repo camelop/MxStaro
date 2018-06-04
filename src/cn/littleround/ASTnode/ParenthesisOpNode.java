@@ -2,6 +2,7 @@ package cn.littleround.ASTnode;
 
 import cn.littleround.Constants;
 import cn.littleround.ir.Function;
+import cn.littleround.ir.Macro;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.*;
 import cn.littleround.nasm.Operand.DecimalOperand;
@@ -16,6 +17,7 @@ import cn.littleround.type.StringType;
 import cn.littleround.type.TypeList;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 public class ParenthesisOpNode extends BinaryOpNode {
     @Override
@@ -237,5 +239,16 @@ public class ParenthesisOpNode extends BinaryOpNode {
             }
         }
         return ret;
+    }
+
+    public ExpressionNode toMacroExpression(Macro m) throws CloneNotSupportedException {
+        if (!(op1() instanceof IdentifierNode)) return null;
+        String name = ((IdentifierNode) op1()).getIdentifier();
+        if (!m.contains(name)) return null;
+        ArrayList<ExpressionNode> all = new ArrayList<ExpressionNode>();
+        for (ASTBaseNode i:op2().getSons()) {
+            all.add((ExpressionNode) i);
+        }
+        return m.transform(name, all);
     }
 }

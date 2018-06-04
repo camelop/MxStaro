@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 
 public class StatementNode extends ASTBaseNode{
     @Override
-    // expression
+    // retExpression
     public ArrayDeque<BasicBlock> renderNasm(Function f) throws Exception {
         return renderAllSonNasm(f);
     }

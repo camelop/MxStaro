@@ -497,8 +497,8 @@ iterationStatement
     |   For '(' forCondition ')' statement
     ;
 
-//    |   'for' '(' expression? ';' expression?  ';' forUpdate? ')' statement
-//    |   For '(' declaration  expression? ';' expression? ')' statement
+//    |   'for' '(' retExpression? ';' retExpression?  ';' forUpdate? ')' statement
+//    |   For '(' declaration  retExpression? ';' retExpression? ')' statement
 
 forCondition
 	:   forDeclaration ';' forExpression? ';' forExpression?

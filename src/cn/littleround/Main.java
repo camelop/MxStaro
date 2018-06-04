@@ -5,6 +5,7 @@ import cn.littleround.ASTnode.ASTBaseNode;
 import cn.littleround.ASTnode.CompilationNode;
 import cn.littleround.antlr4_gen.MxStarLexer;
 import cn.littleround.antlr4_gen.MxStarParser;
+import cn.littleround.ir.Macro;
 import cn.littleround.ir.Program;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
@@ -112,6 +113,8 @@ public class Main {
         // some optimize at first
         ASTBaseNode root = creator.getRoot();
         try {
+            Macro m = ((CompilationNode) root).collectMacros();
+            root.applyMacros(m);
             root.replaceConstant();
         } catch (Exception e) {
             e.printStackTrace();

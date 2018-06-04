@@ -1,5 +1,6 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.ir.Macro;
 import cn.littleround.symbol.FuncSymbol;
 import cn.littleround.symbol.Symbol;
 import cn.littleround.type.IntType;
@@ -47,5 +48,16 @@ public class CompilationNode extends ASTBaseNode {
             }
         }
         return null;
+    }
+
+    public Macro collectMacros() {
+        Macro ret = new Macro();
+        for (ASTBaseNode son: getSons()) {
+            if (son instanceof FuncDefinitionNode &&
+                    ((FuncDefinitionNode) son).isMacro()) {
+                ret.fs.add((FuncDefinitionNode) son);
+            }
+        }
+        return ret;
     }
 }
