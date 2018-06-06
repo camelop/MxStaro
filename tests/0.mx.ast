@@ -1,4 +1,4 @@
--CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intadd(intx,inty){return(x+y)%233;}intdp(intx){if(x<=1){inttmp=7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233;returntmp;}intsum=0;inti;for(i=2;i<=x;i++)if((x^i)<x)sum=add(sum,dp(x^i));returnsum;}intmain(){inti;intn=getInt();for(i=1;i<=n;i++)println(toString(dp(i)));return0;}<EOF>
+-CompilationNode (void)			// classbuilt_in_string{intlength(){return0;}stringsubstring(intleft,intright){return"";}intparseInt(){return0;}intord(intpos){return0;}}classbuilt_in_array{intsize(){return0;}}voidprintf(stringf,stringsrc){}stringgetString(){return"littleRound";}intgetInt(){return0;}stringtoString(inti){return"littleRound";}voidprint(stringstr){printf("%s",str);}voidprintln(stringstr){printf("%s\n",str);}voidbuilt_in_data_init(){}intadd(intx,inty){return(x+y)%233;}intdp(intx){if(x<=1){inttmp=7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233*7%233;returntmp;}intsum=0;inti;for(i=2;i<=x;i++)if((x^i)<x)sum=add(sum,dp(x^i));returnsum;}intmain(){inti;intn=getInt();for(i=1;i<=n;i++)println(toString(dp(i))+"gzotpa");return0;}<EOF>
     -FuncDefinitionNode (void)			// voidprintf(stringf,stringsrc){}
         -TypeNode (void)			// void
             -TypeAttributeNode (void)			// void
@@ -169,13 +169,13 @@
                                 -ConstantNode (int)			// 233
             -ReturnNode (void)			// returnsum;
                 -IdentifierNode (int)			// sum
-    -FuncDefinitionNode (void)			// intmain(){inti;intn=getInt();for(i=1;i<=n;i++)println(toString(dp(i)));return0;}
+    -FuncDefinitionNode (void)			// intmain(){inti;intn=getInt();for(i=1;i<=n;i++)println(toString(dp(i))+"gzotpa");return0;}
         -TypeNode (void)			// int
             -TypeAttributeNode (void)			// int
         -FuncDeclaratorNode (void)			// main()
             -DeclaratorNode (void)			// main
             -ArgumentTypeListNode (void)
-        -BlockNode (void)			// {inti;intn=getInt();for(i=1;i<=n;i++)println(toString(dp(i)));return0;}
+        -BlockNode (void)			// {inti;intn=getInt();for(i=1;i<=n;i++)println(toString(dp(i))+"gzotpa");return0;}
             -DeclarationNode (void)			// inti;
                 -TypeNode (void)			// int
                     -TypeAttributeNode (void)			// int
@@ -191,7 +191,7 @@
                         -ParenthesisOpNode (int)			// getInt()
                             -IdentifierNode (BaseType)			// getInt
                             -ArgumentListNode (void)
-            -ForNode (void)			// for(i=1;i<=n;i++)println(toString(dp(i)));
+            -ForNode (void)			// for(i=1;i<=n;i++)println(toString(dp(i))+"gzotpa");
                 -ForConditionNode (void)			// i=1;i<=n;i++
                     -AssignNode (void)			// i=1
                         -IdentifierNode (int)			// i
@@ -201,16 +201,18 @@
                         -IdentifierNode (int)			// n
                     -PostfixAddNode (int)			// i++
                         -IdentifierNode (int)			// i
-                -StatementNode (void)			// println(toString(dp(i)));
-                    -ParenthesisOpNode (void)			// println(toString(dp(i)))
+                -StatementNode (void)			// println(toString(dp(i))+"gzotpa");
+                    -ParenthesisOpNode (void)			// println(toString(dp(i))+"gzotpa")
                         -IdentifierNode (BaseType)			// println
-                        -ArgumentListNode (void)			// toString(dp(i))
-                            -ParenthesisOpNode (string)			// toString(dp(i))
-                                -IdentifierNode (BaseType)			// toString
-                                -ArgumentListNode (void)			// dp(i)
-                                    -ParenthesisOpNode (int)			// dp(i)
-                                        -IdentifierNode (BaseType)			// dp
-                                        -ArgumentListNode (void)			// i
-                                            -IdentifierNode (int)			// i
+                        -ArgumentListNode (void)			// toString(dp(i))+"gzotpa"
+                            -AddNode (string)			// toString(dp(i))+"gzotpa"
+                                -ParenthesisOpNode (string)			// toString(dp(i))
+                                    -IdentifierNode (BaseType)			// toString
+                                    -ArgumentListNode (void)			// dp(i)
+                                        -ParenthesisOpNode (int)			// dp(i)
+                                            -IdentifierNode (BaseType)			// dp
+                                            -ArgumentListNode (void)			// i
+                                                -IdentifierNode (int)			// i
+                                -StringLiteralNode (string)			// "gzotpa"
             -ReturnNode (void)			// return0;
                 -ConstantNode (int)			// 0

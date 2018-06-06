@@ -1,5 +1,6 @@
 package cn.littleround.ASTnode;
 
+import cn.littleround.Constants;
 import cn.littleround.ir.Function;
 import cn.littleround.nasm.BasicBlock;
 import cn.littleround.nasm.Instruction.AddLine;
@@ -76,28 +77,10 @@ public class AddNode extends BinaryOpNode {
                     new VirtualRegOperand(vlen1),
                     new RegOperand("rax")
             ));
-            bb.add(new MovLine(
-                    new RegOperand("rdi"),
-                    new VirtualRegOperand(vop2)
-            ));
-            bb.add(new CallLine("strlen"));
-            int vlen2 = f.nctx().getVid(); f.nctx().uncache(vlen2);
-            bb.add(new MovLine(
-                    new VirtualRegOperand(vlen2),
-                    new RegOperand("rax")
-            ));
-            bb.add(new AddLine(
-                    new VirtualRegOperand(vlen2),
-                    new VirtualRegOperand(vlen1)
-            ));
-            bb.add(new AddLine(
-                    new VirtualRegOperand(vlen2),
-                    new DecimalOperand(1)
-            ));
             // malloc
             bb.add(new MovLine(
                     new RegOperand("rdi"),
-                    new VirtualRegOperand(vlen2)
+                    new DecimalOperand(Constants.defaultStringLimit)
             ));
             bb.add(new CallLine("malloc"));
             int vdes = f.nctx().getVid(); f.nctx().uncache(vdes);

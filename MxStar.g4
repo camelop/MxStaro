@@ -118,12 +118,12 @@ inclusiveOrExpression
 
 logicalAndExpression
     :   inclusiveOrExpression
-    |   logicalAndExpression '&&' inclusiveOrExpression
+    |   inclusiveOrExpression '&&' logicalAndExpression
     ;
 
 logicalOrExpression
     :   logicalAndExpression
-    |   logicalOrExpression '||' logicalAndExpression
+    |   logicalAndExpression '||' logicalOrExpression
     ;
 
 expression
