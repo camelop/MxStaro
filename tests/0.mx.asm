@@ -13,6 +13,9 @@
 _data_s1:
               db      `%s\n`                          
               db      0                               
+_data_s2:
+              db      `gzotpa`                        
+              db      0                               
 _data_s0:
               db      `%s`                            
               db      0                               
@@ -419,15 +422,19 @@ _text__main_call2:
               mov     rbp            , rax            ; null; save->v12
 _text__main_call3:
               mov     rdi            , rbp            ; load->v12; null
+              call    _text__print                    
+              mov     rbp            , _data_s2       ; null; save->v13; null; save->v14
+_text__main_call4:
+              mov     rdi            , rbp            ; load->v14; null
               call    _text__println                  
-              mov     rbp            , rax            ; null; save->v13
+              mov     rbp            , rax            ; null; save->v15
 _text__main_for0_continue:
-              mov     rbp            , qword [rsp+48] ; load->v6; null; save->v14
-              mov     rbp            , qword [rsp+48] ; load->v6; null; save->v15
-              mov     r10            , rbp            ; load->v15
+              mov     rbp            , qword [rsp+48] ; load->v6; null; save->v16
+              mov     rbp            , qword [rsp+48] ; load->v6; null; save->v17
+              mov     r10            , rbp            ; load->v17
               add     r10            , 1              
-              mov     rbp            , r10            ; save->v15
-              mov     qword [rsp+48] , rbp            ; load->v15; assign->i; save->v6
+              mov     rbp            , r10            ; save->v17
+              mov     qword [rsp+48] , rbp            ; load->v17; assign->i; save->v6
               mov     r10            , qword [rsp+48] ; load->v6
               mov     r11            , qword [rsp+56] ; load->v8
               cmp     r10d           , r11d           
@@ -436,9 +443,9 @@ _text__main_for0_continue:
 ;----------------------------------]
 ;[----------------------------------
 _text__main_for0_end:
-              mov     rbp            , 0              ; null; save->v16
+              mov     rbp            , 0              ; null; save->v18
 _text__main_ret0:
-              mov     rax            , rbp            ; load->v16; null
+              mov     rax            , rbp            ; load->v18; null
               mov     rbp            , qword [rsp]    ; load->v0; null
               mov     rbx            , qword [rsp+8]  ; load->v1; null
               mov     r12            , qword [rsp+16] ; load->v2; null

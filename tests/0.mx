@@ -24,7 +24,7 @@ int main(){
 	int i;
 	int n=getInt();
 	for(i=1;i<=n;i++)
-		println(toString(dp(i)));
+		println(toString(dp(i))+"gzotpa");
 	return 0;
 }
 
